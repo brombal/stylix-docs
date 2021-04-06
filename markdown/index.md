@@ -39,7 +39,7 @@ You can use this component to provide themes or media queries, or provide additi
 
 Here's a complete example demonstrating the most useful features of Stylix: theming, media queries, style overriding, and more.
 
-```tsx-app
+```tsx-app-column
 import $, { StylixProvider, useStylixTheme } from 'stylix';
 
 /* Themes are just arbirary objects -
@@ -133,9 +133,3 @@ function StylixExample(props) {
   );
 }
 ```
-
-<pre>
-  <code className="language-tsx editable column">
-    const x;
-  </code>
-</pre>
