@@ -133,3 +133,9 @@ function StylixExample(props) {
   );
 }
 ```
+
+<pre>
+  <code className="language-tsx editable column">
+    const x;
+  </code>
+</pre>
