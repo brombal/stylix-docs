@@ -30,7 +30,9 @@ import $, { StylixProvider } from 'stylix';
 function App() {
   return (
     <StylixProvider>
-      <$.div>Hello, Stylix!</$.div>
+      <$.div font-weight="bold">
+        Hello, Stylix!
+      </$.div>
     </StylixProvider>
   );
 }
