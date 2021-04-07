@@ -1,6 +1,8 @@
-Stylix is a library for styling React apps in the most React-like way possible.
+Stylix is a new library and methodology for styling your React apps.
 
 ```tsx-render
+import $ from 'stylix';
+
 <$.div
   color="#00BCD4"
   font-size={40}
@@ -11,7 +13,8 @@ Stylix is a library for styling React apps in the most React-like way possible.
 </$.div>
 ```
 
-Stylix uses props to create styles. There are no quirky syntaxes, template literals, additional APIs, or bundler configurations. Just css props on the built-in HTML components (`$.div`, `$.span`, `$.a`, etc) or on any component that accepts a `className` prop.
+With Stylix, you add styles to your components the same way you add any other information: with props. No additional style files, languages, or syntaxes for styling—everything becomes "React" code, minimizing the learning curve and allowing you to utilize the same patterns and organizational techniques that make React so great.
+
 
 ## Installation
 
@@ -22,114 +25,56 @@ npm install --save stylix
 Add a `<StylixProvider>` wrapper at the root of your project:
 
 ```tsx
-import { StylixProvider } from 'stylix';
+import $, { StylixProvider } from 'stylix';
 
 function App() {
   return (
     <StylixProvider>
-      ...
+      <$.div>Hello, Stylix!</$.div>
     </StylixProvider>
   );
 }
 ```
 
-You can use this component to provide themes or media queries, or provide additional configuration for certain less-common situations.
+The `StylixProvider` component can provide themes and media queries, or additional configuration for certain less-common situations.
 
-## Example
+Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property. It is also possible (and easy) to style any other component that accepts a `className` prop.
 
-Here's a complete example demonstrating the most useful features of Stylix: theming, media queries, style overriding, and more.
+You aren't just limited to standard CSS properties, either. Stylix lets you use complex selectors, pseudo-classes, nested CSS, media queries, themes, keyframe animations, and more.
 
-```tsx-app-column
-import $, { StylixProvider, useStylixTheme } from 'stylix';
+## Overview
 
-/* Themes are just arbirary objects -
-   you can use whatever you like */
-const themes = {
-  light: {
-    name: "Light",
-    textColor: '#333',
-    background: 'white'
-  },
-  dark: {
-    name: "Dark",
-    textColor: 'white',
-    background: '#333'
-  }
-};
+You might think, "Isn't this going to make my React code really long?" or "Doesn't this violate the 'don't repeat yourself' or 'separation of concerns' tenet of many programmers?" Well, yes* and no*. 
 
-function App() {
-  const [theme, setTheme] = React.useState('light');
-  
-  return (
-    <StylixProvider
-      theme={themes[theme]}
-      /* Media array entries correspond to
-         array values in style props
-         (see `width` property on ThemeSelect
-         component below) */
-      media={[
-        "(max-width: 1200px)",
-        "(min-width: 1201px)"
-      ]}
-    >
-      <ThemeSelect 
-        onThemeChange={setTheme} 
-        margin-bottom={20} 
-      />
-      <StylixExample />
-    </StylixProvider>
-  );
-}
+Yes, your individual elements are going to look longer with additional props. But the idea isn't to just slap on style props to every element and copy-paste them everywhere. Instead, you are encouraged to follow good React principles and separate elements into reusable components - which includes considering style props as a part of the components. Consider this example from a popular UI framework, Material UI:
 
-function ThemeSelect(props) {
-  const {
-    onThemeChange,
-    ...other
-  } = props;
-  
-  return (
-    <$.select 
-      /* Array values will correspond to 
-         media queries:
-         < 1200px = 100%
-         > 1201px = 200px */
-      width={['100%', 200]}
-      font="inherit"
-      border="1px solid #CCC"
-      padding={4}
-      onChange={(e) => {
-        onThemeChange(e.target.value);
-      }}
-      /* Spread other props to allow parent
-         to add/override styles */
-      {...other}
-    >
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-    </$.select>
-  );
-}
-
-function StylixExample(props) {
-  /* useStylixTheme hook gets current theme 
-     object */
-  const stylixTheme = useStylixTheme();
-  
-  return (
-    <$.div 
-      /* Use function values to get 
-         the current theme object */
-      background={theme => theme.background} 
-      color={theme => theme.textColor}
-      padding={10}
-    >
-      <$.div>
-        Stylix example 
-        {/* `stylixTheme` contains current 
-            `theme` and `media` objects */}
-        ({stylixTheme.theme.name} theme)
-      </$.div>
-    </$.div>
-  );
-}
+```tsx
+/* Material UI Button component */
+<Button variant="outlined" color="primary">Click me!</Button>
 ```
+
+This component doesn't have pure "css" in its props, but those `variant` and `color` props are nothing but style information - they serve no functional purpose. You could easily write something like this in Stylix:
+
+```tsx
+<$.button color="blue" border="1px solid blue">Click me!</Button>
+```
+
+That essentially conveys the same idea (although Material's Button looks a lot nicer).
+
+In reality, what you might do is this:
+
+```tsx
+const Button = ({ color, ...styles }) => (
+  <$.button color={color} border={`1px solid ${color}`} {...styles} />
+);
+
+<Button color="blue" font-size="14pt">Click me!</Button>
+```
+
+Wow! You just created a styled component. It accepts a prop that lets you specify both the border and text colors, and you even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages or syntax, or import any css files.
+
+Regarding "separation of concerns" — think about the fact that in React, you no longer write actual html anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with html are angle brackets. In React, JavaScript and HTML have practically merged into one language.
+
+So why should your styles be any different? In today's web apps, styles often need to be as dynamic as the page content. When your styles are relegated to separate files that have no knowledge of the app's current state, it becomes a chore to make them dynamic. It also costs you mental stamina points to constantly switch between the syntaxes and strategies of writing JavaScript vs. CSS—organizing files, structuring css, and choosing class names—all of which are completely different between the two languages. With Stylix, none of this is a concern: your styles live within the components that own them; state information is readily available; and all the techniques and practices and that make React so successful are now equally available and relevant to the way you add styles to your components.
+
+In fact, other libraries such as styled-components and Emotion offer similar solutions to the above problems. We think those are great utilities and they heavily inspired Stylix. We just felt that they didn't take things far enough: rather than integrating CSS directly with React, they introduced entirely new ways to write CSS (such as template literals or additional transpiler requirements). Stylix took the approach of making CSS as closely paired with React as JSX did to bring HTML and JavaScript together.
