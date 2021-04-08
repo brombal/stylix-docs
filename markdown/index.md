@@ -13,7 +13,7 @@ import $ from 'stylix';
 </$.div>
 ```
 
-With Stylix, you add styles to your components the same way you add any other information: with props. No additional style files, languages, or syntaxes for styling—everything becomes "React" code, minimizing the learning curve and allowing you to utilize the same patterns and organizational techniques that make React so great.
+With Stylix, you apply styles to your components the same way you add any other information: with props. No separate CSS files, languages, or syntaxes for styling—everything is in React, minimizing the learning curve and allowing you to utilize the same patterns and organizational techniques that make React so great.
 
 
 ## Installation
