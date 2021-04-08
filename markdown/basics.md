@@ -61,3 +61,107 @@ function DisplayName(props) {
 ```
 
 Again, these are not directly features of Stylix, but just a result of the way it integrates with React.
+
+
+## Dynamic styles
+
+Of course, styles don't need to be fixed, static values: 
+
+```tsx-render
+import $ from 'stylix';
+
+function App() {
+  const [color, setColor] = React.useState('tomato');
+
+  return (
+    <div>
+      <select>
+        <option>Tomato</option>
+        <option>DodgerBlue</option>
+        <option>SeaGreen</option>
+      </select>
+      <$.div color={color}>{color}</div>
+    </div>
+  );
+);
+```
+
+Once again, leveraging simple React features allows your styles to be completely dynamic, based on a component's state, props, or any other value.
+
+
+## Styling other components
+
+If you're writing your own components, the above approach is the recommended way to make them composable and reusable. But if you're working with 3rd party, legacy, or otherwise unworkable components, they can easily be styled with Stylix using the `$el` prop (short for "element"):
+
+```tsx
+import $ from 'stylix';
+import { Button } from 'third-party-library';
+
+function App() {
+  return (
+    <div>
+      <$ $el={Button} label="My Styled Button" font-weight="bold" />
+    </div>
+  );
+}
+```
+
+The `$` component simply renders whatever component you pass to the `$el` prop, passing a class name that it generates from the given styles. As long as the component accepts a `className` prop, Stylix can style it.
+
+Of course, if the above syntax is too verbose to repeat everywhere, you could create a reusable component out of it:
+
+```tsx
+import $ from 'stylix';
+import { Button } from 'third-party-library';
+
+const StyledButton = (props) => <$ $el={Button} {...props} />;
+
+function App() {
+  return (
+    <StyledButton label="My Styled Button" font-weight="bold" />
+  );
+}
+```
+
+### Prop conflicts
+
+If a component accepts a prop that conflicts with a CSS property name, the CSS property will take precedence. If, for example, the `Button` components accepts a `color` prop to specify a predefined theme color such as "primary" or "secondary," Stylix will incorrectly apply the `color` value as the CSS text color, instead of the button theme color.
+
+In this case, the `$elProps` prop can be used to pass props directly to the component specified by `$el`:
+
+```tsx
+import $ from 'stylix';
+import { Button } from 'third-party-library';
+
+function App() {
+  return (
+    <$ 
+      $el={Button} 
+      $elProps={{ color: 'primary' }}
+      label="My Styled Button" 
+      font-weight="bold" 
+    />
+  );
+}
+```
+
+The `color` prop will be passed directly to `Button`. And since Stylix doesn't consider `label` to be a CSS property, it will be passed directly too. However, `font-weight` will be considered a style and applied as CSS.
+
+If you would prefer to create a reusable component that always passes `color` directly to the `Button` component, you can do this with destructuring:
+
+```tsx
+import $ from 'stylix';
+import { Button } from 'third-party-library';
+
+const StyledButton = ({ color, ...styles }) => (
+  <$ $el={Button} $elProps={{ color }} {...props} />
+);
+
+function App() {
+  return (
+    <StyledButton color="primary" label="My Styled Button" font-weight="bold" />
+  );
+}
+```
+
+
