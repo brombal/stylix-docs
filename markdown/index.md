@@ -44,7 +44,7 @@ Stylix provides all the standard HTML elements as properties of the `$` object (
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use complex selectors, pseudo-classes, nested CSS, media queries, themes, keyframe animations, and more.
 
-## Overview
+## Why Stylix?
 
 You might think, "Isn't this going to make my React code really long and bloated?" or "Doesn't this violate the 'don't repeat yourself' or 'separation of concerns' tenets of programming?"
 
@@ -73,12 +73,12 @@ const Button = ({ color, ...styles }) => (
 <Button color="blue" font-size="14pt">Click me!</Button>
 ```
 
-Wow! You just created a styled component. It accepts a prop that lets you specify both the border and text colors, and you even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages or syntax, or import any CSS files.
+Wow! We just created a styled component. It accepts a prop that lets you specify both the border and text colors, and we even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages, syntax, APIs, or import any external CSS files.
 
 Regarding "separation of concerns" — think about the fact that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. In React, JavaScript and HTML have practically merged into one language.
 
-So why should your styles be any different? In today's web apps, styles often need to be as dynamic as the page content. When your styles are relegated to separate files that have no knowledge of the app's current state, it becomes a chore to make them dynamic. It also costs you mental stamina points to constantly switch between the syntaxes and strategies of writing JavaScript vs. CSS—organizing files, structuring CSS, and choosing class names—all of which are completely different between the two languages. It may be small, but seconds add up to hours lost.
+So why should styles be any different? In today's web apps, styles often need to be as dynamic as the page content. When your styles are relegated to separate files that have no access to the app's current state, it becomes a chore to make them dynamic. It also costs you mental stamina points to constantly switch between the syntaxes and strategies of writing JavaScript vs. CSS—organizing files, structuring CSS, and choosing class names—all of which are completely different between the two languages. It may be small, but seconds add up to hours lost.
 
 With Stylix, none of this is a concern: your styles live within the components that own them; state information is readily available; and all the techniques and practices that make React so successful are now just as relevant to how you add styles to your components.
 
-In fact, other libraries such as styled-components and Emotion offer similar solutions to the above problems. We think those are great utilities and they heavily inspired Stylix. We just felt that they didn't take things far enough: rather than integrating CSS directly with React, they introduced entirely new ways to write CSS (such as template literals or additional transpiler requirements). Stylix took the approach of making CSS as closely paired with React as JSX did to bring HTML and JavaScript together.
+In fact, other libraries such as styled-components and Emotion offer similar solutions to the these problems. We think those are great utilities and they heavily inspired Stylix. We just felt that they didn't take things far enough: rather than integrating CSS directly with React, they introduced entirely new ways to write CSS (such as template literals or additional transpiler requirements). Stylix took the approach of making CSS as closely paired with React as JSX did to bring HTML and JavaScript together.
