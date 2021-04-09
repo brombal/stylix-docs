@@ -1,9 +1,12 @@
-Pseudo-classes and selectors
-You aren't limited to just CSS properties. Stylix can also apply styles to elements with pseudo-classes and complex selectors. But because these strings (such as `:hover` or `div > span + a`) would never work as JSX props—their syntax is incompatible—we need another way to specify them.
+# Pseudo-classes and selectors
+
+Stylix elements aren't limited to just CSS properties—you can also use pseudo-classes and complex selectors to apply styles. 
+
+Because these strings (such as `:hover` or `div > span + a`) would never work as JSX props (their syntax is incompatible), we need another way to specify them.
 
 ## The `$css` prop
 
-The `$css` prop accepts an object of additional styles to apply to an element. These styles can be only simple CSS property/value pairs, but they can also contain nested style objects, with pseudo-classes or complex selectors as keys. Consider the following example:
+The `$css` prop accepts an object of additional styles to apply to an element. These styles can be not only simple CSS property/value pairs, but also pseudo-classes or complex selectors with nested style objects. Consider the following example:
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -23,7 +26,7 @@ import $ from '@stylix/core';
 </$.ul>
 ```
 
-Stylix scopes the `li` styles under the element that defines them, so they are local to only the `li` elements under the `ul`.
+Stylix scopes the `li` selector under the element that defines it, so the styles are local to only the `li` elements under the `ul`.
 
 ## Referencing the parent selector with `&`
 
@@ -45,9 +48,9 @@ import $ from '@stylix/core';
 </$.a>
 ```
 
-The use of `&` here applies the hover styles directly to this element, rather than its descendants. Without the `&`, the selector would only match hovered elements *within* the `<a>`, probably not what is intended. 
+The use of `&` here applies the hover styles directly to this element, rather than its descendants. Without the `&`, the selector would only match hovered elements *within* the `<a>`, which is probably not what is intended. 
 
-The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and by default selectors will be appended to the parent selector. Anywhere that you want the resulting selector to be anything other than the default, `&` is the solution.
+The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and by default, selectors will be appended to the parent selector. You can use `&` anywhere that you want the resulting selector to be anything other than the default.
 
 ## Styling complex components
 
@@ -57,23 +60,23 @@ For example, UI component libraries often render elements with class names that 
 
 ```tsx
 import $ from '@stylix/core';
-import { Button } from 'cool-ui-library';
+import { Select } from 'cool-ui-library';
 
 <$
-  $el={Button}
+  $el={Select}
   $css={{
-    ".Button-Wrapper": {
+    ".Select-Wrapper": {
       fontSize: "22pt"
     },
-    ".Button-Popover": {
+    ".Select-Popover": {
       background: "white"
     },
-    ".Button-Option:hover": {
+    ".Select-Option:hover": {
       color: "blue"
     },
   }}
 />
 ```
 
-Stylix would apply a unique class name to this `Button` element, which in turn would be used to scope each selector in order to style the matched descendent elements. 
+Stylix would apply a unique class name to this `Select` element, which in turn would be used to scope each selector in order to style the matched descendent elements. 
 
