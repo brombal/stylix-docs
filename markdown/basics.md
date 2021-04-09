@@ -2,7 +2,23 @@
 
 Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property, in both `camelCase` and `snake-case` formats.
 
-Stylix encourages following React best practices and principles. Although your app's JSX markup will be longer with additional style props, Stylix works seamlessly with React's component-based architecture to easily make styled components reusable and allow styles to be overridable when necessary.
+```tsx-render
+<$.div
+  color="SkyBlue"
+  text-align="center"
+  font-size={40}
+  font-weight="bold"
+  font-style="italic"
+>
+  Hello, Stylix!
+</$.div>
+```
+
+Although your app's JSX markup will be longer and seem more verbose with these additional style props, Stylix's simple use of props to create styles allows you to leverage basic JavaScript syntax and React features to keep your code concise and organized.
+
+## Creating reusable styled components
+
+By using **destructuring** and **spreading**, you can create custom reusable, style-able components:
 
 ```tsx-render
 import $ from 'stylix';
@@ -22,9 +38,9 @@ const Emphasize = (props) => (
 </Emphasize>
 ```
 
-The `Emphasize` component renders a `<div>` with bold text. Because we spread `...props` onto the `$.div` element, it also receives all the style props and children passed from the component that renders it.
+The `Emphasize` component simply renders a `<div>` with bold text. Because we spread `...props` onto the `$.div` element, it also receives all the style props and children passed from the component that renders it.
 
-If you don't want to allow overriding a particular style, just place it *after* the prop spread:
+If you don't want to allow overriding particular styles, just place them *after* the prop spread:
 
 ```
 import $ from 'stylix';
