@@ -1,7 +1,7 @@
 
 # Styling other components with Stylix
 
-If you're writing your own components, the above approach is the recommended way to make them composable and reusable. But if you're working with 3rd party, legacy, or otherwise unworkable components, they can easily be styled using the bare `$` component and its `$el` prop (short for "element"):
+If you're writing your own components, prop destructuring and spreading is the recommended way to make them composable and reusable. But if you're working with 3rd party, legacy, or otherwise unworkable components, they can easily be styled using the bare `$` component and its `$el` prop (short for "element"):
 
 ```tsx
 import $ from 'stylix';
@@ -18,11 +18,23 @@ Of course, if the above syntax is too verbose to repeat everywhere, you can easi
 import $ from 'stylix';
 import { Button } from 'third-party-library';
 
-const StyledButton = React.forwardRef((props, ref) => (
-  <$ $el={Button} ref={ref} {...props} />
-));
+const StyledButton = (props) => <$ $el={Button} {...props} />;
 
 <StyledButton label="My Styled Button" font-weight="bold" />
+```
+
+This very concise syntax is not a Stylix-specific feature, but just a result of how Stylix works with React. In fact, if you know React, you didn't learn anything new here.
+
+## Ref forwarding and `$.styled()`
+
+If you need to pass a ref object to `Button` (in the example above), you would have to wrap it with `React.forwardRef`:
+
+```tsx
+const StyledButton = React.forwardRef(
+  (props, ref) => <$ $el={Button} ref={ref} {...props} />
+);
+
+<StyledButton ref={myButtonRef} />
 ```
 
 Forwarding the `ref` is not mandatory, but is best for compatibility and may be necessary in some cases. Because the above example is such a common use case, Stylix provides the `$.styled` convenience wrapper function. The following is functionally identical to the above example:
@@ -33,12 +45,12 @@ import { Button } from 'third-party-library';
 
 const StyledButton = $.styled(Button);
 
-<StyledButton label="My Styled Button" font-weight="bold" />
+<StyledButton ref={myButtonRef} />
 ```
 
 ## Prop conflicts
 
-If a component accepts a prop that conflicts with a CSS property name, the CSS property will take precedence. This can present a problem in certain rare edge-case scenarios. For example, in some UI component libraries (such as Material UI), it is common for components to accept a `color` prop to specify a predefined theme color such as "primary" or "secondary." Because `color` is also a CSS property, Stylix will incorrectly interpret the value as the CSS text color instead of passing it to the component.
+If a component accepts a prop that conflicts with a CSS property name, the CSS property will take precedence. This can present a problem in certain scenarios. For example, in some UI component libraries (such as Material UI), it is common for components to accept a `color` prop to specify a predefined theme color such as "primary" or "secondary." Because `color` is also a CSS property, Stylix will incorrectly interpret the value as the CSS text color instead of passing it to the component.
 
 In this case, the `$el` prop can accept a complete React element instead of a component:
 
