@@ -27,7 +27,7 @@ This very concise syntax is not a Stylix-specific feature, but just a result of 
 
 ## Ref forwarding and `$.styled()`
 
-If you need to pass a ref object to `Button` (in the example above), you would have to wrap it with `React.forwardRef`:
+Refs are automatically forwarded to the element specified by `$el`. But if you need to pass a ref object to a wrapper component (as in the example above), you would of course have to wrap it with `React.forwardRef`:
 
 ```tsx
 const StyledButton = React.forwardRef(
