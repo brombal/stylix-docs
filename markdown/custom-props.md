@@ -1,8 +1,12 @@
 # Custom style props
 
-Stylix allows you to create custom style props that you can use to apply reusable styles to any element. With this feature, you can extend Stylix's functionality in nearly any way you can imagine.
+Stylix allows you to create custom style props that you can use to apply reusable styles to any element. With this feature, you can extend Stylix's functionality many useful ways.
 
-With the `customProps` function, you can specify an object of various kinds of custom props. For example:
+Stylix is built on a plugin system, and you could add custom props by creating a custom plugin. But because this is such a common use-case, Stylix provides `customProps`, a convenience function (a plugin factory, to be specific) that makes it easy to extend Stylix with custom props.
+
+With the `customProps` function, you can create various kinds of custom props. It accepts an object containing new prop names as keys, and their associated style values (depending on the type of custom prop).
+
+For example:
 
 ```tsx-render
 import { customProps } from '@stylix/core';
