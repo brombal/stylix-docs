@@ -62,15 +62,13 @@ const Emphasize = (props) => (
 
 This `Emphasize` component simply renders a `<div>` with bold text. Because we spread `...props` onto the `$.div` element, it also receives all the style props and children passed from the component that renders it.
 
-A good understanding of how spreading and destructuring works allows you to many interesting things with Stylix. For example, If you don't want to allow overriding particular styles, just place them *after* the prop spread:
+Spreading and destructuring allow you to do many other useful things with Stylix. For example, If you don't want to allow overriding particular styles, just place them *after* the prop spread. In the following example, the `font-weight` property can't be overridden, but other style properties would be passed normally.
 
 ```tsx
 const Emphasize = (props) => (
   <$.div {...props} font-weight="bold" />
 );
 ```
-
-In the above example, the `font-weight` property can't be overridden, but other style properties would be passed normally.
 
 If a component accepts other props that should not be passed on as CSS properties, you can use destructuring to separate them from the styles:
 
