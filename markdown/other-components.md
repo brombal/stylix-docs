@@ -82,7 +82,7 @@ const StyledButton = ({ theme, ...styles }) => (
 
 Depending on your circumstances, you may not need or wish to rename the prop at all. In the example above, the UI component library is allowing you to specify some color through its theming system, so specifying a CSS text color is not likely to be particularly useful. However, be aware that if you were to leave `color` as the prop name in the above example, you would not be able to specify a CSS text color through a prop anymore (though you could still use the `$css` prop).
 
-The `$.styled()` can also be useful here. It accepts an object of mappings to rename props and pass them directly to the given component:
+The `$.styled()` function can also be useful here too. It accepts an object of mappings to rename props and pass them directly to the given component:
 
 ```tsx
 import $ from 'stylix';
@@ -93,4 +93,10 @@ const StyledButton = $.styled(Button, { theme: 'color' });
 <StyledButton theme="primary" label="My Styled Button" font-weight="bold" />
 ```
 
-Exactly like the previous example, the `StyledButton`'s new `theme` prop will be passed as `<Button color={theme} />`. You only need to specify props whose names conflict with CSS properties. And if you don't see the need to rename the prop, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`).
+Just like the previous example, the `StyledButton`'s new `theme` prop will be passed as `<Button color={theme} />`.
+
+The mapping object's keys represent new props to add to `StyledButton`, and the values are the component's original prop names. Stylix will map the values of the new props to the old prop names and apply them directly to the underlying component. 
+
+**Note 1:** you only need to specify props whose names conflict with CSS properties. 
+
+**Note 2:** if you don't want to rename the prop, but still want it to be passed to the underlying element, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`).
