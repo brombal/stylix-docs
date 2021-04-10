@@ -52,7 +52,7 @@ const StyledButton = $.styled(Button);
 
 If a component accepts a prop that conflicts with a CSS property name, the CSS property will take precedence. This can present a problem in certain scenarios. For example, in some UI component libraries (such as Material UI), it is common for components to accept a `color` prop to specify a predefined theme color such as "primary" or "secondary." Because `color` is also a CSS property, Stylix will incorrectly interpret the value as the CSS text color instead of passing it to the component.
 
-In this case, the `$el` prop can accept a complete React element instead of a component:
+In this case, the `$el` prop can accept a complete React element instead of just a component name:
 
 ```tsx
 import $ from 'stylix';
