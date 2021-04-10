@@ -1,6 +1,6 @@
 # Custom style props
 
-Stylix allows you to create custom style props that you can use to apply reusable styles to any element. With this, you can extend Stylix's functionality in nearly any way you can imagine.
+Stylix allows you to create custom style props that you can use to apply reusable styles to any element. With this feature, you can extend Stylix's functionality in nearly any way you can imagine.
 
 With the `customProps` function, you can specify an object of various kinds of custom props. For example:
 
