@@ -66,7 +66,7 @@ import { tinyProps } from '@stylix/core';
 
 ### Style blocks
 
-Style blocks let you define entire style snippets and use them with a single prop. To create a style block, specify the desired prop name as the key, and the styles object as the value:
+Style blocks let you define entire style snippets and use them with a single prop. To create a style block, specify the desired prop name as the key, and the style object as the value:
 
 ```tsx-render
 import { customProps } from '@stylix/core';
@@ -84,7 +84,7 @@ const dodgerBlueShortcut = customProps({
 </StylixProvider>
 ```
 
-Style objects can be as complex as you want, and can include nested selectors and pseudo-classes. The props you create in this way are simple boolean props, and the styles will be disabled if you pass a falsy value (e.g. `dodgerBlue={false}`).
+Style objects can be as complex as you want, and can include nested selectors and pseudo-classes. The props created in this way will be boolean props, and the styles will be disabled if you pass a falsy value (e.g. `dodgerBlue={false}`).
 
 We recommend using this feature sparingly. Although it has valid uses, a more flexible and practical approach is to create custom components:
 
@@ -100,7 +100,7 @@ const DodgerBlue = (props) => (
 
 ### Style functions
 
-Similar to **style blocks**, style functions allow you to define reusable style snippets, but with a function instead of a plain object. The function accepts the prop value as its only argument, and returns the styles to apply:
+Similar to **style blocks**, style functions allow you to define reusable style objects, with a function instead of a plain object. The function will be passed the prop value as its only argument, and should return the styles to apply:
 
 ```tsx-render
 import { customProps } from '@stylix/core';
