@@ -80,7 +80,7 @@ const StyledButton = ({ theme, ...styles }) => (
 <StyledButton theme="primary" label="My Styled Button" font-weight="bold" />
 ```
 
-Depending on your circumstances, you may not need or wish to rename the prop at all. In the example above, the UI component library is allowing you to specify some color through its theming system, so specifying a CSS text color is not likely to be particularly useful. However, be aware that if you chose to replace `theme` with `color` in the above example, you would not be able to specify a CSS text color through a simple prop anymore (though you could still use the `$css` prop).
+Depending on your circumstances, you may not need or wish to rename the prop at all. In the example above, the UI component library is allowing you to specify some color through its theming system, so specifying a CSS text color is not likely to be particularly useful. However, be aware that if you were to leave `color` as the prop name in the above example, you would not be able to specify a CSS text color through a prop anymore (though you could still use the `$css` prop).
 
 The `$.styled()` can also be useful here. It accepts an object of mappings to rename props and pass them directly to the given component:
 
