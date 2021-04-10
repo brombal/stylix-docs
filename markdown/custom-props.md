@@ -4,7 +4,7 @@ Stylix allows you to create custom style props that you can use to apply reusabl
 
 Stylix is built on a plugin system, and you could add custom props by creating a custom plugin. But because this is such a common use-case, Stylix provides `customProps`, a convenience function (a plugin factory, to be specific) that makes it easier to extend Stylix with custom props.
 
-With the `customProps` function, you can create various kinds of custom props. It accepts an object containing new prop names as keys, and their associated style values (depending on the type of custom prop).
+With the `customProps` function, you can create various kinds of custom props. It accepts an object containing new prop names as keys, and their associated style values (depending on the type of custom prop). The resulting value is a plugin you can add to your `<StylixProvider>` element's `plugins` array.
 
 For example:
 
@@ -52,7 +52,7 @@ const paddingShortcut = customProps({
 </StylixProvider>
 ```
 
-In fact, Stylix included a set of these shortcuts in a plugin called `tinyProps`, which is simple to enable:
+Stylix actually includes a set of these shortcuts in a plugin called `tinyProps`, which can be enabled by simply importing it and adding it to the `plugins` array:
 
 ```tsx
 import { tinyProps } from '@stylix/core';
