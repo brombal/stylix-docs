@@ -50,9 +50,11 @@ const Emphasize = (props) => (
 <Emphasize>
   Stylix!
 </Emphasize>
+
 <Emphasize font-size="22pt">
   Large Stylix!
 </Emphasize>
+
 <Emphasize font-weight="normal" font-style="italic">
   Italic Stylix!
 </Emphasize>
