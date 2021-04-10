@@ -38,7 +38,7 @@ Stylix creates the `<style>` element automatically and places it in the document
 
 Although your app's JSX markup will be longer and seem more verbose with these additional style props, Stylix's simple use of props to create styles allows you to leverage basic JavaScript syntax and React features to keep your code concise and organized.
 
-By using **destructuring** and **spreading**, you can create custom, reusable, stylable components:
+By using **destructuring** and **spreading**, you can create reusable styled components that easily allow overriding styles when needed:
 
 ```tsx-render
 import $ from 'stylix';
