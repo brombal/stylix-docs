@@ -1,4 +1,4 @@
-# Basics
+# Stylix Basics
 
 Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
 
