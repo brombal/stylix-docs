@@ -97,6 +97,6 @@ Just like the previous example, the `StyledButton`'s new `theme` prop will be pa
 
 The mapping object's keys represent new props to add to `StyledButton`, and the values are the component's original prop names. Stylix will map the values of the new props to the old prop names and apply them directly to the underlying component. 
 
-**Note 1:** you only need to specify props whose names conflict with CSS properties. 
+> **Note 1:** You only need to specify props whose names conflict with CSS properties. 
 
-**Note 2:** if you don't want to rename the prop, but still want it to be passed to the underlying element, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`).
+> **Note 2:** If you don't want to rename the prop, but still want it to be passed to the underlying element, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`).
