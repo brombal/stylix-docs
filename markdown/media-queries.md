@@ -1,5 +1,7 @@
 # Media queries
 
+Stylix provides a feature that makes it a breeze to add styles according to a pre-defined set of media queries, such as desktop/tablet/mobile breakpoints.
+
 While you could use the `$css` prop and nest media-specific styles under a media query selector, this will quickly become cumbersome:
 
 ```tsx-render
@@ -18,9 +20,7 @@ While you could use the `$css` prop and nest media-specific styles under a media
 </$.div>
 ```
 
-Instead, Stylix provides a unique feature that makes media queries a breeze. 
-
-Your `<StylixProvider>` element can accept a `media` prop that allows you to specify an array of media queries. The array can contain any number of entries and can be any values that can follow `@media` in the CSS media query specification. It can also accept an empty string. The order and contents of these values is up to you.
+Instead, the `<StylixProvider>` element can accept a `media` prop that allows you to specify an array of media queries. The array can contain any number of entries and can be any values that can follow `@media` in the CSS media query specification. It can also accept an empty string. The order and contents of these values is up to you.
 
 ```tsx-render
 <StylixProvider media={['', '(max-width: 1024px)', '(max-width: 768px)']}>
