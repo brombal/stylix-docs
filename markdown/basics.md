@@ -117,5 +117,5 @@ function App() {
 );
 ```
 
-Just like any other props in React, values can be state variables, props, or any other value.
+Just like any other props in React, values can be state variables, props, or any other dynamic value. Because styles are created with props, they become "first-class citizens" of your React app, and you can treat them as dynamically as you would any other prop values. Stylix is very efficient in how it generates CSS and can process thousands of updates per second, and it cleans up after itself when styles are no longer in use.
 
