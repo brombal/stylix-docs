@@ -96,7 +96,7 @@ Notice how these features don't come from Stylix, but are rather just a result o
 
 ## Dynamic styles
 
-Of course, styles don't need to be fixed, static values: 
+Of course, styles don't need to be fixed, static values. Just like any other props, the values can come from a component's state, prop values, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
 
 ```tsx-render
 import $ from 'stylix';
@@ -117,5 +117,5 @@ function App() {
 );
 ```
 
-Just like any other props in React, values can be state variables, props, or any other dynamic value. Because styles are created with props, they become "first-class citizens" of your React app, and you can treat them as dynamically as you would any other prop values. Stylix is very efficient in how it generates CSS and can process thousands of updates per second, and it cleans up after itself when styles are no longer in use.
+Because styles are created with props, they become "first-class citizens" of your React app, and you can treat them as dynamically as you would any other prop values. Stylix is very efficient in how it generates CSS and can process thousands of updates per second, and it cleans up after itself when styles are no longer in use.
 
