@@ -18,7 +18,7 @@ Stylix simply applies a unique class name to the element, and defines the given 
 
 ```html
 <style type="text/css">
-.stylix-abc-123 {
+.stylix-abc123 {
   color: SkyBlue;
   text-align: center;
   font-size: 40px;
