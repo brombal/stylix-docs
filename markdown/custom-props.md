@@ -132,10 +132,10 @@ import { Property } from 'csstype';
 
 declare module '@stylix/core' {
   interface StylixPropsExtensions {
-    p: Property.Padding;
-    bg: Property.Background;
-    dodgerBlue: boolean;
-    fontSizeAndPadding: number;
+    p?: Property.Padding;
+    bg?: Property.Background;
+    dodgerBlue?: boolean;
+    fontSizeAndPadding?: number;
   }
 }
 ```
