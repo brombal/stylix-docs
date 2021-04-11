@@ -1,8 +1,6 @@
 # Media queries
 
-Stylix provides a feature that makes it a breeze to add styles according to a pre-defined set of media queries, such as desktop/tablet/mobile breakpoints.
-
-While you could use the `$css` prop and nest media-specific styles under a media query selector, this will quickly become cumbersome:
+The most basic way to add media queries to your styles is to use the `$css` prop, and add styles inside a nested "@media" query:
 
 ```tsx-render
 <$.div
@@ -10,40 +8,99 @@ While you could use the `$css` prop and nest media-specific styles under a media
   $css={{
     "@media (max-width: 1024px)": {
       fontSize: 24
-    },
-    "@media (max-width: 768px)": {
-      fontSize: 18
-    },
+    }
   }}
 >
   Screen size font sizes.
 </$.div>
 ```
 
-Instead, the `<StylixProvider>` element accepts a `media` prop that allows you to specify an array of media queries. Then any style prop on a Stylix element (or on a custom components that accepts Stylix style props) will accept an array of values in addition to singular values. The array entries of a style prop will then match the corresponding media query in the `media` prop's array. For example:
+You can nest media queries anywhere within a style object, just like selectors. However, this technique is verbose and might become cumbersome for a responsive app that needs to consistently handle different screen sizes.
+
+## The StylixProvider media prop
+
+Stylix provides a feature that makes it a breeze to add styles according to a set of media queries, such as desktop/tablet/mobile breakpoints.
+
+The `<StylixProvider>` element accepts a `media` prop that allows you to specify an array of media queries. Any style prop on a Stylix element (or on a custom components that accepts Stylix style props) will then accept an array of values in addition to singular values. The style prop's array entries will match the corresponding media query in the `media` prop's array. For example:
+
+```tsx-render
+<StylixProvider 
+  media={[
+    '(min-width: 1025px)',                        // Desktop
+    '(max-width: 1024px) and (min-width: 769px)', // Tablet
+    '(max-width: 768px)'                          // Mobile
+  ]}
+>
+  <$.div 
+    font-size={[
+      32, // Desktop
+      24, // Tablet
+      18  // Mobile
+    ]}
+  >
+    Screen size font sizes.
+  </$.div>
+</StylixProvider>
+```
+
+The `media` prop array can contain any number of entries and can be any values that can follow "@media" in the CSS media query specification, or an empty string. An empty string means that corresponding styles will be output without any media query (i.e. applied to any screen size). 
+
+The style prop's array entries will be effective only within their corresponding media query. Using falsy values (except `0`) in an array will simply not output any style for that property within the corresponding media query.
+
+# Media query ordering
+
+Stylix is unopinionated about how you define and order your media queries. The above example used strict, non-overlapping media queries, meaning each style prop array entry (such as `font-size={[32, 24, 18]}`) will only correspond to exactly one screen size. This also means that using falsy values in an array or omitting them entirely (e.g. `font-size={[32, 24]}`) would not output *any* styles for that media query.
+
+A more flexible approach might be to use overlapping media queries, allowing style values to "carry over" to the next media query. For example:
 
 ```tsx-render
 <StylixProvider 
   media={[
     '',                    // All screen sizes
-    '(max-width: 1024px)', // Tablet
+    '(max-width: 1024px)', // Tablet & Mobile
     '(max-width: 768px)'   // Mobile
   ]}
 >
   <$.div 
     font-size={[
-      32, // All screen sizes
+      32, // Desktop
       24, // Tablet
       18  // Mobile
-    ]}>
-    Screen size font sizes.
+    ]}
+    font-weight={[
+      '',     // All screens sizes
+      'bold', // Tablet & Mobile
+    ]}
+  >
+    Screen size font sizes/weights.
   </$.div>
 </StylixProvider>
 ```
-The `media` prop array can contain any number of entries and can be any values that can follow "@media" in the CSS media query specification, or an empty string. An empty string means that corresponding styles will be output without any media query (i.e. applied to any screen size). 
 
-The style prop's array entries correspond to the `media` prop array entries—each array value will be effective only within the corresponding media query. Including falsy values (except `0`) in a value array will simply not output any style for that property within the corresponding media query. 
+Because the media queries "overlap" with each other (small mobile screens would match both the `(max-width: 1024px)` and `(max-width: 768px)` media queries), we can allow values to carry over to other matching media queries that have nothing specified. In the above example, `font-size` has values specified for each media query, but `font-weight` omitted the 3rd value. This means `bold` will only be applied to the `(max-width: 1024px)` media query; but a small screen (under 768px) would still match that query. And since no styles were given for the `(max-width: 768px)` media query, the smaller screens will still have bold text.
 
-The media query CSS output will always be in the same order that you specify the queries in the `media` prop array, and it is up to you to manage the specificity of overlapping media queries appropriately. Notice that in the above example, the order of the media queries is somewhat important because the two media queries `(max-width: 1024px)` and `(max-width: 768px)` actually overlap with each other. Two sets of styles are in effect at the same time, and with an incorrect order, the results might be unexpected. Stylix will be consistent with the CSS output, but is not opinionated about how you order the media queries—it is up to you to ensure that the resulting styles are what you expect.
+Stylix will always order the output of styles according to the order that you specify them in the `media` prop array. It is up to you to manage the specificity of overlapping media queries. With this flexibility, you have the option to work with "desktop-first" or "mobile-first" breakpoints. The above example is "desktop-first": as more array entries are given, they define styles for screens as they get smaller:
 
-With this feature, defining site-wide breakpoints and creating styles that are easy to adjust accordingly is simple and stress-free, and should account for the most common use case for media queries. As we mentioned at the beginning of this section, you also have the option to nest more specific media queries in the element's styles using the `$css` prop.
+- `font-size={[32]}` defines a 32px font size for all screen sizes.
+- `font-size={[32, 24]}` defines 32px for desktop only, and 24px for tablet & mobile.
+- `font-size={[32, 24, 18]}` defines font sizes separately for each screen size.
+
+A "mobile-first" approach might use the following `media` prop value: 
+
+```tsx
+<StylixProvider 
+  media={[
+    '',                   // All screen sizes
+    '(min-width: 768px)', // Tablet & Desktop
+    '(min-width: 1024px)' // Desktop
+  ]}
+>
+```
+
+In this case, additional array entries define styles for screens as they get larger:
+
+- `font-size={[18]}` defines the font size for all screen sizes.
+- `font-size={[18, 24]}` defines 18px for mobile only, and 24px for desktop & tablet.
+- `font-size={[18, 24, 32]}` defines font sizes separately for each screen size.
+
+
