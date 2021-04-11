@@ -1,4 +1,4 @@
-# Themes
+# Theming your app with Stylix
 
 Because Stylix is all JavaScript and React code, theming your app might be as simple as defining your theme-specific values in an object, and using those values throughout your app:
 
