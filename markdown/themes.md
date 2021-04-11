@@ -1,6 +1,12 @@
 # Theming your app with Stylix
 
-Because Stylix is all JavaScript and React code, theming your app might be as simple as defining your theme-specific values in an object, and using those values throughout your app:
+Stylix is extremely unopinionated about theming your app's styles. Stylix is not a "CSS framework" like Tailwind and Bootstrap or a UI component library like Material UI, but rather a replacement for the CSS language itself. 
+
+However, Stylix does come with some features that make it simple to share styles throughout your app the same way you might share any other information—via React context.
+
+## Don't complicate things
+
+Because Stylix is all JavaScript, theming your app might be as simple as defining your theme-specific values in a plain object, and using those values throughout your app:
 
 ```
 const myTheme = {
