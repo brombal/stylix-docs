@@ -20,7 +20,7 @@ While you could use the `$css` prop and nest media-specific styles under a media
 </$.div>
 ```
 
-Instead, the `<StylixProvider>` element can accept a `media` prop that allows you to specify an array of media queries. Then any style prop on a Stylix element (or on a custom components that accepts Stylix style props) will accept an array of values in addition to singular values:
+Instead, the `<StylixProvider>` element accepts a `media` prop that allows you to specify an array of media queries. Then any style prop on a Stylix element (or on a custom components that accepts Stylix style props) will accept an array of values in addition to singular values:
 
 ```tsx-render
 <StylixProvider 
