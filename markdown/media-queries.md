@@ -15,11 +15,11 @@ The most basic way to add media queries to your styles is to use the `$css` prop
 </$.div>
 ```
 
-You can nest media queries anywhere within a style object, just like selectors. However, this technique is verbose and might become cumbersome for a responsive app that needs to consistently handle different screen sizes.
-
-## The StylixProvider media prop
+You can nest media queries anywhere within a style object, just like selectors. However, this technique is verbose and might become cumbersome for a responsive app that needs to consistently handle different screen sizes. 
 
 Stylix provides a feature that makes it a breeze to add styles according to a set of media queries, such as desktop/tablet/mobile breakpoints.
+
+## Media query arrays
 
 The `<StylixProvider>` element accepts a `media` prop that allows you to specify an array of media queries. Any style prop on a Stylix element (or on a custom components that accepts Stylix style props) will then accept an array of values in addition to singular values. The style prop's array entries will match the corresponding media query in the `media` prop's array. For example:
 
