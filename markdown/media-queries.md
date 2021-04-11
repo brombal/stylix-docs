@@ -47,7 +47,7 @@ The StylixProvider's `media` prop array can contain any number of entries, and e
 
 A style prop's array entries will be applied only within their corresponding media query. Omitting values, or using `null`, `undefined`, `false`, or empty strings will simply not output any style for that property within the corresponding media query.
 
-# Media query ordering
+### Media query array ordering
 
 Stylix is unopinionated about how you define and order your media queries. The above example used strict, non-overlapping media queries, meaning each style prop array entry (such as `font-size={[32, 24, 18]}`) will only correspond to exactly one screen size. This also means that using falsy values in an array or omitting them entirely (e.g. `font-size={[32, 24]}`) would not output *any* styles for that media query.
 
