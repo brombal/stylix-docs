@@ -25,7 +25,7 @@ Instead, the `<StylixProvider>` element accepts a `media` prop that allows you t
 ```tsx-render
 <StylixProvider 
   media={['', '(max-width: 1024px)', '(max-width: 768px)']}
->
+>{/*       ^---------v  \     v----------^   */}
   <$.div font-size={[32, 24, 18]}>
     Screen size font sizes.
   </$.div>
