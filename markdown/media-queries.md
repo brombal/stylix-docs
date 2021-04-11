@@ -43,7 +43,7 @@ The `<StylixProvider>` element accepts a `media` prop that allows you to specify
 </StylixProvider>
 ```
 
-The StylixProvider `media` prop array can contain any number of entries and can be any values that can follow "@media" in the CSS media query specification. They can also be an empty string—corresponding styles will be output without any media query (i.e. applied to any screen size). 
+The StylixProvider's `media` prop array can contain any number of entries, and each value can be any string that follows "@media ..." in regular CSS. You can also include an empty string—corresponding styles will be output without any media query (i.e. applied to any screen size). 
 
 A style prop's array entries will be applied only within their corresponding media query. Omitting values, or using `null`, `undefined`, `false`, or empty strings will simply not output any style for that property within the corresponding media query.
 
