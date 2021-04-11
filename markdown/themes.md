@@ -172,7 +172,18 @@ const myThene = {
   baseFontSize: 12,
 };
 
+/**
+ * Simple theme accessor function - 
+ * might be useful for complex theme objects
+ */
 const getTextColor = (theme) => theme.textColor;
+
+/**
+ * Curried function that lets you specify some parameter
+ * to modify a theme object value.
+ * A contrived example, but demonstrates the possibilities
+ * of dynamically generated theme values.
+ */ 
 const getFontSize = (multiplier) => 
   (theme) => theme.baseFontSize + 2 * multiplier;
 
