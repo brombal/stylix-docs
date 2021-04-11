@@ -30,7 +30,7 @@ const myCustomProps = customProps({
 There are three types of custom props you can create:
 
 - Prop aliases
-- Style blocks
+- Style objects
 - Style functions
 
 ### Prop aliases
@@ -58,15 +58,19 @@ Stylix actually includes a set of these shortcuts in a plugin called `tinyProps`
 import { tinyProps } from '@stylix/core';
 
 <StylixProvider plugins={[tinyProps]}>
-  <$.div p="20px 50px" bg="WhiteSmoke">
+  <$.div 
+    p="20px 50px" 
+    bg="WhiteSmoke"
+    b="1px solid SteelBlue"
+  >
     A padded box.
   </$.div>
 </StylixProvider>
 ```
 
-### Style blocks
+### Style objects
 
-Style blocks let you define entire style snippets and use them with a single prop. To create a style block, specify the desired prop name as the key, and the style object as the value:
+Style objects let you define entire style objects and use them with a single prop. To create a style object, specify the desired prop name as the key, and the style object as the value:
 
 ```tsx-render
 import { customProps } from '@stylix/core';
@@ -100,22 +104,28 @@ const DodgerBlue = (props) => (
 
 ### Style functions
 
-Similar to **style blocks**, style functions allow you to define reusable style objects, with a function instead of a plain object. The function will be passed the prop value as its only argument, and should return the styles to apply:
+Similar to style objects, style functions allow you to define reusable style objects, with a function instead of a plain object. The function will be passed the prop value as its only argument, and should return the styles to apply.
+
+For example, you could use this feature to define custom text color names:
 
 ```tsx-render
 import { customProps } from '@stylix/core';
 
 const fontSizeAndPaddingShortcut = customProps({
-  fontSizeAndPadding: (value: number) => ({
-    fontSize: value,
-    padding: value
-  })
+  color: (value: string) => {
+    const myColors = {
+      cerulean: '#007BA7',
+      emerald: '#50C878',
+      scarlet: '#FF2400'
+    };
+    return myColors[value] || value;
+  }
 });
 
 <StylixProvider plugins={[fontSizeAndPaddingShortcut]}>
-  <$.div fontSizeAndPadding={20}>
-    20px font-size and padding
-  </$.div>
+  <$.div color="cerulean">Cerulean</$.div>
+  <$.div color="emerald">Emerald</$.div>
+  <$.div color="scarlet">Scarlet</$.div>
 </StylixProvider>
 ```
 
@@ -135,7 +145,6 @@ declare module '@stylix/core' {
     p?: Property.Padding;
     bg?: Property.Background;
     dodgerBlue?: boolean;
-    fontSizeAndPadding?: number;
   }
 }
 ```
