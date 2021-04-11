@@ -37,7 +37,7 @@ However, if you need something a bit more dynamic (for example, to allow a light
 
 ## The Stylix context
 
-The StylixProvider's `theme` prop allows you to specify an object to make available to any descendant elements. This object can have any structure at all—Stylix has no opinion on how you define your theme. In any descendant element, you can get the current theme object using the `useStylixTheme()` hook function.
+The StylixProvider's `theme` prop allows you to specify an object to make available to any descendant elements. This object can have any structure at all—Stylix has no opinion on how you define your theme. In descendant elements, you can get the current theme object using the `useStylixTheme()` hook function.
 
 For example:
 
