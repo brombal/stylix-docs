@@ -2,7 +2,7 @@
 
 Keyframe animations are easy to use in Stylix. Because CSS requires them to be defined at the global level, Stylix provides some convenience helpers to make this easier to manage.
 
-If you don't want to "pollute" the global scope with potentially-conflicting animation names, Stylix can generate the animation's name for you, using the `useKeyframes()` hook. This hook returns the name of the animation, which you can pass to the `animation` or `animation-name` style props.
+To avoid "polluting" the global scope with potentially conflicting animation names, Stylix can generate the animation's name for you, using the `useKeyframes()` hook. This hook returns the name of the animation, which you can pass to the `animation` or `animation-name` style props.
 
 ```tsx-app
 function App() {
