@@ -40,7 +40,7 @@ function App() {
 
 The `StylixProvider` component can provide themes and media queries, or additional configuration for certain less-common situations.
 
-Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property. It is also possible (and easy) to style any other component that accepts a `className` prop.
+Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property. It is also easy to style any other component that accepts a `className` prop.
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use complex selectors, pseudo-classes, nested CSS, media queries, themes, keyframe animations, and more.
 
@@ -55,13 +55,13 @@ Yes, your individual elements are going to look longer with additional props. Bu
 <Button variant="outlined" color="primary">Click me!</Button>
 ```
 
-This component may not have pure CSS in its props, but those `variant` and `color` props are nothing but style information—they serve no functional purpose. You could write something comparable to this with Stylix:
+This component may not have pure CSS in its props, but those `variant` and `color` props are nothing but style information—they are not structural or functional in any way. You could write something comparable to this with Stylix:
 
 ```tsx
 <$.button color="blue" border="1px solid blue">Click me!</Button>
 ```
 
-That essentially conveys the same idea (although Material UI's Button looks a lot nicer).
+That essentially conveys the same idea (although, admittedly, Material UI's Button looks a lot nicer).
 
 In reality, what you might do is this:
 
@@ -73,9 +73,9 @@ const Button = ({ color, ...styles }) => (
 <Button color="blue" font-size="14pt">Click me!</Button>
 ```
 
-Wow! We just created a styled component. It accepts a prop that lets you specify both the border and text colors, and we even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages, syntax, APIs, or import any external CSS files.
+Wow! We just created a styled component. It accepts a prop that lets you specify both the border and text colors, and we even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages, syntax, APIs, or need to work with any external files.
 
-Regarding "separation of concerns" — think about the fact that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. In React, JavaScript and HTML have practically merged into one language.
+Regarding "separation of concerns"—consider the fact that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. In React, JavaScript and HTML have practically merged into one language.
 
 So why should styles be any different? In today's web apps, styles often need to be as dynamic as the page content. When your styles are relegated to separate files that have no access to the app's current state, it becomes a chore to make them dynamic. It also costs you mental stamina points to constantly switch between the syntaxes and strategies of writing JavaScript vs. CSS—organizing files, structuring CSS, and choosing class names—all of which are completely different between the two languages. It may be small, but seconds add up to hours lost.
 
