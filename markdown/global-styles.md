@@ -24,7 +24,7 @@ function GlobalStyles() {
 
 The styles will only be present while the component that defines them is mounted.
 
-`useGlobalStyles` accepts a second parameter that disables the styles (useful because you cannot call React hook functions conditionally):
+If you need to "turn off" the styles but don't want to unmount the component, `useGlobalStyles` accepts a second parameter to disable them:
  
 ```tsx
 const disabled = true;
