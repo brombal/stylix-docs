@@ -1,7 +1,7 @@
 ## Installation
 
 ```sh
-npm install --save stylix
+npm install --save @stylix/core
 ```
 
 Add a `<StylixProvider>` wrapper at the root of your project. Then, use Stylix elements to create html markup that can be styled with props, the same way you would write regular CSS properties:
