@@ -30,7 +30,7 @@ const Button = ({ color, ...styles }) => (
 
 Wow! We just created a reusable styled component. It accepts a prop that lets you specify both the border and text colors, and we even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages, syntax, APIs, or need to work with any external files.
 
-## What about "separation of concerns"? Isn't mixing markup and styles Bad™?
+## What about "separation of concerns"? Isn't mixing markup and styles A Bad Thing™?
 
 Consider the fact that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. In React, JavaScript and HTML have practically merged into one language.
 
