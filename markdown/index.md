@@ -32,7 +32,7 @@ Stylix provides all the standard HTML elements as properties of the `$` object (
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use complex selectors, pseudo-classes, nested CSS, media queries, themes, keyframe animations, and more.
 
-## Want to contribute? Have bugs, issues or questions?
+## Want to contribute? Have bugs, issues, or questions?
 
 Open an issue or submit a PR on our GitHub page:
 
