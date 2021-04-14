@@ -1,21 +1,3 @@
-Stylix is a new library and methodology for styling your React apps.
-
-```tsx-render
-import $ from 'stylix';
-
-<$.div
-  color="#00BCD4"
-  font-size={40}
-  font-weight="bold"
-  text-align="center"
->
-  Welcome to Stylix!
-</$.div>
-```
-
-With Stylix, you apply styles to your components the same way you add any other information: with props. No separate CSS files, languages, or syntaxes for styling—everything is in React, minimizing the learning curve and allowing you to utilize the same patterns and organizational techniques that make React so great.
-
-
 ## Installation
 
 ```
