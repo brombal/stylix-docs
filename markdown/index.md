@@ -22,16 +22,21 @@ With Stylix, you apply styles to your components the same way you add any other 
 npm install --save stylix
 ```
 
-Add a `<StylixProvider>` wrapper at the root of your project:
+Add a `<StylixProvider>` wrapper at the root of your project. Then, use Stylix elements to create html markup that can be styled with props, the same way you would write regular CSS properties:
 
-```tsx
+```tsx-app
 import $, { StylixProvider } from 'stylix';
 
 function App() {
   return (
     <StylixProvider>
-      <$.div font-weight="bold">
-        Hello, Stylix!
+      <$.div
+        color="#00BCD4"
+        font-size={40}
+        font-weight="bold"
+        text-align="center"
+      >
+        Welcome to Stylix!
       </$.div>
     </StylixProvider>
   );
@@ -44,41 +49,23 @@ Stylix provides all the standard HTML elements as properties of the `$` object (
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use complex selectors, pseudo-classes, nested CSS, media queries, themes, keyframe animations, and more.
 
-## Why Stylix?
+## Want to contribute? Bugs, issues or questions?
 
-You might think, "Isn't this going to make my React code really long and bloated?" or "Doesn't this violate the 'don't repeat yourself' or 'separation of concerns' tenets of programming?"
+Open an issue or submit a PR on our GitHub page:
 
-Yes, your individual elements are going to look longer with additional props. But the idea isn't to just slap on style props to every element and copy-paste them everywhere. Instead, you are encouraged to follow good React principles and separate elements into reusable components - which includes considering style props as a part of the components. Consider this example from a popular UI framework, Material UI:
+https://github.com/brombal/stylix
 
-```tsx
-/* Material UI Button component */
-<Button variant="outlined" color="primary">Click me!</Button>
-```
+We ascribe to the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct).
 
-This component may not have pure CSS in its props, but those `variant` and `color` props are nothing but style information—they are not structural or functional in any way. You could write something comparable to this with Stylix:
+## License
 
-```tsx
-<$.button color="blue" border="1px solid blue">Click me!</Button>
-```
+[MIT](https://opensource.org/licenses/MIT)
 
-That essentially conveys the same idea (although, admittedly, Material UI's Button looks a lot nicer).
+Copyright 2020 Brombal, LLC
 
-In reality, what you might do is this:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-```tsx
-const Button = ({ color, ...styles }) => (
-  <$.button color={color} border={`1px solid ${color}`} {...styles} />
-);
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-<Button color="blue" font-size="14pt">Click me!</Button>
-```
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Wow! We just created a styled component. It accepts a prop that lets you specify both the border and text colors, and we even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages, syntax, APIs, or need to work with any external files.
-
-Regarding "separation of concerns"—consider the fact that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. In React, JavaScript and HTML have practically merged into one language.
-
-So why should styles be any different? In today's web apps, styles often need to be as dynamic as the page content. When your styles are relegated to separate files that have no access to the app's current state, it becomes a chore to make them dynamic. It also costs you mental stamina points to constantly switch between the syntaxes and strategies of writing JavaScript vs. CSS—organizing files, structuring CSS, and choosing class names—all of which are completely different between the two languages. It may be small, but seconds add up to hours lost.
-
-With Stylix, none of this is a concern: your styles live within the components that own them; state information is readily available; and all the techniques and practices that make React so successful are now just as relevant to how you add styles to your components.
-
-In fact, other libraries such as styled-components and Emotion offer similar solutions to the these problems. We think those are great utilities and they heavily inspired Stylix. We just felt that they didn't take things far enough: rather than integrating CSS directly with React, they introduced entirely new ways to write CSS (such as template literals or additional transpiler requirements). Stylix took the approach of making CSS as closely paired with React as JSX did to bring HTML and JavaScript together.
