@@ -17,7 +17,7 @@ function App() {
         font-size={40}
         text-align="center"
       >
-        This is Stylix!
+        Hello, Stylix!
       </$.div>
     </StylixProvider>
   );
