@@ -3,6 +3,8 @@
 Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
 
 ```tsx-render
+import $ from '@stylix/core';
+
 <$.div
   color="SkyBlue"
   text-align="center"
@@ -41,40 +43,40 @@ Although your app's JSX markup will be longer and seem more verbose with these a
 By using **destructuring** and **spreading**, you can create reusable styled components that easily allow overriding styles when needed:
 
 ```tsx-render
-import $ from 'stylix';
-
 const Emphasize = (props) => (
   <$.div font-weight="bold" {...props} />
 );
 
-<Emphasize>
-  Stylix!
-</Emphasize>
-
-<Emphasize font-size="22pt">
-  Large Stylix!
-</Emphasize>
-
-<Emphasize font-weight="normal" font-style="italic">
-  Italic Stylix!
-</Emphasize>
+<>
+  <Emphasize>
+    Stylix!
+  </Emphasize>
+  <Emphasize font-size="22pt">
+    Large Stylix!
+  </Emphasize>
+  <Emphasize font-weight="normal" font-style="italic">
+    Italic Stylix!
+  </Emphasize>
+</>
 ```
 
 This `Emphasize` component simply renders a `<div>` with bold text. Because we spread `...props` onto the `$.div` element, it also receives all the style props and children passed from the component that renders it.
 
 Spreading and destructuring allow you to do many other useful things with Stylix. For example, If you don't want to allow overriding particular styles, just place them *after* the prop spread. In the following example, the `font-weight` property can't be overridden, but other style properties would be passed normally.
 
-```tsx
+```tsx-render
 const Emphasize = (props) => (
   <$.div {...props} font-weight="bold" />
 );
+
+<Emphasize color="crimson" font-weight="normal">
+  Still bold
+</Emphasize>
 ```
 
 If a component accepts other props that should not be passed on as CSS properties, you can use destructuring to separate them from the styles:
 
 ```tsx-render
-import $ from 'stylix';
-
 function DisplayName(props) {
   const { firstName, lastName, ...styles } = props;
   return (
@@ -82,12 +84,12 @@ function DisplayName(props) {
       {lastName}, {firstName}
     </$.div>
   );
-);
+}
 
 <DisplayName 
   firstName="Jim"
   lastName="Henson"
-  font-weight="normal" 
+  font-weight="bold" 
   font-style="italic"
 />
 ```
@@ -99,22 +101,22 @@ Notice how these features don't come from Stylix, but are rather just a result o
 Of course, styles don't need to be fixed, static values. Just like any other props, the values can come from a component's state, prop values, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
 
 ```tsx-render
-import $ from 'stylix';
-
 function App() {
   const [color, setColor] = React.useState('tomato');
 
   return (
     <div>
-      <select>
+      <select 
+        onChange={e => setColor(e.target.value)}
+      >
         <option>Tomato</option>
         <option>DodgerBlue</option>
         <option>SeaGreen</option>
       </select>
-      <$.div color={color}>{color}</div>
+      <$.div color={color}>{color}</$.div>
     </div>
   );
-);
+}
 ```
 
 Because styles are created with props, they become "first-class citizens" of your React app, and you can treat them as dynamically as you would any other prop values. Stylix is very efficient in how it generates CSS and can process thousands of updates per second, and it cleans up after itself when styles are no longer in use.
