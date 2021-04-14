@@ -44,3 +44,7 @@ Stylix took the approach of making CSS as closely paired with React as JSX did t
 
 If you're convinced now of how delightful styling your React apps will be with Stylix, let's see what else it can do for you.
 
+<div class="next-link">
+  <a href="/basics">Stylix basics</a>
+</div>
+
