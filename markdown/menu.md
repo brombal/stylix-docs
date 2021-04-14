@@ -1,3 +1,11 @@
 - [Home](/)
-- [About](/about)
-  - [Some sub-page](/about/subpage)
+- [Why Stylix?](/why-stylix)
+- [Stylix basics](/basics)
+- [Custom props](/custom-props)
+- [Global styles](/global-styles)
+- [Keyframe animations](/keyframes)
+- [Media queries](/media-queries)
+- [Styling other components](/other-components)
+- [Pseudo-classes & selectors](/selectors)
+- [Theming](/themes)
+
