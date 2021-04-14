@@ -1,11 +1,13 @@
 - [Home](/)
 - [Why Stylix?](/why-stylix)
-- [Stylix basics](/basics)
-- [Custom props](/custom-props)
-- [Global styles](/global-styles)
-- [Keyframe animations](/keyframes)
-- [Media queries](/media-queries)
-- [Styling other components](/other-components)
-- [Pseudo-classes & selectors](/selectors)
-- [Theming](/themes)
-
+- Guides
+  - [Stylix basics](/basics)
+  - [Pseudo-classes & selectors](/selectors)
+  - [Styling other components](/other-components)
+  - [Global styles](/global-styles)
+  - [Keyframe animations](/keyframes)
+  - [Media queries](/media-queries)
+  - [Theming](/themes)
+  - [Custom props](/custom-props)
+- API Reference
+- Bugs & Issues
