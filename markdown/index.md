@@ -15,10 +15,9 @@ function App() {
       <$.div
         color="#00BCD4"
         font-size={40}
-        font-weight="bold"
         text-align="center"
       >
-        Welcome to Stylix!
+        This is Stylix!
       </$.div>
     </StylixProvider>
   );
