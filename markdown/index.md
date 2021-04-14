@@ -24,7 +24,7 @@ function App() {
 }
 ```
 
-> Many of the code samples on this site are editable. Try it out!
+> **Hint:** Many of the code samples on this site are editable. Try it out!
 
 The `StylixProvider` component can provide themes and media queries, or additional configuration for certain less-common situations.
 
