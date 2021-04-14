@@ -1,9 +1,9 @@
 
 ## Why Stylix?
 
-You might think, "Isn't Stylix going to make my React code really long and bloated?" or "Doesn't this violate the 'don't repeat yourself' or 'separation of concerns' tenets of programming?"
+You might think, "Isn't Stylix going to make my React code really long and bloated?" or "Doesn't this violate the 'don't repeat yourself' tenet of programming?"
 
-Yes, your individual elements are going to look longer with additional props. But the idea isn't to just slap on style props to every element and copy-paste them everywhere. Instead, you are encouraged to follow good React principles and separate elements into reusable components - which includes considering style props as a part of the components. Consider this example from a popular UI framework, Material UI:
+Yes, your individual elements are going to look longer with additional props. But the idea isn't to just slap on style props to every element and copy-paste them everywhere. Instead, you are encouraged to follow good React principles and separate elements into reusable components—which includes considering style props as a part of the components. Consider this example from a popular UI framework, Material UI:
 
 ```tsx
 /* Material UI Button component */
@@ -28,9 +28,11 @@ const Button = ({ color, ...styles }) => (
 <Button color="blue" font-size="14pt">Click me!</Button>
 ```
 
-Wow! We just created a styled component. It accepts a prop that lets you specify both the border and text colors, and we even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages, syntax, APIs, or need to work with any external files.
+Wow! We just created a reusable styled component. It accepts a prop that lets you specify both the border and text colors, and we even passed an additional "font-size" style. All of this was done with nothing but basic JavaScript and React features (like spreading props). You didn't need to learn any additional languages, syntax, APIs, or need to work with any external files.
 
-Regarding "separation of concerns"—consider the fact that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. In React, JavaScript and HTML have practically merged into one language.
+## What about "separation of concerns"? Isn't mixing markup and styles Bad™?
+
+Consider the fact that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. In React, JavaScript and HTML have practically merged into one language.
 
 So why should styles be any different? In today's web apps, styles often need to be as dynamic as the page content. When your styles are relegated to separate files that have no access to the app's current state, it becomes a chore to make them dynamic. It also costs you mental stamina points to constantly switch between the syntaxes and strategies of writing JavaScript vs. CSS—organizing files, structuring CSS, and choosing class names—all of which are completely different between the two languages. It may be small, but seconds add up to hours lost.
 
