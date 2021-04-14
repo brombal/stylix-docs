@@ -28,7 +28,7 @@ const Button = ({ color, ...styles }) => (
 <Button color="blue" font-size="14pt">Click me!</Button>
 ```
 
-Wow! We just created a reusable styled component. It accepts a prop that lets you specify the border and text colors together, and with prop spreading and destructuring we could easily add a "font-size" style. All of this was done with nothing but basic JavaScript and React features—you didn't need to learn any additional languages, syntax, APIs, or need to work with any external files.
+Wow! We just created a reusable styled component. It accepts a prop that lets you specify the border and text colors together, and with prop spreading and destructuring, we easily added a "font-size" style. All of this was done with nothing but basic JavaScript and React techniques—you didn't need to learn any additional languages, syntax, APIs, or work with any external files.
 
 ## What about "separation of concerns"? Isn't mixing markup and styles A Bad Thing™?
 
