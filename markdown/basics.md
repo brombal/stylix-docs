@@ -100,7 +100,7 @@ Notice how these features don't come from Stylix, but are rather just a result o
 
 Of course, styles don't need to be fixed, static values. Just like any other props, the values can come from a component's state, prop values, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
 
-```tsx-render
+```tsx-render-app
 function App() {
   const [color, setColor] = React.useState('tomato');
 
