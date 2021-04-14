@@ -28,9 +28,11 @@ function App() {
 
 The `StylixProvider` component can provide themes and media queries, or additional configuration for certain less-common situations.
 
-Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property. It is also easy to style any other component that accepts a `className` prop.
-
 You aren't just limited to standard CSS properties, either. Stylix lets you use complex selectors, pseudo-classes, nested CSS, media queries, themes, keyframe animations, and more.
+
+Let's continue with the [Stylix basics](/stylix-basics) guide!
+
+<a class="next-link" href="/stylix-basics">Stylix basics</a>
 
 ## Want to contribute? Have bugs, issues, or questions?
 
