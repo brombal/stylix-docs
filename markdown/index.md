@@ -1,13 +1,13 @@
 ## Installation
 
-```
+```sh
 npm install --save stylix
 ```
 
 Add a `<StylixProvider>` wrapper at the root of your project. Then, use Stylix elements to create html markup that can be styled with props, the same way you would write regular CSS properties:
 
-```tsx-app
-import $, { StylixProvider } from 'stylix';
+```tsx-render-app
+import $, { StylixProvider } from '@stylix/core';
 
 function App() {
   return (
