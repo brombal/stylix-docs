@@ -30,9 +30,9 @@ The `StylixProvider` component can provide themes and media queries, or addition
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use complex selectors, pseudo-classes, nested CSS, media queries, themes, keyframe animations, and more.
 
-Let's continue with the [Stylix basics](/stylix-basics) guide!
+Let's continue with the [Stylix basics](/basics) guide!
 
-<a class="next-link" href="/stylix-basics">Stylix basics</a>
+<a class="next-link" href="/basics">Stylix basics</a>
 
 ## Want to contribute? Have bugs, issues, or questions?
 
