@@ -1,7 +1,7 @@
 
 ## Why Stylix?
 
-You might think, "Isn't this going to make my React code really long and bloated?" or "Doesn't this violate the 'don't repeat yourself' or 'separation of concerns' tenets of programming?"
+You might think, "Isn't Stylix going to make my React code really long and bloated?" or "Doesn't this violate the 'don't repeat yourself' or 'separation of concerns' tenets of programming?"
 
 Yes, your individual elements are going to look longer with additional props. But the idea isn't to just slap on style props to every element and copy-paste them everywhere. Instead, you are encouraged to follow good React principles and separate elements into reusable components - which includes considering style props as a part of the components. Consider this example from a popular UI framework, Material UI:
 
