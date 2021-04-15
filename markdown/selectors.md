@@ -6,7 +6,7 @@ Because these strings (such as `:hover` or `div > span + a`) would never work as
 
 ## The `$css` prop
 
-The `$css` prop accepts an object of additional styles to apply to an element. These styles can be not only simple CSS property/value pairs, but also pseudo-classes or complex selectors with nested style objects. Consider the following example:
+The `$css` prop accepts an object of additional styles to apply to an element. These styles can be not only simple CSS property/value pairs, but also pseudo-classes or complex selectors with nested style objects.
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -26,11 +26,13 @@ import $ from '@stylix/core';
 </$.ul>
 ```
 
-Stylix scopes the `li` selector under the element that defines it, so the styles are local to only the `li` elements under the `ul`.
+Stylix scopes any selectors in the `$css` object under the element that defines them. In the above example, the styles for `li` are local to only the elements under the `ul`.
 
 ## Referencing the parent selector with `&`
 
-To reference the element's own class name, you can use `&`, as is the convention in the many CSS-like languages that support nested styles. This is necessary when using certain pseudo-classes, such as `:hover`:
+To reference the element's own class name, you can use `&` (as is the convention in the many CSS-like languages that support nested styles). 
+
+Note that this is necessary when using certain pseudo-classes, such as `:hover`:
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -50,11 +52,11 @@ import $ from '@stylix/core';
 
 The use of `&` here applies the hover styles directly to this element, rather than its descendants. Without the `&`, the selector would only match hovered elements *within* the `<a>`, which is probably not what is intended. 
 
-The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and by default, selectors will be appended to the parent selector. You can use `&` anywhere that you want the resulting selector to be anything other than the default.
+The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and selectors without a `&` symbol will be appended to the parent selector. You can use `&` anywhere that you want the resulting selector to be anything other than the default.
 
-## Styling complex components
+## Styling deeper elements
 
-Using the `$css` prop makes it possible to style components that render more complex HTML.
+Using the `$css` prop makes it possible to style components that render deeper, complex HTML.
 
 For example, UI component libraries often render elements with class names that you can use to customize their styles. Imagine a UI library that provides a custom select box, with a wrapper element, a popover, and options:
 
@@ -78,5 +80,8 @@ import { Select } from 'cool-ui-library';
 />
 ```
 
-Stylix would apply a unique class name to this `Select` element, which in turn would be used to scope each selector in order to style the matched descendent elements. 
+> `$el={Select}` above may be unfamiliar, but we will address this in the next section. In this example, it simply renders `<Select />` and attaches the generated class name.
 
+Stylix will apply a unique, generated class name to this `Select` element, which is used to scope each selector used to style the matching descendant elements. 
+
+<a href="/other-components" class="next-link">Styling other components</a>
