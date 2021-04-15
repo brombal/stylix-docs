@@ -67,7 +67,7 @@ import { Button } from 'third-party-library';
 
 Stylix won't interpret `color` here as CSS, but instead will render the entire `<Button color="primary" />` element as-is. And since Stylix doesn't consider `label` to be a CSS property, it will also be passed directly to `<Button>`. However, `font-weight` will be considered a style and applied as CSS.
 
-To solve this issue with a reusable component, you could decide to expose a new prop and pass it to the underlying component with the original prop name. With prop destructuring, the solution is simple:
+To solve this issue with a reusable component, you could decide to expose a new prop name and pass it to the underlying component's original prop. With destructuring, the solution is simple:
 
 ```tsx
 import $ from 'stylix';
@@ -80,7 +80,7 @@ const StyledButton = ({ theme, ...styles }) => (
 <StyledButton theme="primary" label="My Styled Button" font-weight="bold" />
 ```
 
-Depending on your circumstances, you may not want or need to rename the prop. In the example above, the UI component library allows you to specify some color through its theming system, so being able to also specify a CSS text color is not likely to be particularly useful. However, be aware that if you were to leave `color` as the prop name in the above example, you would need to use the `$css` prop to specify a CSS text color.
+Depending on your circumstances, you may not want or need to rename the prop. In the example above, the `<Button>` uses the `color` prop to let you specify some color through its theming system, so being able to specify a CSS text color is not likely to be useful or necessary. However, be aware that if you were to keep `color` as the prop name in the above example, the only way to specify a CSS text color would be to use the `$css` prop.
 
 The `$.styled()` function can also be useful here too. It accepts an object of mappings to rename props before passing them to the given component:
 
