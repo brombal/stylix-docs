@@ -100,3 +100,6 @@ The mapping object's keys represent new props to add to the `StyledButton` compo
 > **Note 1:** You only need to specify props whose names conflict with CSS properties. 
 
 > **Note 2:** If you don't want to rename the prop, but still want it to be passed to the underlying element, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`).
+
+<a href="/global-styles" class="next-link">Global styles</a>
+
