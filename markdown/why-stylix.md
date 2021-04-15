@@ -18,7 +18,7 @@ This component may not have pure CSS in its props, but those `variant` and `colo
 ```tsx
 <$.button color="blue" border="1px solid blue">
   I'm a Stylix button!
-</Button>
+</$.button>
 ```
 
 That essentially conveys the same idea (although, admittedly, Material UI's Button will look a lot nicer).
@@ -30,34 +30,37 @@ const Button = ({ color, ...styles }) => (
   <$.button 
     color={color} 
     border={`1px solid ${color}`}
+    border-radius={4}
     padding="8px 20px" 
+    background="white"
     {...styles} 
   />
 );
 
 <>
-  <Button color="SkyBlue">
+  <Button color="Teal">
     Stylix button
   </Button>
+  <br />
   <Button color="DarkOrchid" font-size="18pt">
     Large Stylix button
   </Button>
 </>
 ```
 
-Wow! We just created a reusable styled component. It accepts a prop that lets you specify the border and text colors together, and with prop spreading and destructuring, we easily added a "font-size" style. All of this was done with nothing but basic JavaScript and React techniques—you didn't need to learn any additional languages, syntax, APIs, or work with any external files.
+Wow! We just created a reusable styled component. It accepts a prop that lets you specify the border and text colors together, and with prop spreading and destructuring, we could easily override the font size. All of this was done with nothing but basic JavaScript and React techniques—you didn't need to learn any additional languages, syntax, APIs, or work with any external files.
 
 ## What about "separation of concerns"? Isn't mixing markup and styles A Bad Thing™?
 
-Consider the idea that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. With React, JavaScript and HTML have practically merged into one language.
+Consider the idea that in React, you no longer write actual HTML anymore. Sure, JSX kind of looks like it, but it adds so much and works so differently that the only things it really shares with HTML are angle brackets. With React, JavaScript and HTML have practically merged into one language—and it used to be considered bad practice to mix HTML markup with JavaScript. Today, with React's component-based architecture, "separation of concerns" refers to separating unrelated functionality—not separating the languages that build that functionality. 
 
 So why should styles be any different? In today's web apps, styles often need to be as dynamic as the page content. When your styles are relegated to separate files that have no access to the app's current state, it becomes a chore to make them dynamic. It also costs you brain power to constantly switch between the syntaxes and strategies of writing JavaScript vs. CSS—organizing files, structuring CSS, and choosing class names—all of which are completely different between the two languages. It may be small, but seconds add up to hours lost.
 
-With Stylix, none of this is a concern anymore. Your styles live within the components that own them; state information is readily available; and all the techniques and practices that make React so successful are now just as relevant to how you add styles to your components.
+With Stylix, this is no longer a concern. Your styles live within the components that own them; state information is readily available; and all the techniques and practices that make React so successful are now just as relevant to how you add styles to your components.
 
 ## How does Stylix compare to other React styling solutions?
 
-Other libraries such as *styled-components* and *Emotion* offer similar solutions to these problems. We think those are great libraries and they heavily inspired Stylix. We just felt that they didn't take things far enough: rather than integrating CSS directly with React, they introduced entirely new ways to write CSS. Template literals (`` styled.div`...` ``), prop functions, and custom Babel configurations are small but unnecessary learning curves.
+Other libraries such as *styled-components* and *Emotion* offer similar solutions to these problems. We think those are great libraries and they heavily inspired Stylix. We just felt that they didn't take things far enough: rather than integrating CSS directly with React, they introduced entirely new ways to write CSS. Template literals (`` styled.div`...` ``), prop functions, and custom Babel configurations are all small but unnecessary learning curves.
 
 Instead, Stylix took the approach of pairing CSS as closely with React as JSX did with HTML and JavaScript. We went a little further than these other libraries, and said "no more quirky syntaxes, APIs, or configurations; let's just use what React already offers." Indeed, React already provides great ways to do everything we need for styles that are clean, reusable, and maintainable.
 
