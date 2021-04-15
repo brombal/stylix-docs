@@ -26,7 +26,7 @@ import $ from '@stylix/core';
 </$.ul>
 ```
 
-Stylix scopes any selectors in the `$css` object under the element that defines them. In the above example, the styles for `li` are local to only the elements under the `ul`.
+Stylix scopes all selectors in the `$css` object under the element that defines them. In the above example, the styles for `li` are local to only the elements under the `ul`.
 
 ## Referencing the parent selector with `&`
 
@@ -52,7 +52,7 @@ import $ from '@stylix/core';
 
 The use of `&` here applies the hover styles directly to this element, rather than its descendants. Without the `&`, the selector would only match hovered elements *within* the `<a>`, which is probably not what is intended. 
 
-The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and selectors without a `&` symbol will be appended to the parent selector. You can use `&` anywhere that you want the resulting selector to be anything other than the default.
+The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and selectors without the `&` symbol will be appended to the parent selector. You can use `&` anywhere that you want the selector to result in anything other than this default behavior.
 
 ## Styling deeper elements
 
@@ -82,6 +82,6 @@ import { Select } from 'cool-ui-library';
 
 > `$el={Select}` above may be unfamiliar, but we will address this in the next section. In this example, it simply renders `<Select />` and attaches the generated class name.
 
-Stylix will apply a unique, generated class name to this `Select` element, which is used to scope each selector used to style the matching descendant elements. 
+Stylix will apply a unique, generated class name to this `Select` element, which will scope each selector used to style the matching descendant elements. 
 
 <a href="/other-components" class="next-link">Styling other components</a>
