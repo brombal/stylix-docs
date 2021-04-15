@@ -1,6 +1,28 @@
 # Stylix basics
 
-Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). They all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
+## The `<StylixProvider>` Wrapper
+
+Start by placing a `<StylixProvider>` context wrapper at the root of your app:
+
+```tsx
+import { StylixProvider } from '@stylix/core';
+
+function App() {
+  return (
+    <StylixProvider>
+      { /* ... */ }
+    </StylixProvider>
+  )
+}
+```
+
+The `<StylixProvider>` component provides [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements, and additional configuration for certain less-common situations. 
+
+> **Note:** If you don't use any of these features, the `<StylixProvider>` component is optional.
+
+## New and improved `<$.html>` elements
+
+Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Then, use Stylix elements to create html markup that can be styled with props, the same way you would write regular CSS properties. They all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -16,17 +38,21 @@ import $ from '@stylix/core';
 </$.div>
 ```
 
+> **Note:** Bare numeric values (like `font-size={40}` above) are interpreted as pixel values where appropriate.
+
+You aren't just limited to standard CSS properties, either. Stylix lets you use [complex selectors, pseudo-classes, nested CSS](/selectors), [media queries](/media-queries), [keyframe animations](/keyframe-animations), [themes](/themes), and more.
+
 Stylix simply applies a unique class name to the element, and defines the given CSS styles within this class name. The output for the above example might look something like this:
 
 ```html
 <style type="text/css">
-.stylix-abc123 {
-  color: SkyBlue;
-  text-align: center;
-  font-size: 40px;
-  font-weight: bold;
-  font-style: italic;
-}
+  .stylix-abc123 {
+    color: SkyBlue;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    font-style: italic;
+  }
 </style>
 
 ...
@@ -121,3 +147,4 @@ function App() {
 
 Because styles are created with props, they become "first-class citizens" of your React app, and you can treat them as dynamically as you would any other prop values. Stylix is very efficient in how it generates CSS and can process thousands of updates per second, and it cleans up after itself when styles are no longer in use.
 
+<a href="/selectors" class="next-link">Pseudo-classes and selectors</a>
