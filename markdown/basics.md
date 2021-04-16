@@ -16,13 +16,13 @@ function App() {
 }
 ```
 
-The `<StylixProvider>` component provides [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements, and additional configuration for certain less-common situations. 
+The `<StylixProvider>` component provides [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements, and allows additional configuration for certain less-common situations. 
 
 > **Note:** If you don't use any of these features, the `<StylixProvider>` component is optional.
 
 ## New and improved `<$.html>` elements
 
-Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Then, use Stylix elements to create html markup that can be styled with props, the same way you would write regular CSS properties. They all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
+Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Use these elements to create html markup that can be styled with props—they all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -38,7 +38,7 @@ import $ from '@stylix/core';
 </$.div>
 ```
 
-> **Note:** Bare numeric values (like `font-size={40}` above) are interpreted as pixel values where appropriate.
+> **Note:** Numeric values (like `font-size={40}` above) are interpreted as pixel values where appropriate.
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use [complex selectors, pseudo-classes, nested CSS](/selectors), [media queries](/media-queries), [keyframe animations](/keyframe-animations), [themes](/themes), and more.
 
@@ -100,7 +100,7 @@ const Emphasize = (props) => (
 </Emphasize>
 ```
 
-If a component accepts other props that should not be passed on as CSS properties, you can use destructuring to separate them from the styles:
+If a component accepts other props that should not be passed on as CSS properties, you can use destructuring to separate them from style props:
 
 ```tsx-render
 function DisplayName(props) {
@@ -120,11 +120,11 @@ function DisplayName(props) {
 />
 ```
 
-Notice how these features don't come from Stylix, but are rather just a result of the way it integrates with React.
+Notice how these features don't come from Stylix, but instead are simply a result of the way it integrates with React.
 
 ## Dynamic styles
 
-Of course, styles don't need to be fixed, static values. Just like any other props, the values can come from a component's state, prop values, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
+Of course, styles don't need to be fixed, constant values. Just like any other props, the values can come from a component's state, prop values, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
 
 ```tsx-render-app
 function App() {
