@@ -1,6 +1,6 @@
 # Stylix basics
 
-## The `<StylixProvider>` Wrapper
+## The `<StylixProvider>` wrapper
 
 Start by placing a `<StylixProvider>` context wrapper at the root of your app:
 
