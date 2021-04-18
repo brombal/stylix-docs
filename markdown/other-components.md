@@ -132,7 +132,7 @@ const StyledButton = $.styled(Button, { theme: 'color' });
 
 Just like the previous example, the `StyledButton`'s new `theme` prop will be renamed and passed into `Button` as `<Button color={theme} />`.
 
-The mapping object's keys specify new props to add to the `StyledButton` component, and the values are the component's original prop names. Stylix will map the values of the new props to the old prop names and pass them directly to the underlying component. 
+The mapping object's keys specify new props to add to the `StyledButton` component, and the values are the component's original prop names. Stylix will pass the values of the new props directly to the underlying component using the original prop names. 
 
 If you don't want to rename the prop, but still want it to be passed to the underlying element, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`). You won't be able to use `color` as a CSS prop on this component anymore, but you could pass it in the `$css` prop if you need to use it.
 
