@@ -25,6 +25,34 @@ const StyledButton = (props) => <$ $el={Button} {...props} />;
 
 Note how this concise syntax is not a Stylix-specific feature or API, but simply a result of how Stylix works with React.
 
+## Styling deeper elements
+
+If a component renders complex HTML that can be styled with class names or other selectors (as UI component libraries often do, for example), they can be easily styled with [the `$css` prop](/selectors).
+
+Imagine a UI library that provides a custom select box, with a wrapper element, a popover, and options:
+
+```tsx
+import $ from '@stylix/core';
+import { Select } from 'cool-ui-library';
+
+<$
+  $el={Select}
+  $css={{
+    ".Select-Wrapper": {
+      fontSize: "22pt"
+    },
+    ".Select-Popover": {
+      background: "white"
+    },
+    ".Select-Option:hover": {
+      color: "blue"
+    },
+  }}
+/>
+```
+
+Stylix will apply a unique, generated class name to this `Select` element, which will scope each selector used to style the matching descendant elements. 
+
 ## Ref forwarding and `$.styled()`
 
 Stylix automatically forwards refs to the element specified by `$el`. 
@@ -41,7 +69,7 @@ const StyledButton = React.forwardRef(
 
 > Forwarding the `ref` is not mandatory, but is best for compatibility and is necessary if you want a consumer of the wrapper component to access the underlying DOM element. 
 
-Because the above example is such a common use case, Stylix provides the `$.styled()` convenience wrapper function. The following is functionally identical to the above example:
+Because the above example is such a common scenario, Stylix provides the `$.styled()` convenience function. `$.styled()` returns a new component that forwards the ref and all styles to the given component. The following is functionally identical to the above example:
 
 ```tsx
 import $ from 'stylix';
@@ -51,6 +79,7 @@ const StyledButton = $.styled(Button);
 
 <StyledButton ref={myButtonRef} />
 ```
+
 
 ## Prop conflicts
 
