@@ -111,36 +111,6 @@ const Link = ({ to, $css, ...styles }) => (
 </Link>
 ```
 
-In the above example, `Link` separates the `$css` prop with destructuring and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop on the `<$.a>` element would be completely replaced by the prop passed in to the `<Link>` element.
-
-## Styling deeper elements
-
-Using the `$css` prop makes it possible to style components that render deeper, complex HTML.
-
-For example, UI component libraries often render elements with class names that you can use to customize their styles. Imagine a UI library that provides a custom select box, with a wrapper element, a popover, and options:
-
-```tsx
-import $ from '@stylix/core';
-import { Select } from 'cool-ui-library';
-
-<$
-  $el={Select}
-  $css={{
-    ".Select-Wrapper": {
-      fontSize: "22pt"
-    },
-    ".Select-Popover": {
-      background: "white"
-    },
-    ".Select-Option:hover": {
-      color: "blue"
-    },
-  }}
-/>
-```
-
-> `$el={Select}` above may be unfamiliar, but we will address this in the next section. In this example, it simply renders `<Select />` and attaches the generated class name.
-
-Stylix will apply a unique, generated class name to this `Select` element, which will scope each selector used to style the matching descendant elements. 
+In the above example, the `Link` component separates the `$css` prop with destructuring and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop on the `<$.a>` element would be completely replaced by the prop passed in to the `<Link>` element.
 
 <a href="/other-components" class="next-link">Styling other components</a>
