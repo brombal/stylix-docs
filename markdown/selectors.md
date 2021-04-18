@@ -89,7 +89,7 @@ Stylix will merge this object into the following:
 
 The array is merged together, causing `fontSize: 24` to override the previous definition. The resulting object is merged into the parent, overriding the `fontWeight` property, but not the `color` property, which is defined after the nested `$css` object.
 
-This may seem like an excessive amount of flexibility, since you are you aren't likely to ever define complicated structures like this yourself. However, this flexibility is useful for allowing stylable components to pass their style props on to an element that uses the `$css` prop:
+This may seem like an excessive amount of flexibility, since you are you aren't likely to ever define complicated structures like this yourself. However, this flexibility is useful for allowing stylable components to pass on a `$css` props to an element that also uses the `$css` prop:
 
 ```tsx-render
 const Link = ({ to, $css, ...styles }) => (
@@ -111,7 +111,7 @@ const Link = ({ to, $css, ...styles }) => (
 </Link>
 ```
 
-In the above example, `Link` separates the `$css` prop with destructuring and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop used on the `<$.a>` element would be completely replaced by the prop value passed in to the `<Link>` element.
+In the above example, `Link` separates the `$css` prop with destructuring and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop on the `<$.a>` element would be completely replaced by the prop passed in to the `<Link>` element.
 
 ## Styling deeper elements
 
