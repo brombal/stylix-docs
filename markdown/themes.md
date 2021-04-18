@@ -18,7 +18,7 @@ const myTheme = {
     light: 'AliceBlue',
     dark: 'DarkSlateGray'
   }
-}
+};
 
 <$.div>
   <$.div 
@@ -38,43 +38,15 @@ const myTheme = {
 
 This is a simple, un-complicated way to style your app using values that you can store in a central location.
 
-## The Stylix context
+## The Stylix theme context
 
-If you need something a bit more dynamic than a plain, shared object (for example, to allow light/dark theme options), Stylix offers a way to provide a theme object to your components that allows them to react to changes.
+If you need something a bit more dynamic than a plain, shared object (for example, to allow light/dark theme options), Stylix provides a way to pass a theme object to descendant elements and cause them to rerender when the theme is changed.
 
-The StylixProvider's `theme` prop allows you to specify an object to make available to any descendant elements. This object can have any structure at all—Stylix has no opinion on how you define your theme. In descendant elements, you can get the current theme object using the `useStylixTheme()` hook function.
+To do this, pass any object to the StylixProvider's `theme` prop. This object can have any structure at all—Stylix has no opinion on how you define your theme. In descendant elements, you can access the current theme object with the `useStylixTheme()` hook function.
+
+Because Stylix doesn't prescribe how your theme is created or where it comes from, it also doesn't provide any built-in functionality to replace or modify the theme. Instead, Stylix leaves it up to you to manage this value the same way you might handle any other React state or context value. A simple way to do this might be to keep your theme object in a state variable, and provide descendant elements with a function to modify it via the theme object itself.
 
 For example:
-
-```tsx-render
-import $, { StylixProvider, useStylixTheme } from '@stylix/core';
-
-function ThemeDemo() {
-  const theme = useStylixTheme();
-
-  return (
-    <$.div 
-      color={theme.textColor}
-      background={theme.backgroundColor}
-    >
-      Pale turquoise on navy!
-    </$.div>
-  );
-}
-
-const myThene = {
-  textColor: 'PaleTurquoise',
-  backgroundColor: 'Navy',
-};
-
-<StylixProvider theme={myTheme}>
-  <ThemeDemo /> 
-</StylixProvider>
-```
-
-Of course, this example is just as static as the previous one. Stylix doesn't provide any built-in functionality to replace or modify the theme object, but instead leaves it up to you to manage this value the same way you might handle any other React state or context value.
-
-A simple way to do this might be to keep your theme object in a state variable, and provide descendant elements with a function to modify it via the theme object itself:
 
 ```tsx-render-app
 import $, { StylixProvider, useStylixTheme } from '@stylix/core';
@@ -120,6 +92,8 @@ function ThemeDemo() {
 function App() {
   const [themeName, setThemeName] = useState('light');
 
+  // Notice the use of useMemo to prevent 
+  // unnecessary component rerenders!
   const theme = useMemo(() => ({
     ...themes[themeName],
     setThemeName,
@@ -133,9 +107,8 @@ function App() {
 }
 ```
 
-In this example, the `App` component stores the current theme name in a state variable, and provides a theme object that includes the setter function using the `theme` prop of the `StylixProvider`. Using `getStylixTheme()`, we can access the `setThemeName` function in any descendent component. 
+In this example, the `App` component stores the current theme name in a state variable, and provides a theme object that includes the `setThemeName` state setter function. Using `getStylixTheme()`, we can access the `setThemeName` function in any descendent component. You could also store the current theme object directly in a state variable, but using `setThemeName` to modify the theme prevents descendent elements from setting the entire theme to some arbitrary value.
 
-Notice that the `theme` object is memoized with `useMemo` in order to prevent unnecessary component rerenders.
 
 ## Theme functions
 
@@ -174,8 +147,10 @@ import $, { StylixProvider, useStylixTheme } from '@stylix/core';
 
 const ThemeDemo = () => (
   <$.div 
+    // theme.fontSize returns a media query array
     font-size={theme => theme.fontSize}
-    background={theme => .backgroundColor}
+    // The 'span' selector will receive the entire
+    // style object defined below
     $css={{
       span: theme => theme.hoverUnderline
     }}
@@ -198,5 +173,48 @@ const myThene = {
   <ThemeDemo /> 
 </StylixProvider>
 ```
+
+## Nesting themes
+
+Theme objects can be specified at any level in your app, not just on the `<StylixProvider>` element. If you want to provide a different theme object, perhaps to override certain values or to provide a theme object specific to a related set of components, you can use a `<StylixTheme>` wrapper element at any location in your app:
+
+```tsx-render
+import $, { StylixProvider, StylixTheme } from '@stylix/core';
+
+const innerTheme = {
+  textColor: 'DodgerBlue'
+};
+
+function NestedTheme() {
+  return (
+    <>
+      <$.div 
+        color={theme => theme.textColor}
+      >
+        Teal text
+      </$.div>
+      <StylixTheme theme={innerTheme}>
+        <$.div 
+          color={theme => theme.textColor}
+          background={theme => theme.background}
+        >
+          DodgerBlue text, Azure background
+        </$.div>
+      </StylixTheme>
+    </>
+  );
+}
+
+const outerTheme = {
+  textColor: 'Teal',
+  background: 'Azure'
+};
+
+<StylixProvider theme={outerTheme}>
+  <NestedTheme />
+</StylixProvider>
+```
+
+Notice that the theme object inside the `<StylixTheme>` has access to both the `innerTheme`'s `textColor` and the `outerTheme`'s `background` properties. Stylix merges nested theme objects into the parent theme objects so you can access properties all the way up the context.
 
 <a href="/custom-props" class="next-link">Custom props</a>
