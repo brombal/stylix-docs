@@ -136,5 +136,27 @@ The mapping object's keys specify new props to add to the `StyledButton` compone
 
 If you don't want to rename the prop, but still want it to be passed to the underlying element, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`). You won't be able to use `color` as a CSS prop on this component anymore, but you could pass it in the `$css` prop if you need to use it.
 
+## Just give me a class name
+
+If you just need a class name to pass to a component, you can use the `useStyles()` hook. This function takes a Stylix CSS object and returns the generated class name.
+
+```tsx
+import { useStyles } from '@stylix/core';
+import { Button } from 'third-party-library';
+
+function GlobalStyles() {
+  const buttonClass = useStyles({
+    fontSize: 24
+  });
+  
+  return (
+    <Button className={buttonClass} ... />
+  );
+}
+```
+
+The styles will only be present in the DOM while the component is mounted. Because of the [rules of hooks](https://reactjs.org/docs/hooks-rules.html), you can't call this hook conditionally. If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useStyles`.
+
+
 <a href="/global-styles" class="next-link">Global styles</a>
 
