@@ -62,8 +62,8 @@ With Stylix, this is no longer a concern. Your styles live within the components
 
 Other libraries such as *styled-components* and *Emotion* offer similar solutions to these problems. We think those are great libraries and they heavily inspired Stylix. We just felt that they didn't take things far enough: rather than integrating CSS directly with React, they introduced entirely new ways to write CSS. Template literals (`` styled.div`...` ``), prop functions, and custom Babel configurations are all small but unnecessary learning curves.
 
-Instead, Stylix took the approach of pairing CSS as closely with React as JSX did with HTML and JavaScript. We went a little further than these other libraries, and said "no more quirky syntaxes, APIs, or configurations; let's just use what React already offers." Indeed, React already provides great ways to do everything we need for styles that are clean, reusable, and maintainable.
+Instead, Stylix took the approach of pairing CSS as closely with React as JSX did with HTML and JavaScript. We went a little further than these other libraries, and said "no more quirky syntaxes, APIs, or configurations; let's just use what React already offers." Indeed, React already provides great ways to do everything we need to create clean, reusable, and maintainable styles.
 
-If you're convinced now of how delightful styling your React apps will be with Stylix, let's see what else it can do for you.
+If you're convinced now of how delightful styling your React apps will be with Stylix, continue on to **[getting started](/getting-started)** to begin.
 
-<a href="/basics" class="next-link">Stylix basics</a>
+<a href="/getting-started" class="next-link">Getting started</a>
