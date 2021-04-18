@@ -15,7 +15,7 @@ The most basic way to add media queries to your styles is with the `$css` prop, 
 </$.div>
 ```
 
-You can nest media queries anywhere within a style object, just like other selectors. 
+You can nest media queries anywhere within a style object, just like other selectors. Styles will be applied to the current selector, but only for the given media query.
 
 This technique is straightforward, but is also verbose and might become cumbersome for a responsive app that needs to consistently handle different screen sizes.  Instead, Stylix provides a unique feature that makes it a breeze to add styles according to a set of media queries, such as desktop/tablet/mobile breakpoints.
 
