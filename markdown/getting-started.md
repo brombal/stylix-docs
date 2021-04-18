@@ -1,4 +1,18 @@
-# Stylix basics
+# Getting started with Stylix
+
+## Installation
+
+With npm:
+
+```sh
+npm install --save @stylix/core
+```
+
+With yarn:
+
+```sh
+yarn add @stylix/core
+```
 
 ## The `<StylixProvider>` wrapper
 
