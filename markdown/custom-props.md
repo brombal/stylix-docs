@@ -9,7 +9,7 @@ With the `customProps` function, you can create various kinds of custom props. I
 For example:
 
 ```tsx-render
-import { customProps } from '@stylix/core';
+import $, { customProps, StylixProvider } from '@stylix/core';
 
 const myCustomProps = customProps({
   blueHeader: {
@@ -38,7 +38,7 @@ There are three types of custom props you can create:
 Prop aliases are the simplest kind of custom prop, and simply map one prop name to another. This is useful for making shortcuts for common style props. To do this, simply specify the shortcut as the key and the original prop name as the value:
 
 ```tsx-render
-import { customProps } from '@stylix/core';
+import $, { customProps, StylixProvider } from '@stylix/core';
 
 const paddingShortcut = customProps({
   p: 'padding',
@@ -52,10 +52,15 @@ const paddingShortcut = customProps({
 </StylixProvider>
 ```
 
-Stylix actually includes a set of these shortcuts in a plugin called `tinyProps`, which can be enabled by simply importing it and adding it to the `plugins` array:
+In fact, Stylix provides a set of these shortcuts in a plugin called `tinyProps`, which can be enabled by simply installing it and adding it to the `plugins` array:
+
+```sh
+npm install --save @stylix/tinyprops
+```
 
 ```tsx
-import { tinyProps } from '@stylix/core';
+import $, { customProps, StylixProvider } from '@stylix/core';
+import { tinyProps } from '@stylix/tinyprops';
 
 <StylixProvider plugins={[tinyProps]}>
   <$.div 
@@ -73,7 +78,7 @@ import { tinyProps } from '@stylix/core';
 Style objects let you define entire style objects and use them with a single prop. To create a style object, specify the desired prop name as the key, and the style object as the value:
 
 ```tsx-render
-import { customProps } from '@stylix/core';
+import $, { customProps, StylixProvider } from '@stylix/core';
 
 const dodgerBlueShortcut = customProps({
   dodgerBlue: {
@@ -104,25 +109,25 @@ const DodgerBlue = (props) => (
 
 ### Style functions
 
-Similar to style objects, style functions allow you to define reusable style objects, with a function instead of a plain object. The function will be passed the prop value as its only argument, and should return the styles to apply.
+Similar to style objects, style functions allow you to define reusable style objects, with a function instead of a plain object. The function will be passed the given prop value as its only argument, and returns the styles to apply.
 
 For example, you could use this feature to define custom text color names:
 
 ```tsx-render
-import { customProps } from '@stylix/core';
+import $, { customProps, StylixProvider } from '@stylix/core';
 
-const fontSizeAndPaddingShortcut = customProps({
+const myColors = customProps({
   color: (value: string) => {
     const myColors = {
       cerulean: '#007BA7',
       emerald: '#50C878',
       scarlet: '#FF2400'
     };
-    return myColors[value] || value;
+    return { color: myColors[value] };
   }
 });
 
-<StylixProvider plugins={[fontSizeAndPaddingShortcut]}>
+<StylixProvider plugins={[myColors]}>
   <$.div color="cerulean">Cerulean</$.div>
   <$.div color="emerald">Emerald</$.div>
   <$.div color="scarlet">Scarlet</$.div>
