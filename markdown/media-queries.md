@@ -17,11 +17,11 @@ The most basic way to add media queries to your styles is with the `$css` prop, 
 
 You can nest media queries anywhere within a style object, just like other selectors. Styles will be applied to the current selector, but only for the given media query.
 
-This technique is straightforward, but is also verbose and might become cumbersome for a responsive app that needs to consistently handle different screen sizes.  Instead, Stylix provides a unique feature that makes it a breeze to add styles according to a set of media queries, such as desktop/tablet/mobile breakpoints.
+This technique is straightforward, but it is also fairly verbose and might become cumbersome for a responsive app that needs to consistently handle different screen sizes.  Instead, Stylix provides a unique feature that makes it a breeze to add styles according to a set of media queries, such as desktop/tablet/mobile breakpoints.
 
 ## Media query arrays
 
-Stylix allows you to predefine a set of media queries that your app can easily reference. By providing an array of media queries to the `<StylixProvider>` element's `media` prop, you can then also use an array of values in any style prop to define the styles to use for each corresponding media query. Each value in the array will only be applied to the matching media query in the `media` prop array.
+Stylix allows you to predefine a set of media queries that your app can easily reference. By providing an array of media queries to the `<StylixProvider>` element's `media` prop, you can then use an array of values in any style prop to define the styles to use for each corresponding media query. Each value in the array will only be applied to the matching media query in the `media` prop array.
 
 ```tsx-render
 <StylixProvider 
@@ -43,9 +43,9 @@ Stylix allows you to predefine a set of media queries that your app can easily r
 </StylixProvider>
 ```
 
-The StylixProvider's `media` prop array can contain any number of entries, and each value can be any string that follows "@media ..." in regular CSS. You can also include an empty string to apply corresponding styles without any media query (i.e. applied to any screen size).
+The StylixProvider's `media` prop array can contain any number of entries, and each value can be any string that follows "@media ..." in regular CSS. You can also include an empty string to apply corresponding styles without any media query restriction.
 
-Omitting values (or using `null`, `undefined`, `false`, or `""`) in a style prop array will cause no output for that property within the corresponding media query.
+Omitting values (or using `null`, `undefined`, `false`, or `""`) in a style prop array will output nothing for that property within the corresponding media query.
 
 ### Media query array ordering
 
@@ -104,3 +104,5 @@ In this case, additional array entries define styles for screens as they get lar
 - `font-size={[18, 24, 32]}` defines font sizes separately for each screen size.
 
 You are not required to use array values for style props just because you have a `media` array defined. If you don't use an array value, the styles are applied normally—without any media query restriction.
+
+<a href="/themes" class="next-link">Theming</a>
