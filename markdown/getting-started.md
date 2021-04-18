@@ -38,7 +38,9 @@ The `<StylixProvider>` component provides [themes](/themes), [media queries](/me
 import $ from '@stylix/core';
 ```
 
-The default export from `@stylix/core` is both a React component (used to style non-Stylix components; described in [Styling other components](/other-components)), as well as "namespace" object that contains stylable HTML elements. Throughout this documentation, we always import this default object as `$` (in homage to the convention of ancient ubiquitous "web 1.0" tools like jQuery), but you can name it whatever you like.
+The default export from `@stylix/core` is both a React component (used to style non-Stylix components; described in [Styling other components](/other-components)), as well as a "namespace" object that contains stylable HTML elements. 
+
+> Throughout this documentation, we always import this default object as `$` (in homage to the convention of the ancient ubiquitous "web 1.0" tools like jQuery), but you can name it whatever you like.
 
 Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Use these elements to create HTML markup that can be styled with props—they all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
 
