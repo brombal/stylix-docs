@@ -1,7 +1,7 @@
 - [Home](/)
 - [Why Stylix?](/why-stylix)
 - Guides
-  - [Stylix basics](/basics)
+  - [Getting started](/getting-started)
   - [Pseudo-classes & selectors](/selectors)
   - [Styling other components](/other-components)
   - [Global styles](/global-styles)
