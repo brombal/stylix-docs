@@ -3,6 +3,8 @@
 The most basic way to add media queries to your styles is with the `$css` prop, using a media query string as a key. This will define styles specific to that element when the media query is applicable.
 
 ```tsx-render
+import $ from '@stylix/core';
+
 <$.div
   fontSize={32}
   $css={{
@@ -24,6 +26,8 @@ This technique is straightforward, but it is also fairly verbose and might becom
 Stylix allows you to predefine a set of media queries that your app can easily reference. By providing an array of media queries to the `<StylixProvider>` element's `media` prop, you can then use an array of values in any style prop to define the styles to use for each corresponding media query. Each value in the array will only be applied to the matching media query in the `media` prop array.
 
 ```tsx-render
+import $, { StylixProvider } from '@stylix/core';
+
 <StylixProvider 
   media={[
     '',
@@ -49,11 +53,13 @@ Omitting values (or using `null`, `undefined`, `false`, or `""`) in a style prop
 
 ### Media query array ordering
 
-Stylix is unopinionated about how you define and order your media queries. The above example used "overlapping" media queries—more than one might be in effect at a time (e.g. a screen width of 480px would apply to all 3 media queries).
+Stylix is unopinionated about how you define and order your media queries. The above example used "overlapping" media queries; that is, more than one might be in effect at a time (e.g. a screen width of 480px would apply to all 3 media queries).
 
 Stylix will output the media-specific CSS in the same order that it is defined in the `media` prop array. You can use this to your advantage so that you only have to define styles for increasingly-specific media queries. For exmaple:
 
 ```tsx-render
+import $, { StylixProvider } from '@stylix/core';
+
 <StylixProvider 
   media={[
     '',
@@ -94,7 +100,7 @@ A "mobile-first" approach might reverse this and use the following `media` prop 
     '(min-width: 768px)', // Tablet & Desktop
     '(min-width: 1024px)' // Desktop
   ]}
->
+/>
 ```
 
 In this case, additional array entries define styles for screens as they get larger:
