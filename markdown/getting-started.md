@@ -16,7 +16,7 @@ yarn add @stylix/core
 
 ## The `<StylixProvider>` wrapper
 
-Start by placing a `<StylixProvider>` context wrapper at the root of your app:
+Start importing `StylixProvider` from `@stylix/core` and placing a `<StylixProvider>` context wrapper element at the root of your app:
 
 ```tsx
 import { StylixProvider } from '@stylix/core';
@@ -34,7 +34,13 @@ The `<StylixProvider>` component provides [themes](/themes), [media queries](/me
 
 ## New and improved `<$.html>` elements
 
-Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Use these elements to create html markup that can be styled with props—they all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
+```tsx
+import $ from '@stylix/core';
+```
+
+The default export from `@stylix/core` is both a React component (used to style non-Stylix components; described in [Styling other components](/other-components)), as well as "namespace" object that contains stylable HTML elements. Throughout this documentation, we always import this default object as `$` (in homage to the convention of ancient ubiquitous "web 1.0" tools like jQuery), but you can name it whatever you like.
+
+Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Use these elements to create HTML markup that can be styled with props—they all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -50,11 +56,11 @@ import $ from '@stylix/core';
 </$.div>
 ```
 
-> **Note:** Numeric values (like `font-size={40}` above) are interpreted as pixel values where appropriate.
+> **Note:** Numeric values (like `font-size={40}` above) are interpreted as pixel values for CSS properties that make sense.
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use [complex selectors, pseudo-classes, nested CSS](/selectors), [media queries](/media-queries), [keyframe animations](/keyframe-animations), [themes](/themes), and more.
 
-Stylix simply applies a unique class name to the element, and defines the given CSS styles within this class name. The output for the above example might look something like this:
+Stylix generates a unique, deterministc class name for these styles and applies it to the element. The actual rendered output for the above example might look something like this:
 
 ```html
 <style type="text/css">
@@ -72,7 +78,7 @@ Stylix simply applies a unique class name to the element, and defines the given 
 <div class="stylix-abc123">Hello, Stylix!</div>
 ```
 
-Stylix creates the `<style>` element automatically and places it in the document's `<head>` (this behavior can be customized by the `<StylixProvider>`). The class name generated is not completely random: it is a hash of the specified styles, and any components sharing identical styles will receive the same class name.
+Stylix creates the `<style>` element automatically and places it in the document's `<head>` (this behavior can be customized by the `<StylixProvider>`). The generated class name is a hash of the specified styles, and any components sharing identical styles will receive the same class name.
 
 ## Creating reusable styled components
 
