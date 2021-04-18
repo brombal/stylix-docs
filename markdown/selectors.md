@@ -2,11 +2,11 @@
 
 Stylix elements aren't limited to just CSS properties—you can also use pseudo-classes and complex selectors to apply styles. 
 
-Because these strings (such as `:hover` or `div > span + a`) would never work as JSX props (their syntax is incompatible), we need another way to specify them.
+Because these strings (such as `:hover` or `div > span + a`) can't be used as JSX props (their syntax is incompatible), we need another way to specify them.
 
 ## The `$css` prop
 
-The `$css` prop accepts an object of additional styles to apply to an element. These styles can be not only simple CSS property/value pairs, but also pseudo-classes or complex selectors with nested style objects.
+The `$css` prop is accepted by all Stylix html elements (`<$.div>`, `<$.span>`, etc), and takes an object of additional styles to apply to an element. These styles can be not only simple CSS property/value pairs, but also pseudo-classes or complex selectors with nested style objects.
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -53,6 +53,10 @@ import $ from '@stylix/core';
 The use of `&` here applies the hover styles directly to this element, rather than its descendants. Without the `&`, the selector would only match hovered elements *within* the `<a>`, which is probably not what is intended. 
 
 The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and selectors without the `&` symbol will be appended to the parent selector. You can use `&` anywhere that you want the selector to result in anything other than this default behavior.
+
+## `$css` all the way down
+
+The `$css` prop value is a *Stylix CSS object* and is very flexible in its behavior. These object can themselves contain a property named `$css`, which, you guessed it, is also a Stylix CSS object. Nested `$css` objects will merge into their parent, overriding properties in the parent
 
 ## Styling deeper elements
 
