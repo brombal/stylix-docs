@@ -1,7 +1,7 @@
 
 # Styling other components with Stylix
 
-If you're writing your own components, prop destructuring and spreading (described in [Stylix basics](/basics)) is the recommended way to make them composable and reusable. But if you're working with 3rd party, legacy, or otherwise unworkable components, they can easily be styled using the bare `<$>` component and its `$el` prop (short for "element"):
+If you're writing your own components, the recommended way to make them composable and reusable is with prop destructuring and spreading (described in [Stylix basics](/basics)). But if you're working with 3rd party, legacy, or otherwise unworkable components, they can easily be styled using the `<$>` component and its `$el` prop (short for "element"):
 
 ```tsx
 import $ from 'stylix';
