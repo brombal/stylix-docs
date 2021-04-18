@@ -18,8 +18,6 @@ function App() {
 
 The `<StylixProvider>` component provides [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements, and allows additional configuration for certain less-common situations. 
 
-> **Note:** If you don't use any of these features, the `<StylixProvider>` component is optional.
-
 ## New and improved `<$.html>` elements
 
 Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Use these elements to create html markup that can be styled with props—they all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
