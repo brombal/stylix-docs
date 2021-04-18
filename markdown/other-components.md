@@ -91,7 +91,11 @@ In this case, the `$el` prop can accept a complete React element instead of just
 import $ from 'stylix';
 import { Button } from 'third-party-library';
 
-<$ $el={<Button color="primary" />} label="My Styled Button" font-weight="bold" />
+<$
+  $el={<Button color="primary" />} 
+  label="My Styled Button" 
+  font-weight="bold" 
+/>
 ```
 
 Stylix won't interpret `color` here as CSS, but instead will render the entire `<Button color="primary" />` element as-is. And since Stylix doesn't consider `label` to be a CSS property, it will also be passed directly to `<Button>`. However, `font-weight` will be considered a style and applied as CSS.
