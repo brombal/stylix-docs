@@ -89,7 +89,7 @@ It is up to you to decide the order and specificity of overlapping media queries
 
 - `font-size={[32]}` defines a 32px font size for all screen sizes.
 - `font-size={[32, 24]}` defines 32px for desktop only, and 24px for tablet & mobile.
-- `font-size={[32, 24, 18]}` defines font sizes separately for each screen size.
+- `font-size={[32, 24, 18]}` defines specific font sizes for each screen size.
 
 A "mobile-first" approach might reverse this and use the following `media` prop value: 
 
@@ -105,9 +105,9 @@ A "mobile-first" approach might reverse this and use the following `media` prop 
 
 In this case, additional array entries define styles for screens as they get larger:
 
-- `font-size={[18]}` defines the font size for all screen sizes.
+- `font-size={[18]}` defines an 18px font size for all screen sizes.
 - `font-size={[18, 24]}` defines 18px for mobile only, and 24px for desktop & tablet.
-- `font-size={[18, 24, 32]}` defines font sizes separately for each screen size.
+- `font-size={[18, 24, 32]}` defines specific font sizes for each screen size.
 
 You are not required to use array values for style props just because you have a `media` array defined. If you don't use an array value, the styles are applied normally—without any media query restriction.
 
