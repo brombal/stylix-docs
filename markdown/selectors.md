@@ -56,7 +56,62 @@ The `&` is useful in a variety of situations. Style objects can be nested infini
 
 ## `$css` all the way down
 
-The `$css` prop value is a *Stylix CSS object* and is very flexible in its behavior. These object can themselves contain a property named `$css`, which, you guessed it, is also a Stylix CSS object. Nested `$css` objects will merge into their parent, overriding properties in the parent
+The `$css` prop value is a *Stylix CSS object* and is very flexible in its behavior. These objects can themselves contain a `$css` property that accepts further CSS objects or an array of CSS objects. A nested `$css` object will be recursively merged into its parent, overriding identical properties while preserving the order of keys. Arrays of Stylix CSS objects will be merged into a single object before being merged into its parent.
+
+For example, consider the following Stylix CSS object:
+
+```tsx
+{
+  fontWeight: 'bold',
+  $css: [
+    {
+      fontSize: 12,
+      fontWeight: 'normal',
+      color: 'SandyBrown'
+    },
+    {
+      fontSize: 24
+    },
+  ],
+  color: 'SteelBlue'
+}
+```
+
+Stylix will merge this object into the following:
+
+```tsx
+{
+  fontWeight: 'normal',
+  fontSize: 24,
+  color: 'SteelBlue'
+}
+```
+
+The array is merged together, causing `fontSize: 24` to override the previous definition. The resulting object is merged into the parent, overriding the `fontWeight` property, but not the `color` property, which is defined after the nested `$css` object.
+
+This may seem like an excessive amount of flexibility, since you are you aren't likely to ever define complicated structures like this yourself. However, this flexibility is useful for allowing stylable components to pass their style props on to an element that uses the `$css` prop:
+
+```tsx-render
+const Link = ({ to, $css, ...styles }) => (
+  <$.a 
+    href={to} 
+    color="ForestGreen" 
+    $css={{
+      '&:hover': { color: 'LightGreen' },
+      $css
+    }}
+    {...styles} 
+  />
+);
+
+<Link 
+  $css={{ '&:hover': { textDecoration: 'underline' } }}
+>
+  Link with $css prop
+</Link>
+```
+
+In the above example, `Link` separates the `$css` prop with destructuring and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop used on the `<$.a>` element would be completely replaced by the prop value passed in to the `<Link>` element.
 
 ## Styling deeper elements
 
