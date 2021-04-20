@@ -1,5 +1,4 @@
-
-## Why Stylix?
+# Why Stylix?
 
 You might think, "Isn't Stylix going to make my React code really long and bloated?" or "Doesn't this violate the *don't repeat yourself* tenet of programming?"
 
