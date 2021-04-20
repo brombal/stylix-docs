@@ -8,6 +8,7 @@
   - [Keyframe animations](/keyframes)
   - [Media queries](/media-queries)
   - [Theming](/themes)
+  - [TypeScript support](/typescript)
   - [Custom props](/custom-props)
 - Plugins
   - [TinyProps](/tinyprops)
