@@ -9,5 +9,8 @@
   - [Media queries](/media-queries)
   - [Theming](/themes)
   - [Custom props](/custom-props)
+- Plugins
+  - [TinyProps](/tinyprops)
+  - Creating Stylix plugins
 - API Reference
 - Bugs & Issues
