@@ -16,7 +16,7 @@ yarn add @stylix/core
 
 ## The `<StylixProvider>` wrapper
 
-Start importing `StylixProvider` from `@stylix/core` and placing a `<StylixProvider>` context wrapper element at the root of your app:
+Start by importing `StylixProvider` from `@stylix/core` and placing a `<StylixProvider>` context wrapper element at the root of your app:
 
 ```tsx
 import { StylixProvider } from '@stylix/core';
