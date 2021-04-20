@@ -74,21 +74,26 @@ const BlueLink = ({ to, ...other }: BlueLinkProps) => (
 
 ## Declaring custom props
 
-If you use `customProps` to define custom Stylix props, you should also define TypeScript support for them using an interface extension with `StylixPropsExtensions`:
+If you define custom style props with `customProps`, TypeScript will also require you to define their types so that you can safely use them on Stylix elements. This is easy to do with interface extensions: Stylix provides a `StylixPropsExtensions` interface specifically for this purpose.
 
 ```tsx
-declare module "@stylix/core" {
+import { Property } from 'csstype';
+
+declare module '@stylix/core' {
   interface StylixPropsExtensions {
-    royalBlue: boolean;
+    p?: Property.Padding;
+    bg?: Property.Background;
+    royalBlue?: boolean;
   }
 }
 
 customProps({
   royalBlue: {
     color: 'RoyalBlue'
-  }
+  },
+  p: 'padding',
+  bg: 'background'
 });
 ```
 
-For more examples, see [Custom props](/custom-props).
-
+> **Note:** The `csstype` package allows you to use the same type definitions that React uses for style definitions. It is a dependency of `@types/react` and is used for typing information only, so it will not add to your bundle size.
