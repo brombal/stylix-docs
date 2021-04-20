@@ -2,7 +2,7 @@
 
 You might think, "Isn't Stylix going to make my React code really long and bloated?" or "Doesn't this violate the *don't repeat yourself* tenet of programming?"
 
-Yes, your individual elements are going to look longer with additional props. But the idea isn't to just slap on style props to every element and copy/paste them everywhere. Instead, you are encouraged to follow React best practices and separate elements into reusable components—which includes considering style props as a part of the component. Consider this example from a popular UI framework, Material UI:
+Yes, your individual elements are going to look longer with additional props. But the idea isn't to just slap on style props to every element and copy/paste them everywhere. Instead, you are encouraged to **follow React best practices** and separate elements into reusable components—which includes considering style props as a part of the component. Consider this example from a popular UI framework, Material UI:
 
 ```tsx
 import { Button } from '@material-ui/core';
@@ -47,7 +47,7 @@ const Button = ({ color, ...styles }) => (
 </>
 ```
 
-Wow! We just created a reusable styled component. It accepts a prop that lets you specify the border and text colors together, and with prop spreading and destructuring, we could easily override the font size. All of this was done with nothing but basic JavaScript and React techniques—you didn't need to learn any additional languages, syntax, APIs, or work with any external files.
+Wow! We just created a reusable styled component. It accepts a prop that lets you specify the border and text colors together, and with prop **spreading** and **destructuring**, we could easily override the font size. All of this was done with nothing but basic JavaScript and React techniques—you didn't need to learn any additional languages, syntax, APIs, or work with any external files.
 
 ## What about "separation of concerns"? Isn't mixing markup and styles A Bad Thing™?
 
