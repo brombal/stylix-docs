@@ -44,20 +44,20 @@ TinyProps provides the following prop shortcuts:
 
 | Shortcut prop name      | Expanded props |
 | ----------- | ----------- |
-| `m` | `margin` |
-| `mr` | `margin-right` |
-| `mb` | `margin-bottom` |
-| `ml` | `margin-left` |
-| `mt` | `margin-top` |
+| `m={value}` | `margin={value}` |
+| `mr={value}` | `margin-right={value}` |
+| `mb={value}` | `margin-bottom={value}` |
+| `ml={value}` | `margin-left={value}` |
+| `mt={value}` | `margin-top={value}` |
 | `mh={value}` | `margin-left={value} margin-right={value}` |
 | `mv={value}` | `margin-top={value} margin-bottom={value}` |
-| `p` | `padding` |
-| `pt` | `padding-top` |
-| `pr` | `padding-right` |
-| `pb` | `padding-bottom` |
-| `pl` | `padding-left` |
-| `ph` | `padding-left={value} padding-right={value}` |
-| `pv` | `padding-top={value} padding-bottom={value}` |
+| `p={value}` | `padding={value}` |
+| `pt={value}` | `padding-top={value}` |
+| `pr={value}` | `padding-right={value}` |
+| `pb={value}` | `padding-bottom={value}` |
+| `pl={value}` | `padding-left={value}` |
+| `ph={value}` | `padding-left={value} padding-right={value}` |
+| `pv={value}` | `padding-top={value} padding-bottom={value}` |
 
 ### Font / Text
 
@@ -74,5 +74,5 @@ TinyProps provides the following prop shortcuts:
 ### Color
 | Shortcut prop name      | Expanded props |
 | ----------- | ----------- |
-| `bg` | `background` |
-| `bg-color` | `background-color` |
+| `bg={value}` | `background={value}` |
+| `bg-color={value}` | `background-color={value}` |
