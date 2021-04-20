@@ -117,13 +117,13 @@ For example, you could use this feature to define custom text color names:
 import $, { customProps, StylixProvider } from '@stylix/core';
 
 const myColors = customProps({
-  fcolor: (value: string) => {
+  color: (value: string) => {
     const myColors = {
       cerulean: '#007BA7',
       emerald: '#50C878',
       scarlet: '#FF2400'
     };
-    return { color: myColors[value] };
+    return { color: myColors[value] || value };
   }
 });
 
@@ -131,7 +131,7 @@ const myColors = customProps({
   <$.div color="cerulean">Cerulean</$.div>
   <$.div color="emerald">Emerald</$.div>
   <$.div color="scarlet">Scarlet</$.div>
-</StylixProvifdfder>
+</StylixProvider>
 ```
 
 Again, we recommend using this feature sparingly and preferring to use custom components for reusable functionality. But the feature exists for those use cases where you might find it useful.
