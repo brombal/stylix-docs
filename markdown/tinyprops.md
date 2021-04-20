@@ -11,10 +11,11 @@ npm install --save @stylix/tinyprops
 Add `tinyProps` to the `<StylixProvider>` element's `plugins` prop array: 
 
 ```tsx-render
+import $, { StylixProvider } from '@stylix/core';
 import tinyProps from '@stylix/tinyprops';
 
 <StylixProvider plugins={[tinyProps]}>
-  <$.div p={10} b="1px solid DodgerBlue" bg="AliceBlue">
+  <$.div p={10} bg="AliceBlue">
     TinyProps
   </$.div>
 </StylixProvider>
