@@ -136,22 +136,4 @@ const myColors = customProps({
 
 Again, we recommend using this feature sparingly and preferring to use custom components for reusable functionality. But the feature exists for those use cases where you might find it useful.
 
-## Custom props with TypeScript
-
-If you define custom props, TypeScript will also require you to define their types so that you can safely use them on Stylix elements. This is easy to do with interface extensions: Stylix provides a `StylixPropsExtensions` interface specifically for this purpose.
-
-The above examples would require the following extensions to work in TypeScript:
-
-```tsx
-import { Property } from 'csstype';
-
-declare module '@stylix/core' {
-  interface StylixPropsExtensions {
-    p?: Property.Padding;
-    bg?: Property.Background;
-    dodgerBlue?: boolean;
-  }
-}
-```
-
-> **Note:** The `csstype` package allows you to use the same type definitions that React uses for style definitions. It is a dependency of `@types/react` and is used for typing information only, so it will not add to your bundle size.
+<a href="/typescript" class="next-link">TypeScript support</a>
