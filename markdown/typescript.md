@@ -4,7 +4,7 @@ Stylix is written in TypeScript and has built-in typings. There is no separate `
 
 CSS props on Stylix elements are strongly typed and should provide autocompletion if your IDE supports it.
 
-## Support Stylix style props on your components with `StylixProps<T>`
+## Supporting style props on your components with `StylixProps<T>`
 
 The `StylixProps` interface represents all style props and the `$css` prop:
 
