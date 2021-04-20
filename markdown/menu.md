@@ -8,8 +8,8 @@
   - [Keyframe animations](/keyframes)
   - [Media queries](/media-queries)
   - [Theming](/themes)
-  - [TypeScript support](/typescript)
   - [Custom props](/custom-props)
+  - [TypeScript support](/typescript)
 - Plugins
   - [TinyProps](/tinyprops)
   - Creating Stylix plugins
