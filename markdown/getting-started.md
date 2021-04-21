@@ -32,8 +32,49 @@ The `<StylixProvider>` element can provide [themes](/themes), [media queries](/m
 
 ## Use Stylix's stylable HTML elements
 
-```tsx
+```tsx-render-app
 import $ from '@stylix/core';
+
+function App() {
+  const [todoList, setTodoList] = React.useState([]);
+  const [newTodo, setNewTodo] = React.useState('');
+  
+  return (
+    <$.div>
+      <$.ul>
+        {todoList.map((todo, i) => (
+          <$.li key={i}>
+            {todo}
+            <$.button
+              onClick={() => {
+                setTodoList(list => { 
+                  list.splice(i, 1);
+                  return list;
+                });
+              }
+            >
+              Done
+            </$.button>
+          </$.li>
+        ))}
+        <$.li>
+          <$.input 
+            value={newTodo}
+            onChange={e => setNewTodo(e.target.value)}
+          />
+          <$.button
+            onClick={() => {
+              setTodoList(list => [...list, newTodo]);
+              setNewTodo('');
+            }}
+          >
+            Add
+          </$.button>
+        </$.li>
+      </$.ul>
+    </$.div>
+  );
+}
 ```
 
 The default export from `@stylix/core` is both a React component (used to style non-Stylix components; described in [Styling other components](/other-components)), as well as a "namespace" object that contains stylable HTML elements. 
