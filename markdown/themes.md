@@ -174,7 +174,7 @@ const ThemeDemo = () => {
 
 ## Nesting themes
 
-Theme objects can be specified at any level in your app, not just on the top-level `<StylixProvider>` element. If you want to provide a new theme object, perhaps to override certain values or to provide a theme object specific to a related set of components, you can use a `<StylixTheme>` wrapper element at any location in your app:
+Theme objects can be specified at any level in your app, not just on the top-level `<StylixProvider>` element. If you want to specify a different theme object somewhere else in your app (perhaps to override certain values or to provide a theme object specific to a related set of components), you can use a `<StylixTheme>` wrapper element at any location in your app:
 
 ```tsx-render
 import $, { StylixProvider, StylixTheme } from '@stylix/core';
