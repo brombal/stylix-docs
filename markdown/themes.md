@@ -38,9 +38,9 @@ This is a simple, un-complicated way to style your app using values that you can
 
 ### Provide a **theme** object and use **functional prop values** to access it
 
-If you need something a bit more dynamic than a plain, shared object (for example, to allow light/dark theme options), you can provide a theme object to your `<StylixProvider>` element's `theme` props. This object can have any structure at all—Stylix has no opinion on how you define your theme. 
+If you need something a bit more dynamic than a simple shared object (for example, to allow light/dark theme options), you can provide a **theme object** to your `<StylixProvider>` element's `theme` props. This object can have **any structure at all**—Stylix has no opinion on how you define your theme. 
 
-Then, in place of primitive style values like numbers and strings, style props can also accept functions that return a style value. These functions will receive the current theme object as the first parameter, and the [entire Stylix context](/api/useStylixContext) as the second parameter.
+Then, in place of primitive style values like numbers and strings, style props can also accept functions that return a style value. These **theme functions** will receive the current theme object as the first parameter, and the [entire Stylix context](/api/useStylixContext) as the second parameter.
 
 For example:
 
@@ -70,7 +70,7 @@ function App() {
 }
 ```
 
-Theme functions are accepted on any style prop, as well as anywhere that you can pass a [style object](/api/style-objects), including the [$css prop](/selectors) and the [useStyles](/api/useStyles), [useGlobalStyles](/api/useGlobalStyles), [useKeyframes](/api/useKeyframes) hooks. And any value, at any nested depth of a style object can be a theme function.
+Theme functions are accepted on **any style prop**, as well as anywhere that you can pass a [style object](/api/style-objects), including the [$css prop](/selectors) and the [useStyles](/api/useStyles), [useGlobalStyles](/api/useGlobalStyles), [useKeyframes](/api/useKeyframes) hooks. And any value, at any nested depth of a style object can be a theme function.
 
 Theme functions can return any value that a style prop accepts, including array values to use with [media queries](/media-queries), or entire style objects when used with style hooks or the $css prop.
 
@@ -78,7 +78,7 @@ Theme functions can return any value that a style prop accepts, including array 
 
 Of course, the above example is just as static as the previous one—we didn't make any use of the `setTheme` state setter function that we created.
 
-The `<StylixProvider>` element's `setTheme` prop lets you provide any function that changes the theme object, wherever it may be stored. It could be a React state setter function, or a function you define. Whatever you provide is passed to descendant elements, which can access it using the `useStylixTheme` hook function.
+The `<StylixProvider>` element's `setTheme` prop lets you provide any function that changes or replaces the theme object. It could be a React state setter function, or a function you define. Whatever you provide is passed to descendant elements, which can access it using the `useStylixTheme` hook function.
 
 ```tsx-render-app
 import $, { StylixProvider, useStylixTheme } from '@stylix/core';
@@ -137,6 +137,11 @@ function App() {
 
 In this example, the `App` component stores the current theme's "name" in a state variable, and it passes the theme object with the corresponding name to the StylixProvider's `theme` prop. Notice that we used string keys (`'light'` and `'dark'`) to restrict what values descendant components can pass to `setTheme`. This prevents components from setting the entire theme object to some arbitrary value.
 
+### Prevent unnecessary renders—and trigger necessary ones
+
+Like most components, the `<StylixProvider>` will rerender when its prop values change. It's up to you to make sure that the `theme` and `setTheme` prop values are not "new" every time the StylixProvider renders, or this might trigger unwanted renders of all its descendant elements. Objects and functions are a common cause of this, as object literals and locally-defined functions are never the same instance as the previous render. To prevent this, you may need to use React's `useMemo` or `useCallback` hooks to ensure that the same instances are persistant across multiple rerenders.
+
+Conversely, the function you provide to the StylixProvider's `setTheme` prop must update the theme in a way that triggers a render. If your `setTheme` function only mutates an existing object but doesn't trigger a render of the parent component, the StylixProvider will not recognize the change or update all the descendant elements that use it.
 
 ### Access the theme with the `useStylixTheme()` hook
 
