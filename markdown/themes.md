@@ -78,7 +78,7 @@ Theme functions can return any value that a style prop accepts, including array 
 
 Of course, the above example is just as static as the previous one—we didn't make any use of the `setTheme` state setter function that we created.
 
-The `<StylixProvider>` element's `setTheme` prop lets you provide any function that changes or replaces the theme object. It could be a React state setter function, or a function you define. Whatever you provide is passed to descendant elements, which can access it using the `useStylixTheme` hook function.
+The `<StylixProvider>` element's `setTheme` prop lets you provide any function that changes or replaces the theme object. It could be a React state setter function, or a function you define. Whatever you provide, it can be accessed by descendant components using the `useStylixTheme` hook function.
 
 ```tsx-render-app
 import $, { StylixProvider, useStylixTheme } from '@stylix/core';
