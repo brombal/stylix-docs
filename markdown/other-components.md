@@ -158,5 +158,5 @@ function GlobalStyles() {
 The styles will only be present in the DOM while the component is mounted. Because of the [rules of hooks](https://reactjs.org/docs/hooks-rules.html), you can't call this hook conditionally. If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useStyles`.
 
 
-<a href="/global-styles" class="next-link">Global styles</a>
+<a href="/selectors" class="next-link">Pseudo-classes & selectors</a>
 
