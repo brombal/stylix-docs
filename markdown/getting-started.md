@@ -2,21 +2,19 @@
 
 ## Installation
 
-With npm:
+Stylix can be installed with **npm** or **yarn**:
 
 ```sh
-npm install --save @stylix/core
+$ npm install --save @stylix/core
+# or
+$ yard add @stylix/core
 ```
 
-With yarn:
+Stylix is compatible with React 16.8+.
 
-```sh
-yarn add @stylix/core
-```
+## Wrap your app with a `<StylixProvider>` element
 
-## The `<StylixProvider>` wrapper
-
-Start by importing `StylixProvider` from `@stylix/core` and placing a `<StylixProvider>` context wrapper element at the root of your app:
+Start by importing `StylixProvider` from `@stylix/core` and placing a `<StylixProvider>` element at the root of your app:
 
 ```tsx
 import { StylixProvider } from '@stylix/core';
@@ -24,15 +22,15 @@ import { StylixProvider } from '@stylix/core';
 function App() {
   return (
     <StylixProvider>
-      { /* ... */ }
+      { /* your app */ }
     </StylixProvider>
   )
 }
 ```
 
-The `<StylixProvider>` component provides [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements, and allows additional configuration for certain less-common situations. 
+The `<StylixProvider>` element can provide [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements, and allows additional configuration for certain less-common situations.
 
-## New and improved `<$.html>` elements
+## Use Stylix's stylable HTML elements
 
 ```tsx
 import $ from '@stylix/core';
@@ -40,9 +38,9 @@ import $ from '@stylix/core';
 
 The default export from `@stylix/core` is both a React component (used to style non-Stylix components; described in [Styling other components](/other-components)), as well as a "namespace" object that contains stylable HTML elements. 
 
-> Throughout this documentation, we always import this default object as `$` (in homage to the convention of the ancient ubiquitous "web 1.0" tools like jQuery), but you can name it whatever you like.
+> Throughout this documentation, we always import this default object as `$`, but you can name it whatever you like.
 
-Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Use these elements to create HTML markup that can be styled with props—they all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats.
+Stylix provides all the standard HTML elements as properties of the `$` object (e.g. `<$.div>`, `<$.h1>`, `<$.p>`, etc.). Use these elements to create HTML markup that can be styled with props—they all accept props for any standard CSS property, in both `camelCase` and `kebab-case` formats. Of course, they also all accept the appropriate other standard HTML attributes (`onClick`, `href` for `<$.a>`, etc).
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -62,31 +60,13 @@ import $ from '@stylix/core';
 
 You aren't just limited to standard CSS properties, either. Stylix lets you use [complex selectors, pseudo-classes, nested CSS](/selectors), [media queries](/media-queries), [keyframe animations](/keyframe-animations), [themes](/themes), and more.
 
-Stylix generates a unique, deterministc class name for these styles and applies it to the element. The actual rendered output for the above example might look something like this:
+Stylix generates a unique, deterministic class name for these styles and applies it to the element. The generated class name is a hash of the given styles, and any components sharing identical styles will receive the same class name. By default, Stylix places these CSS declarations a `<style>` element in the document's `<head>`, but this behavior can be customized by the `<StylixProvider>`. 
 
-```html
-<style type="text/css">
-  .stylix-abc123 {
-    color: SkyBlue;
-    text-align: center;
-    font-size: 40px;
-    font-weight: bold;
-    font-style: italic;
-  }
-</style>
-
-...
-
-<div class="stylix-abc123">Hello, Stylix!</div>
-```
-
-Stylix creates the `<style>` element automatically and places it in the document's `<head>` (this behavior can be customized by the `<StylixProvider>`). The generated class name is a hash of the specified styles, and any components sharing identical styles will receive the same class name.
-
-## Creating reusable styled components
+### Create reusable styled components just like regular components
 
 Although your app's JSX markup will be longer and seem more verbose with these additional style props, Stylix's simple use of props to create styles allows you to leverage basic JavaScript syntax and React features to keep your code concise and organized.
 
-By using **destructuring** and **spreading**, you can create reusable styled components that easily allow overriding styles when needed:
+By using **destructuring** and **spreading**, you can create reusable styled components that allow you to override styles easily:
 
 ```tsx-render
 const Emphasize = (props) => (
@@ -108,7 +88,9 @@ const Emphasize = (props) => (
 
 This `Emphasize` component simply renders a `<div>` with bold text. Because we spread `...props` onto the `$.div` element, it also receives all the style props and children passed from the component that renders it.
 
-Spreading and destructuring allow you to do many other useful things with Stylix. For example, If you don't want to allow overriding particular styles, just place them *after* the prop spread. In the following example, the `font-weight` property can't be overridden, but other style properties would be passed normally.
+### Allow style overrides with **prop spreading**
+
+Spreading and destructuring allow you to customize how props are passed to the underlying element. For example, If you don't want to allow overriding particular styles, just place them *after* the prop spread. In the following example, the `font-weight` property can't be overridden, but other style props will be passed normally.
 
 ```tsx-render
 const Emphasize = (props) => (
@@ -119,6 +101,8 @@ const Emphasize = (props) => (
   Still bold
 </Emphasize>
 ```
+
+### Use non-style props with **destructuring**
 
 If a component accepts other props that should not be passed on as CSS properties, you can use destructuring to separate them from style props:
 
@@ -142,7 +126,7 @@ function DisplayName(props) {
 
 Notice how these features don't come from Stylix, but instead are simply a result of the way it integrates with React.
 
-## Dynamic styles
+## Styles are naturally dynamic
 
 Of course, styles don't need to be fixed, constant values. Just like any other props, the values can come from a component's state, prop values, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
 
