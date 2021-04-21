@@ -43,3 +43,6 @@ function App() {
   )
 }
 ```
+
+<a href="/media-queries" class="next-link">Media queries</a>
+
