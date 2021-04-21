@@ -1,6 +1,6 @@
 # Theming your app with Stylix
 
-Stylix is completely unopinionated about theming your app's styles. Because Stylix doesn't ship with any predefined styles, there is nothing out of the box that requires theming. However, Stylix does come with some features that make it simple to share styles or other style information throughout your app.
+Stylix is completely unopinionated about theming your app's styles. Because Stylix doesn't ship with any predefined styles, there is nothing out of the box that requires theming. However, Stylix does come with some features that make it simple to share common styles or other information throughout your app.
 
 ### Don't complicate things
 
