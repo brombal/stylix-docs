@@ -36,7 +36,7 @@ const myTheme = {
 
 This is a simple, un-complicated way to style your app using values that you can store in a central location.
 
-### Use **theme functions** to access the current theme object
+### Provide a **theme** object and use **functional prop values** to access it
 
 If you need something a bit more dynamic than a plain, shared object (for example, to allow light/dark theme options), you can provide a theme object to your `<StylixProvider>` element's `theme` props. This object can have any structure at all—Stylix has no opinion on how you define your theme. 
 
