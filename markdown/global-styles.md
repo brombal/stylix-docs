@@ -38,7 +38,7 @@ useGlobalStyles({ ... }, { disabled: true });
 
 > This approach is necessary because you [can't call hooks conditionally](https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level).
 
-Note that if you just need to create styles to apply to a 3rd party component that needs a class name, it might be more appropriate to use `useStyles()`. This function scopes the given styles to a generated class name and returns it, limiting the possibility to inadvertently affect other elements on the page. See [Styling other components](/other-components) for more information.
+Note that if you just need to create styles to apply to a 3rd party component that needs a class name, it might be more appropriate to use `useStyles()`, which scopes the given styles to a generated class name, limiting the possibility to inadvertently affect other elements on the page. See [Styling other components](/other-components) for more information.
 
 <a href="/keyframes" class="next-link">Keyframe animations</a>
 
