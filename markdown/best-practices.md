@@ -66,7 +66,7 @@ const StylixHeader = (props) => (
 
 In this example, the `font-weight` property can't be overridden, but other style props are passed normally—the text will *always* be bold, but we were able to make it green instead of blue.
 
-### Use non-style props with **destructuring**
+### Pass non-style props with **destructuring**
 
 If a component accepts other props that should not be passed on as CSS properties, you can use destructuring to separate them from style props:
 
@@ -90,7 +90,8 @@ function DisplayName(props) {
 
 
 ## Styles are naturally dynamic
-Of course, styles don't need to be fixed, constant values. Just like any other props, the values can come from a component's state, prop values, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
+
+Of course, styles don't need to be fixed, constant values. Just like any other props, the values can come from a component's state, props, or any other variable. In the following example, a dropdown value is stored in a state variable, which is used to set the color of the text below it:
 
 ```tsx-render-app
 function App() {
