@@ -57,15 +57,19 @@ Stylix will apply a unique, generated class name to this `Select` element, which
 
 ## Ref forwarding
 
-Stylix will forward a `$` element's ref to the `$el` component. The following example will work as expected:
+Stylix will forward a `$` element's ref to the `$el` component:
 
 ```tsx
-const buttonRef = useRef();
-...
-<$ $el={Button} ref={buttonRef} ... />
+function App() {
+  const buttonRef = useRef();
+
+  return (
+    <$ $el={Button} ref={buttonRef} />
+  );
+}
 ```
 
-If you are creating a wrapper component, you would have to it with `React.forwardRef()` if users of the component need to pass a ref to the underlying element:
+If you are creating a wrapper component, you would have to use `React.forwardRef()` to allow users of the component to pass a ref to the underlying element:
 
 ```tsx
 import $ from 'stylix';
@@ -75,12 +79,12 @@ const StyledButton = React.forwardRef(
   (props, ref) => <$ $el={Button} ref={ref} {...props} />
 );
 
-<StyledButton ref={buttonRef} />
+<StyledButton ref={buttonRef} font-weight="bold" />
 ```
 
 ### Make ref forwarding easy with `$.styled()`
 
-Because the above example is such a common scenario, Stylix provides the `$.styled()` wrapper function, which forwards the ref and all styles to the wrapped component. The following is functionally identical to the above example:
+Because the above example is such a common scenario, Stylix provides the `$.styled()` wrapper function, which forwards the ref and all styles to the wrapped component. The following is equivalent to the above example:
 
 ```tsx
 import $ from 'stylix';
@@ -88,7 +92,7 @@ import { Button } from 'third-party-library';
 
 const StyledButton = $.styled(Button);
 
-<StyledButton ref={myButtonRef} />
+<StyledButton ref={myButtonRef} font-weight="bold" />
 ```
 
 ## Prop conflicts
@@ -123,11 +127,11 @@ const StyledButton = $.styled(Button, 'color');
 <StyledButton color="primary" font-weight="bold" />
 ```
 
-The 'rest' parameters of `$.styled()` accepts a list of prop names to pass directly to the underlying component, instead of treating them as styles.
+The 'rest' parameters of `$.styled()` accepts a list of prop names, and will pass these directly to the underlying component instead of treating them as styles.
 
 ## Just give me a class name
 
-If you just need a class name to pass to a component, you can use the `useStyles()` hook. This function takes a Stylix CSS object and returns the generated class name.
+If you just need a class name to pass to a component, you can use the `useStyles()` hook. This function takes any [style object](/api/style-objects) and returns the generated class name.
 
 ```tsx
 import { useStyles } from '@stylix/core';
