@@ -6,7 +6,9 @@ Because these strings (such as `:hover` or `div > span + a`) can't be used as JS
 
 ## The `$css` prop
 
-The `$css` prop is accepted by all Stylix html elements (`<$.div>`, `<$.span>`, etc), and takes an object of additional styles to apply to an element. These styles can be not only simple CSS property/value pairs, but also pseudo-classes or complex selectors with nested style objects.
+The `$css` prop is an additional prop accepted by all Stylix html elements (`<$.div>`, `<$.span>`, etc) that takes an object of additional styles to apply to an element. These styles can be not only simple CSS property/value pairs, but also pseudo-classes or complex selectors with nested style objects.
+
+> These objects are referred to as **style objects** and have a variety of features you can read about in the [API documentation](/api/style-objects).
 
 ```tsx-render
 import $ from '@stylix/core';
@@ -26,9 +28,9 @@ import $ from '@stylix/core';
 </$.ul>
 ```
 
-Stylix scopes all selectors in the `$css` object under the element that defines them. In the above example, the styles for `li` are local to only the elements under the `ul`.
+Stylix scopes all selectors in the `$css` object under the element that defines them. In the above example, the styles for `li` are local to only the elements inside this `<$.ul>` element.
 
-## Referencing the parent selector with `&`
+### Reference the parent selector with `&`
 
 To reference the element's own class name, you can use `&` (as is the convention in the many CSS-like languages that support nested styles). 
 
@@ -38,11 +40,10 @@ Note that this is necessary when using certain pseudo-classes, such as `:hover`:
 import $ from '@stylix/core';
 
 <$.a
-  color="YellowGreen"
+  color="DarkOliveGreen"
   $css={{
-    // Notice the use of quotes to support the more complex syntax.
     "&:hover": {
-      color: "DarkOliveGreen"
+      color: "OliveGreen"
     }
   }}
 >
@@ -56,7 +57,7 @@ The `&` is useful in a variety of situations. Style objects can be nested infini
 
 ## `$css` all the way down
 
-The `$css` prop value is a *Stylix CSS object* and is very flexible in its behavior. These objects can themselves contain a `$css` property that accepts further CSS objects or an array of CSS objects. A nested `$css` object will be recursively merged into its parent, overriding identical properties while preserving the order of keys. Arrays of Stylix CSS objects will be merged into a single object before being merged into its parent.
+[Style objects](/api/style-objects) are very flexible in their behavior. These objects can themselves contain a `$css` property that accepts further CSS objects or an array of CSS objects. A nested `$css` object will be recursively merged into its parent, overriding identical properties while preserving the order of keys. Arrays of Stylix CSS objects will be merged into a single object before being merged into its parent.
 
 For example, consider the following Stylix CSS object:
 
@@ -89,7 +90,7 @@ Stylix will merge this object into the following:
 
 The array is merged together, causing `fontSize: 24` to override the previous definition. The resulting object is merged into the parent, overriding the `fontWeight` property, but not the `color` property, which is defined after the nested `$css` object.
 
-This may seem like an excessive amount of flexibility, since you are you aren't likely to ever define complicated structures like this yourself. However, this flexibility is useful for allowing stylable components to pass on a `$css` prop to an element that also uses `$css`:
+This may seem like an excessive amount of flexibility, since you are you aren't likely to ever define complicated structures like this yourself. However, this flexibility is useful for allowing stylable components to pass on their own `$css` prop to an element that uses `$css`:
 
 ```tsx-render
 const Link = ({ to, $css, ...styles }) => (
@@ -111,6 +112,6 @@ const Link = ({ to, $css, ...styles }) => (
 </Link>
 ```
 
-In the above example, the `Link` component separates the `$css` prop with destructuring and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop on the `<$.a>` element would be completely replaced by the prop passed in to the `<Link>` element.
+In the above example, the `Link` component separates the `$css` prop by destructuring it, and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop on the `<$.a>` element would be completely replaced by the prop passed in to the `<Link>` element.
 
 <a href="/other-components" class="next-link">Styling other components</a>
