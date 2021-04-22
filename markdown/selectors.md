@@ -88,7 +88,7 @@ Stylix will merge this object into the following:
 }
 ```
 
-The array is merged together, causing `fontSize: 24` to override the previous definition. The resulting object is merged into the parent, overriding the `fontWeight` property, but not the `color` property, which is defined after the nested `$css` object.
+First, the array is merged together, causing `fontSize: 24` to override the previous definition. Then the resulting object is merged into the parent, overriding the previous `fontWeight: 'bold'` property, but not the subsequent `color: 'SteelBlue'` property.
 
 This may seem like an excessive amount of flexibility, since you are you aren't likely to ever define complicated structures like this yourself. However, this flexibility is useful for allowing stylable components to pass on their own `$css` prop to an element that uses `$css`:
 
