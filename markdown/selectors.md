@@ -113,4 +113,4 @@ const Link = ({ to, $css, ...styles }) => (
 
 In the above example, the `Link` component separates the `$css` prop with destructuring and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop on the `<$.a>` element would be completely replaced by the prop passed in to the `<Link>` element.
 
-<a href="/global-styles" class="next-link">Global styles</a>
+<a href="/other-components" class="next-link">Styling other components</a>
