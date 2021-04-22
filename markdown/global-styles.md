@@ -33,8 +33,7 @@ The styles will only be present on the page while the component that defines the
 If you need to disable the global styles, but don't want to unmount the component, `useGlobalStyles` accepts a second parameter to disable them:
  
 ```tsx
-const disabled = true;
-useGlobalStyles({ ... }, disabled);
+useGlobalStyles({ ... }, { disabled: true });
 ```
 
 > This approach is necessary because you [can't call hooks conditionally](https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level).
