@@ -43,7 +43,7 @@ import $ from '@stylix/core';
   color="DarkOliveGreen"
   $css={{
     "&:hover": {
-      color: "OliveGreen"
+      color: "Olive"
     }
   }}
 >
