@@ -1,7 +1,9 @@
 
 # Styling other components with Stylix
 
-If you're writing your own components, the recommended way to make them composable and reusable is with prop destructuring and spreading (described in [Stylix basics](/basics)). But if you're working with 3rd party, legacy, or otherwise unworkable components, they can easily be styled using the `<$>` component and its `$el` prop (short for "element"):
+If you're writing your own components, the recommended way to make them composable and reusable is with prop destructuring and spreading (described in [Stylix basics](/basics)). 
+
+But if you're working with 3rd party, legacy, or otherwise unworkable components, they too can be styled using the `$` component and its `$el` prop (short for "element"):
 
 ```tsx
 import $ from 'stylix';
@@ -25,9 +27,9 @@ const StyledButton = (props) => <$ $el={Button} {...props} />;
 
 Notice that this syntax is not a Stylix-specific feature or API, but simply a result of how Stylix works with React.
 
-## Styling deeper elements
+### Style deeper elements with the `$css` prop
 
-If a component renders complex HTML that can be styled with class names or other selectors (as UI component libraries often do, for example), they can be easily styled with [the `$css` prop](/selectors).
+If a component renders complex HTML that can be styled with class names or other selectors (as UI component libraries often do), they can be easily styled with [the `$css` prop](/selectors).
 
 Imagine a UI library that provides a custom select box, with a wrapper element, a popover, and options:
 
@@ -53,10 +55,9 @@ import { Select } from 'cool-ui-library';
 
 Stylix will apply a unique, generated class name to this `Select` element, which will scope each selector used to style the matching descendant elements. 
 
-## Ref forwarding and `$.styled()`
+## Ref forwarding
 
-Stylix forwards a `$` element's ref to the `$el` component. The following example will work as expected:
-
+Stylix will forward a `$` element's ref to the `$el` component. The following example will work as expected:
 
 ```tsx
 const buttonRef = useRef();
@@ -64,9 +65,12 @@ const buttonRef = useRef();
 <$ $el={Button} ref={buttonRef} ... />
 ```
 
-If you are creating a wrapper component, you must wrap it with `React.forwardRef` if you want a user of the component to be able to pass a ref:
+If you are creating a wrapper component, you would have to it with `React.forwardRef()` if users of the component need to pass a ref to the underlying element:
 
 ```tsx
+import $ from 'stylix';
+import { Button } from 'third-party-library';
+
 const StyledButton = React.forwardRef(
   (props, ref) => <$ $el={Button} ref={ref} {...props} />
 );
@@ -74,7 +78,9 @@ const StyledButton = React.forwardRef(
 <StyledButton ref={buttonRef} />
 ```
 
-Because the above example is such a common scenario, Stylix provides the `$.styled()` convenience function. `$.styled()` simply returns a new component that forwards the ref and all styles to the given component. The following is functionally identical to the above example:
+### Make ref forwarding easy with `$.styled()`
+
+Because the above example is such a common scenario, Stylix provides the `$.styled()` wrapper function, which forwards the ref and all styles to the wrapped component. The following is functionally identical to the above example:
 
 ```tsx
 import $ from 'stylix';
@@ -87,7 +93,7 @@ const StyledButton = $.styled(Button);
 
 ## Prop conflicts
 
-If the component you want to style accepts a prop that conflicts with a CSS property name, the CSS property will take precedence. This can present a problem in certain scenarios: for example, in some UI component libraries (such as Material UI), it is common for components to accept a `color` prop to specify a predefined theme color such as "primary" or "secondary." Because `color` is also a CSS property, Stylix will incorrectly interpret the value as the CSS text color instead of passing it to the component.
+If the component you want to style accepts a prop that conflicts with a CSS property name, **the CSS property will take precedence**. This can present a problem in certain scenarios: for example, in some UI component libraries (such as Material UI), it is common for components to accept a `color` prop to specify a predefined theme color such as "primary" or "secondary." Because `color` is also a CSS property, Stylix will incorrectly interpret the value as the CSS text color instead of passing it to the component.
 
 In this case, the `$el` prop can accept a complete React element instead of just a component name:
 
@@ -102,39 +108,22 @@ import { Button } from 'third-party-library';
 />
 ```
 
-Stylix won't interpret `color` here as CSS, but instead will render the entire `<Button color="primary" />` element as-is. And since Stylix doesn't consider `label` to be a CSS property, it will also be passed directly to `<Button>`. However, `font-weight` will be considered a style and applied as CSS.
+Stylix will preserve the Button's `color` prop as-is, and since Stylix doesn't consider `label` to be a CSS property, it will also be passed directly to `<Button>`. However, Stylix *will* apply `font-weight` as a style.
 
-To solve this issue with a reusable component, you could decide to expose a new prop name and pass it to the underlying component's original prop. With destructuring, the solution is simple:
+### Make prop conflicts easy with `$.styled()`
 
-```tsx
-import $ from 'stylix';
-import { Button } from 'third-party-library';
-
-const StyledButton = ({ theme, ...styles }) => (
-  <$ $el={<Button color={theme} />} ref={ref} {...styles} />
-);
-
-<StyledButton theme="primary" label="My Styled Button" font-weight="bold" />
-```
-
-Depending on your circumstances, you may not want or need to rename the prop. In the example above, the `<Button>` uses the `color` prop to let you specify some color through its theming system, so being able to specify a CSS text color is not likely to be useful or necessary. However, be aware that if you were to keep `color` as the prop name in the above example, the only way to specify a CSS text color would be to use the `$css` prop.
-
-The `$.styled()` function can also be useful here too. It accepts an object of mappings to rename props before passing them to the given component:
+`$.styled()` can help with prop conflicts, too. 
 
 ```tsx
 import $ from 'stylix';
 import { Button } from 'third-party-library';
 
-const StyledButton = $.styled(Button, { theme: 'color' });
+const StyledButton = $.styled(Button, 'color');
 
-<StyledButton theme="primary" label="My Styled Button" font-weight="bold" />
+<StyledButton color="primary" font-weight="bold" />
 ```
 
-Just like the previous example, the `StyledButton`'s new `theme` prop will be renamed and passed into `Button` as `<Button color={theme} />`.
-
-The mapping object's keys specify new props to add to the `StyledButton` component, and the values are the component's original prop names. Stylix will pass the values of the new props directly to the underlying component using the original prop names. 
-
-If you don't want to rename the prop, but still want it to be passed to the underlying element, the key and value can be the same (e.g. `$.styled(Button, { color: 'color' })`). You won't be able to use `color` as a CSS prop on this component anymore, but you could pass it in the `$css` prop if you need to use it.
+The 'rest' parameters of `$.styled()` accepts a list of prop names to pass directly to the underlying component, instead of treating them as styles.
 
 ## Just give me a class name
 
@@ -144,7 +133,7 @@ If you just need a class name to pass to a component, you can use the `useStyles
 import { useStyles } from '@stylix/core';
 import { Button } from 'third-party-library';
 
-function GlobalStyles() {
+function StyledButton() {
   const buttonClass = useStyles({
     fontSize: 24
   });
@@ -155,7 +144,7 @@ function GlobalStyles() {
 }
 ```
 
-The styles will only be present in the DOM while the component is mounted. Because of the [rules of hooks](https://reactjs.org/docs/hooks-rules.html), you can't call this hook conditionally. If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useStyles`.
+The styles generated will only be present in the DOM while the component is mounted. Because of the [rules of hooks](https://reactjs.org/docs/hooks-rules.html), you can't call this hook conditionally. If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useStyles`.
 
 
 <a href="/global-styles" class="next-link">Global styles</a>
