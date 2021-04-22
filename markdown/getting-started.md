@@ -56,4 +56,6 @@ Stylix provides all the standard HTML elements as properties of the `$` object (
 
 You aren't just limited to standard CSS properties and values, either. Stylix lets you use [complex selectors, pseudo-classes, nested CSS](/selectors), [media queries](/media-queries), [keyframe animations](/keyframe-animations), [themes](/themes), and create [custom style props](/custom-props). You can also [style other non-Stylix components](/styling-other-components), too—anything that accepts a `className` prop.
 
+Before diving into those more advanced topics, we recommend reading about **Stylix best practices** to get a sense of how Stylix integrates with React.
+
 <a href="/best-practices" class="next-link">Stylix best practices</a>
