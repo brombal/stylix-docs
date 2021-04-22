@@ -1,6 +1,6 @@
 # Pseudo-classes and selectors
 
-Stylix elements aren't limited to just CSS properties—you can also use pseudo-classes and complex selectors to apply styles. 
+Stylix elements aren't limited to just CSS properties—you can also use **pseudo-classes** and **complex selectors** to apply styles. 
 
 Because these strings (such as `:hover` or `div > span + a`) can't be used as JSX props (their syntax is incompatible), we need another way to specify them.
 
@@ -53,7 +53,7 @@ import $ from '@stylix/core';
 
 The use of `&` here applies the hover styles directly to this element, rather than its descendants. Without the `&`, the selector would only match hovered elements *within* the `<a>`, which is probably not what is intended. 
 
-The `&` is useful in a variety of situations. Style objects can be nested infinitely deep, and selectors without the `&` symbol will be appended to the parent selector. You can use `&` anywhere that you want the selector to result in anything other than this default behavior.
+Style objects can be nested infinitely deep, and the `&` symbol will always be replaced with the entire selector immediately above the object where it is defined.   Selectors without the `&` symbol will be appended to the parent selector. You can use `&` anywhere that you want the selector to result in anything other than this default behavior.
 
 ## `$css` all the way down
 
@@ -112,6 +112,6 @@ const Link = ({ to, $css, ...styles }) => (
 </Link>
 ```
 
-In the above example, the `Link` component separates the `$css` prop by destructuring it, and passes it to the `<$.a>` element's `$css` prop so it can be merged with the other styles. Without this treatment, the `$css` prop on the `<$.a>` element would be completely replaced by the prop passed in to the `<Link>` element.
+In the above example, the `Link` component separates the `$css` prop by destructuring it, and merges it with the `<$.a>` element's own `$css` value. Without this, the `<$.a>` element's `$css` value would be completely replaced by the prop passed to the `<Link>` element. You may run into situations where you need to merge several style objects together, and the flexibility of using nested `$css` values or arrays of style objects will come in handy.
 
 <a href="/other-components" class="next-link">Styling other components</a>
