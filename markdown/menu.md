@@ -2,6 +2,7 @@
 - [Why Stylix?](/why-stylix)
 - Guides
   - [Getting started](/getting-started)
+  - [Best practices](/best-practices)
   - [Pseudo-classes & selectors](/selectors)
   - [Styling other components](/other-components)
   - [Global styles](/global-styles)
