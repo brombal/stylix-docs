@@ -12,7 +12,9 @@ $ yard add @stylix/core
 
 Stylix is compatible with React 16.8+.
 
-## Wrap your app with a `<StylixProvider>` element
+## How to use Stylix
+
+### Wrap your app with a `<StylixProvider>` element
 
 Start by importing `StylixProvider` from `@stylix/core` and placing a `<StylixProvider>` element at the root of your app:
 
@@ -28,9 +30,9 @@ function App() {
 }
 ```
 
-The `<StylixProvider>` element can provide [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements. Each `<StylixProvider>` element outputs the CSS for its descendant elements to a `<style>` element that it places in your page's `<head>`. This behavior, and a few other configuration opens, [can be customized](/api/stylixprovider).
+The `<StylixProvider>` element can provide [themes](/themes), [media queries](/media-queries), and [plugins](/plugins) to descendent elements. Each `<StylixProvider>` element outputs the CSS for its descendant elements to a `<style>` element that it places in your page's `<head>`. This behavior, and a few other configuration options, [can be customized](/api/stylixprovider).
 
-## Use Stylix's stylable HTML elements
+### Use stylable HTML elements
 
 Import the default `$` object from `@stylix/core` and use it to render stylable HTML elements in place of the regular old tags:
 
