@@ -38,8 +38,6 @@ This is a simple, un-complicated way to style your app using values that you can
 
 ## Theme functions
 
-### Provide a **theme** object and use **functional prop values** to access it
-
 If you need something a bit more dynamic than a simple shared object (for example, to allow light/dark theme options), you can provide a **theme object** to your `<StylixProvider>` element's `theme` props. This object can have **any structure at all**—Stylix has no opinion on how you define your theme. 
 
 Then, in place of primitive style values like numbers and strings, style props can also accept functions that return a style value. These **theme functions** will receive the current theme object as the first parameter, and the [entire Stylix context](/api/useStylixContext) as the second parameter.
@@ -71,6 +69,8 @@ function App() {
   );
 }
 ```
+
+### Use **functional prop values** to access the theme object from any style value
 
 Theme functions are accepted on **any style prop**, as well as anywhere that you can pass a [style object](/api/style-objects), including the [$css prop](/selectors) and the [useStyles](/api/useStyles), [useGlobalStyles](/api/useGlobalStyles), [useKeyframes](/api/useKeyframes) hooks. And any value, at any nested depth of a style object can be a theme function.
 
