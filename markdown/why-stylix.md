@@ -17,7 +17,7 @@ Before we answer that, imagine creating a button that has a few styles to make i
 </$.button>
 ```
 
-**First**, consider how easy this was. We didn't have to think of a new class name. We didn't have to open another file. We didn't write any *more* code than we would have using CSS; while JSX might require a few extra syntax characters, we more than made up for this by losing the need for a class name, an external file, and the mental overhead of switching languages altogether.
+**First**, consider how easy this was. We didn't have to think of a new class name. We didn't have to open another file. We didn't write any *more* code than we would have using CSS; while JSX might require a few extra syntax characters, we easily made up for this by losing the need for a class name, an external file, and the mental overhead of switching languages altogether.
 
 **Second**, while the individual element looks longer with additional props, the idea isn't to just slap on style props to every element and copy/paste them everywhere. Instead, you are encouraged to **follow React best practices** and separate elements into reusable components—which includes considering style props as a part of the component. 
 
