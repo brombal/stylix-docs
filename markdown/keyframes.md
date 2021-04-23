@@ -5,6 +5,8 @@ Because CSS keyframes must be declared in the global scope, *it is possible* to 
 However, to avoid "polluting" the global scope with potentially conflicting animation names, Stylix can generate the animation's name for you with the `useKeyframes()` hook. This hook returns the name of the animation, which you can pass to the `animation` or `animation-name` style props.
 
 ```tsx-render-app
+import { useKeyframes } from '@stylix/core';
+
 function App() {
   const myAnimation = useKeyframes({
     from: { transform: 'scale(1)' },
