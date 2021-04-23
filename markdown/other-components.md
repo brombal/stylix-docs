@@ -152,6 +152,10 @@ The styles given will only be present in the page's stylesheet **while the eleme
 
 If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useStyles`. Remember, because of the **[rules of hooks](https://reactjs.org/docs/hooks-rules.html)**, you can't call this hook conditionally. 
 
+```tsx
+useStyles({ ... }, { disabled: true });
+```
+
 
 <a href="/global-styles" class="next-link">Global styles</a>
 
