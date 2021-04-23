@@ -57,7 +57,7 @@ Stylix will apply a unique, generated class name to this `Select` element, which
 
 ## Ref forwarding
 
-Stylix will forward a `$` element's ref to the `$el` component:
+Stylix will forward a `$` element's ref to the `$el` component. In the following example `buttonRef` will refer to the `Button` (or whatever it passes to `ref`):
 
 ```tsx
 function App() {
@@ -112,7 +112,7 @@ import { Button } from 'third-party-library';
 />
 ```
 
-Stylix will preserve the Button's `color` prop as-is, and since Stylix doesn't consider `label` to be a CSS property, it will also be passed directly to `<Button>`. However, Stylix *will* apply `font-weight` as a style.
+Stylix will preserve the Button's `color` prop as-is, and since it doesn't consider `label` to be a CSS property, the prop will also be passed directly to `<Button>`. However, Stylix *will* apply `font-weight` as a style.
 
 ### Make prop conflicts easy with `$.styled()`
 
@@ -127,7 +127,7 @@ const StyledButton = $.styled(Button, 'color');
 <StyledButton color="primary" font-weight="bold" />
 ```
 
-The 'rest' parameters of `$.styled()` accepts a list of prop names, and will pass these directly to the underlying component instead of treating them as styles.
+The 'rest' parameters of `$.styled()` accepts a list of prop names, and will **pass them directly** to the underlying component instead of treating them as styles.
 
 ## Just give me a class name
 
@@ -148,7 +148,9 @@ function StyledButton() {
 }
 ```
 
-The styles generated will only be present in the DOM while the component is mounted. Because of the [rules of hooks](https://reactjs.org/docs/hooks-rules.html), you can't call this hook conditionally. If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useStyles`.
+The styles given will only be present in the page's stylesheet **while the element is mounted.** 
+
+If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useStyles`. Remember, because of the **[rules of hooks](https://reactjs.org/docs/hooks-rules.html)**, you can't call this hook conditionally. 
 
 
 <a href="/global-styles" class="next-link">Global styles</a>
