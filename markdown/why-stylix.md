@@ -57,6 +57,6 @@ Other libraries such as *styled-components* and *Emotion* offer similar solution
 
 Instead, Stylix took the approach of pairing CSS as closely with React as JSX did with HTML and JavaScript. We went a little further than these other libraries, and said "no more quirky syntaxes, APIs, or configurations; let's just use what React already offers." Indeed, React already provides great ways to do everything we need to create clean, reusable, and maintainable styles.
 
-If you're convinced now of how delightful styling your React apps will be with Stylix, continue on to **[getting started](/getting-started)** to begin.
+If you're convinced now of how delightful styling your React apps will be with Stylix, continue on to hte **Getting started** guide to begin.
 
 <a href="/getting-started" class="next-link">Getting started</a>
