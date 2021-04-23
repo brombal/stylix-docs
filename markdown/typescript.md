@@ -63,3 +63,5 @@ customProps({
 ```
 
 > **Note:** The `csstype` package allows you to use the same type definitions that React uses for style definitions. It is a dependency of `@types/react` and is used for typing information only, so it will not add to your bundle size.
+
+<a href="/tinyprops" class="next-link">Tinyprops</a>
