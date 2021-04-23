@@ -26,7 +26,7 @@ const Button = (
   />
 );
 
-<Button font-size={24}>
+<Button color="Teal" font-size={24}>
   TypeScript support
 </Button>
 ```
