@@ -17,13 +17,13 @@ import $ from '@stylix/core';
 </$.div>
 ```
 
-You can nest media queries anywhere within a style object, just like other selectors. Styles will be applied to the current selector, but only for the given media query.
+You can **nest media queries** anywhere within a style object, just like other selectors. Styles will be applied to the current selector, but only for the given media query.
 
 This technique is straightforward, but it is also fairly verbose and might become cumbersome for a responsive app that needs to consistently handle different screen sizes.  Instead, Stylix provides a unique feature that makes it a breeze to add styles according to a set of media queries, such as desktop/tablet/mobile breakpoints.
 
 ## Media query arrays
 
-Stylix allows you to predefine a set of media queries that your app can easily reference. By providing an array of media queries to the `<StylixProvider>` element's `media` prop, you can then use an array of values in any style prop to define the styles to use for each corresponding media query. Each value in the array will only be applied to the matching media query in the `media` prop array.
+Stylix allows you to **predefine** a set of media queries that your app can easily reference. By providing an array of media queries to the `<StylixProvider>` element's `media` prop, you can then use an **array of values** in any style prop to define the styles to use for each corresponding media query. Each value in the array will only be applied to the matching media query in the `media` prop array.
 
 ```tsx-render
 import $, { StylixProvider } from '@stylix/core';
@@ -47,9 +47,9 @@ import $, { StylixProvider } from '@stylix/core';
 </StylixProvider>
 ```
 
-The StylixProvider's `media` prop array can contain any number of entries, and each value can be any string that follows "@media ..." in regular CSS. You can also include an empty string to apply corresponding styles without any media query restriction.
+The StylixProvider's `media` prop array can contain any number of entries, and each value can be any string that follows the `@media` keyword in CSS (`@media _____ { ... }`). You can also include an empty string to apply corresponding styles without any media query restriction.
 
-Omitting values (or using `null`, `undefined`, `false`, or `""`) in a style prop array will output nothing for that property within the corresponding media query.
+**Omitting values** (or using `null`, `undefined`, `false`, or `""`) in a style prop array will output nothing for that property within the corresponding media query.
 
 ### Media query array ordering
 
