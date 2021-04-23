@@ -28,15 +28,13 @@ function GlobalStyles() {
 }
 ```
 
-The styles will only be present on the page while the component that defines them is mounted.
+The styles given will only be present in the page's stylesheet **while the element is mounted.** 
 
-If you need to disable the global styles, but don't want to unmount the component, `useGlobalStyles` accepts a second parameter to disable them:
+If you want to disable the styles while the component is mounted, pass `{ disabled: true }` as the second parameter of `useGlobalStyles`. Remember, because of the **[rules of hooks](https://reactjs.org/docs/hooks-rules.html)**, you can't call this hook conditionally. 
  
 ```tsx
 useGlobalStyles({ ... }, { disabled: true });
 ```
-
-> This approach is necessary because you [can't call hooks conditionally](https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level).
 
 Note that if you just need to create styles to apply to a 3rd party component that needs a class name, it might be more appropriate to use `useStyles()`, which scopes the given styles to a generated class name, limiting the possibility to inadvertently affect other elements on the page. See [Styling other components](/other-components) for more information.
 
