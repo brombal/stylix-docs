@@ -88,7 +88,9 @@ The type of value you use affects the behavior of the custom prop:
   </StylixProvider>
   ```
 
-While this feature has many valid uses, a more flexible and practical approach is to create custom components:
+### Don't overdo it 
+
+Custom props are ideal for scenarios where you feel styles should be applicable to **any element**. However, we don't recommend using these for every type of reusable style. Instead, a more maintable and practical approach is to create custom components:
 
 ```tsx-render
 const DodgerBlue = (props) => (
@@ -99,6 +101,7 @@ const DodgerBlue = (props) => (
   Dodger blue text (but with a custom component).
 </DodgerBlue>
 ```
+
 
 
 <a href="/typescript" class="next-link">TypeScript support</a>
