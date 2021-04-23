@@ -1,10 +1,8 @@
 # Custom style props
 
-Stylix allows you to create custom style props that you can use to apply reusable styles to any element. With this feature, you can extend Stylix's functionality many useful ways.
+With Stylix, you can create custom style props that allow you to apply style "mixins" to any element.
 
-Stylix is built on a plugin system, and you could add custom props by creating a custom plugin. But because this is such a common use-case, Stylix provides `customProps`, a convenience function (a plugin factory, to be specific) that makes it easier to extend Stylix with custom props.
-
-With the `customProps` function, you can create various kinds of custom props. It accepts an object containing new prop names as keys, and their associated style values (depending on the type of custom prop). The resulting value is a plugin you can add to your `<StylixProvider>` element's `plugins` array.
+The `customProps` function accepts an object containing new prop names as keys, and their associated style values. The resulting value is a **[plugin](/plugin)** you can add to your `<StylixProvider>` element's `plugins` array.
 
 For example:
 
@@ -27,75 +25,70 @@ const myCustomProps = customProps({
 </StylixProvider>
 ```
 
-There are three types of custom props you can create:
+The type of value you use affects the behavior of the custom prop:
 
-- Prop aliases
-- Style objects
-- Style functions
+- A **string value** will simply add an alias to the given property:
 
-### Prop aliases
+  ```tsx
+  const myCustomProps = customProps({
+    lst: 'list-style-type'
+  });
+  
+  // ...
+  
+  <$.li lst="circle">...</$.li>
+  ```
 
-Prop aliases are the simplest kind of custom prop, and simply map one prop name to another. This is useful for making shortcuts for common style props. To do this, simply specify the shortcut as the key and the original prop name as the value:
+  In fact, Stylix provides a set of common prop shortcuts with the [tinyprops](/tinyprops) plugin.
 
-```tsx-render
-import $, { customProps, StylixProvider } from '@stylix/core';
+- An **object value** will create a "mixin" of additional styles:
 
-const paddingShortcut = customProps({
-  p: 'padding',
-  bg: 'background'
-});
+  ```tsx-render
+  import $, { customProps, StylixProvider } from '@stylix/core';
 
-<StylixProvider plugins={[paddingShortcut]}>
-  <$.div p="20px 50px" bg="WhiteSmoke">
-    A padded box.
-  </$.div>
-</StylixProvider>
-```
+  const dodgerBlueShortcut = customProps({
+    dodgerBlue: {
+      color: 'DodgerBlue',
+    }
+  });
 
-In fact, Stylix provides a set of these shortcuts in a plugin called `tinyProps`, which can be enabled by simply installing it and adding it to the `plugins` array:
+  <StylixProvider plugins={[dodgerBlueShortcut]}>
+    <$.div dodgerBlue>
+      Dodger blue text.
+    </$.div>
+  </StylixProvider>
+  ```
+  
+  The value is a [style object](/api/style-objects) and can be as complex as you want. They accept everything style objects allow, including nested selectors, media query arrays, and theme functions.
 
-```sh
-npm install --save @stylix/tinyprops
-```
+  The props created in this way will be boolean props, and the styles will be disabled if you pass a falsy value (e.g. `dodgerBlue={false}`).
 
-```tsx
-import $, { customProps, StylixProvider } from '@stylix/core';
-import { tinyProps } from '@stylix/tinyprops';
+- **Function values** are just like object values, with the added benefit that they accept a user-defined value as input. The function will be passed the **given prop value** as its only argument, and should return the **styles to apply**.
 
-<StylixProvider plugins={[tinyProps]}>
-  <$.div 
-    p="20px 50px" 
-    bg="WhiteSmoke"
-    b="1px solid SteelBlue"
-  >
-    A padded box.
-  </$.div>
-</StylixProvider>
-```
+  For example, you could use this feature to define custom text color names:
 
-### Style objects
+  ```tsx-render
+  import $, { customProps, StylixProvider } from '@stylix/core';
 
-Style objects let you define entire style objects and use them with a single prop. To create a style object, specify the desired prop name as the key, and the style object as the value:
+  const myColors = customProps({
+    color: (value: string) => {
+      const myColors = {
+        cerulean: '#007BA7',
+        emerald: '#50C878',
+        scarlet: '#FF2400'
+      };
+      return { color: myColors[value] || value };
+    }
+  });
 
-```tsx-render
-import $, { customProps, StylixProvider } from '@stylix/core';
+  <StylixProvider plugins={[myColors]}>
+    <$.div color="cerulean">Cerulean</$.div>
+    <$.div color="emerald">Emerald</$.div>
+    <$.div color="scarlet">Scarlet</$.div>
+  </StylixProvider>
+  ```
 
-const dodgerBlueShortcut = customProps({
-  dodgerBlue: {
-    color: 'DodgerBlue',
-  }
-});
-
-<StylixProvider plugins={[dodgerBlueShortcut]}>
-  <$.div dodgerBlue>
-    Dodger blue text.
-  </$.div>
-</StylixProvider>
-```
-
-Style objects can be as complex as you want, and can include nested selectors and pseudo-classes. The props created in this way will be boolean props, and the styles will be disabled if you pass a falsy value (e.g. `dodgerBlue={false}`).
-
-We recommend using this feature sparingly. Although it has valid uses, a more flexible and practical approach is to create custom components:
+While this feature has many valid uses, a more flexible and practical approach is to create custom components:
 
 ```tsx-render
 const DodgerBlue = (props) => (
@@ -107,33 +100,5 @@ const DodgerBlue = (props) => (
 </DodgerBlue>
 ```
 
-### Style functions
-
-Similar to style objects, style functions allow you to define reusable style objects, with a function instead of a plain object. The function will be passed the given prop value as its only argument, and returns the styles to apply.
-
-For example, you could use this feature to define custom text color names:
-
-```tsx-render
-import $, { customProps, StylixProvider } from '@stylix/core';
-
-const myColors = customProps({
-  color: (value: string) => {
-    const myColors = {
-      cerulean: '#007BA7',
-      emerald: '#50C878',
-      scarlet: '#FF2400'
-    };
-    return { color: myColors[value] || value };
-  }
-});
-
-<StylixProvider plugins={[myColors]}>
-  <$.div color="cerulean">Cerulean</$.div>
-  <$.div color="emerald">Emerald</$.div>
-  <$.div color="scarlet">Scarlet</$.div>
-</StylixProvider>
-```
-
-Again, we recommend using this feature sparingly and preferring to use custom components for reusable functionality. But the feature exists for those use cases where you might find it useful.
 
 <a href="/typescript" class="next-link">TypeScript support</a>
