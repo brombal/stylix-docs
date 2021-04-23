@@ -22,6 +22,7 @@ const Button = (
     background={color}
     border-radius={4}
     color="white"
+    padding={10}
     {...styles}
   />
 );
@@ -31,7 +32,7 @@ const Button = (
 </Button>
 ```
 
-`StylixProps` is generic and accepts a type parameter that specifies the **type of the underlying Stylix element**. This can either be an HTML tag string (e.g. `StylixProps<'div'>`) or a component type (`StylixProps<typeof MyComponent>`). The default type is `'div'`. This type parameter allows your component to have type-safe props that can be spread to the underlying Stylix element.
+`StylixProps` is generic and accepts a type parameter that specifies the **type of the underlying Stylix element**. The type will include all the props of the underlying element. This can either be an HTML tag string (e.g. `StylixProps<'div'>`) or a component type (`StylixProps<typeof MyComponent>`). The default type is `'div'`. This type parameter allows your component to have type-safe props that can be spread to the underlying Stylix element.
 
 ## Declaring custom props
 
