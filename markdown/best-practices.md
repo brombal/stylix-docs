@@ -106,7 +106,9 @@ function App() {
         <option>DodgerBlue</option>
         <option>SeaGreen</option>
       </select>
-      <$.div color={color}>{color}</$.div>
+      <$.div color={color} font-weight="bold">
+        You picked {color}! 
+      </$.div>
     </div>
   );
 }
