@@ -57,13 +57,13 @@ const ThemeDemo = () => (
 );
 
 function App() {
-  const [theme, setTheme] = useState({
+  const [theme, setTheme] = React.useState({
     textColor: 'PaleTurquoise',
     background: 'Navy',
   });
 
   return (
-    <StylixProvider theme={myTheme}>
+    <StylixProvider theme={theme}>
       <ThemeDemo /> 
     </StylixProvider>
   );
@@ -141,38 +141,13 @@ In this example, the `App` component stores the current theme's "name" in a stat
 
 ### Prevent unnecessary renders—and trigger necessary ones
 
-Like most components, the `<StylixProvider>` will rerender when its prop values change. It's up to you to make sure that the `theme` and `setTheme` prop values are not "new" every time the StylixProvider renders, or this might trigger unwanted renders of all its descendant elements. Objects and functions are a common cause of this, as object literals and locally-defined functions are never the same instance as the previous render. To prevent this, you may need to use React's `useMemo` or `useCallback` hooks to ensure that the same instances persist across renders.
+Like most components, the `<StylixProvider>` will rerender when its prop values change. It's up to you to make sure that the `theme` and `setTheme` prop values are **not new instances** every time the StylixProvider renders, or this might trigger unwanted renders of all its descendant elements. Objects and functions are a common cause of this, as locally-defined object literals and functions are never the same instance as the previous render. To prevent this, you may need to use React's `useMemo` or `useCallback` hooks to ensure that the same instances persist across renders.
 
-Conversely, the function you provide to the StylixProvider's `setTheme` prop must update the theme in a way that triggers a render. If your `setTheme` function only mutates an existing object but doesn't trigger a render of the parent component, the StylixProvider will not recognize the change and therefore won't update all the descendant elements that use it.
+Conversely, the function you provide to the StylixProvider's `setTheme` prop must update the theme in a way that **triggers a render**. If your `setTheme` function only mutates an existing object but doesn't trigger a render of the parent component, the StylixProvider will not recognize the change and therefore won't update all the descendant elements that use it.
 
 ### Access the theme with the `useStylixTheme()` hook
 
-If you need to access the theme object outside of a style prop's theme function, you can use the `useStylixTheme()` hook function. As we saw in the previous example, it is also used to access the theme updater function. It works very similarly to React's `useState` hook:
-
-```tsx-render
-import $, { StylixProvider, useStylixTheme } from '@stylix/core';
-
-const myTheme = {
-  textColor: 'PaleTurquoise',
-  background: 'Navy',
-};
-
-const ThemeDemo = () => {
-  const [theme, setTheme] = useStylixTheme();
-  return (
-    <$.div 
-      color={(theme) => theme.textColor}
-      background={(theme) => theme.background}
-    >
-      {theme.textColor} on {theme.background}
-    </$.div>
-  );
-}
-
-<StylixProvider theme={myTheme}>
-  <ThemeDemo /> 
-</StylixProvider>
-```
+If you need to access the theme object outside of a style prop's theme function, you can use the `useStylixTheme()` hook function. As we saw in the previous example, it is also used to access the theme updater function. It works very similarly to React's `useState` hook, returning a `[theme, setTheme]` tuple.
 
 ## Nesting themes
 
