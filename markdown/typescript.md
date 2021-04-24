@@ -11,25 +11,40 @@ The `StylixProps` interface represents all style props and the `$css` prop. You 
 ```tsx-render
 import $, { StylixProps } from '@stylix/core';
 
-type ButtonProps = StylixProps<'button'> & {
-  
+type BadgeButtonProps = StylixProps<'span'> & {
+  badge: string;
 };
 
-const Button = (
-  { color, ...styles }: ButtonProps
+const BadgeButton = (
+  { badge, ...other }: BadgeButtonProps
 ) => (
-  <$.button 
-    background={color}
-    border-radius={4}
-    color="white"
-    padding={10}
-    {...styles}
-  />
+  <$.button position="relative" {...other}>
+    {other.children}
+    <$.span
+      position="absolute"
+      top={-5}
+      right={-5}
+      background="red"
+      width={20}
+      height={20}
+      line-height="20px"
+      border-radius={10}
+      font-size={14}
+      text-align="center"
+    >
+      {badge}
+    </$.span>
+  </$.button>
 );
 
-<Button color="Teal" font-size={24}>
+<BadgeButton 
+  badge="5" 
+  color="white"
+  padding="0 0.8em"
+  background="teal"
+>
   TypeScript support
-</Button>
+</BadgeButton>
 ```
 
 `StylixProps` is generic and accepts a type parameter that specifies the **type of the underlying Stylix element**. The type will include all the props of the underlying element. This can either be an HTML tag string (e.g. `StylixProps<'div'>`) or a component type (`StylixProps<typeof MyComponent>`). The default type is `'div'`. This type parameter allows your component to have type-safe props that can be spread to the underlying Stylix element.
@@ -64,4 +79,4 @@ customProps({
 
 > **Note:** The `csstype` package allows you to use the same type definitions that React uses for style definitions. It is a dependency of `@types/react` and is used for typing information only, so it will not add to your bundle size.
 
-<a href="/tinyprops" class="next-link">Tinyprops</a>
+<a href="/tinyprops" class="next-link">TinyProps</a>
