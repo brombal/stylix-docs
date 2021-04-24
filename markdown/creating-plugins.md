@@ -140,10 +140,6 @@ const newColors: StylixPlugin = {
   },
 };
 
-export newColors;
-
-// import { newColors } from 'my-plugins';
-
 <StylixProvider plugins={[newColors]}>
   <$.div
     color="amaranth"
