@@ -13,6 +13,6 @@
   - [TypeScript support](/typescript)
 - Plugins
   - [TinyProps](/tinyprops)
-  - Creating Stylix plugins
+  - [Creating Stylix plugins](/creating-plugins)
 - API Reference
 - Bugs & Issues
