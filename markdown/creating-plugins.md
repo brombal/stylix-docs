@@ -37,18 +37,13 @@ interface StylixPlugin {
   
     Plugins for this phase are invoked when Stylix is ready to output a style object as CSS. The final result of all the `processStyles` plugins will be output as CSS.
     
-    Plugin functions will receive 2 parameters: the current Stylix context object, and a freshly-cloned style object. The function must return a style object—either the same object from the second parameter, or a new style object. 
-    
-    Depending on the **plugin order** (see below), the style object parameter may still contain the user's original values, including nested styles, media query arrays, or theme functions. The plugin function's returned style object can retain these values if subsequent plugins will process them. If your plugin is ordered after the built-in plugins that process these types of complex values, you must not add additional complex values to the style object.
-    
 - **plugin**
 
   This is the function that will be invoked at the given phase. Depending on the plugin's **type**, the function's parameters and return values vary: 
   
   - Plugin functions for the **initialize** phase will receive the current [Stylix context object](/api/useStylixContext), which it can modify as necessary, and should not return anything.
 
-  - Plugin functions for the **preprocessStyles** and **processStyles** will receive 2 parameters: the current Stylix context object, and a freshly-cloned style object. The function must return a style object—either the same object as the second parameter, or a new style object. 
-
+  - Plugin functions for the **preprocessStyles** and **processStyles** will receive 2 parameters: the current Stylix context object, and a clone of the current style object. The function must return a style object—either the same object as the second parameter, or a new style object. The return value from each plugin function is cloned and passed to the next plugin in that phase.
 
 - **before**, **after**, **atIndex**
 
@@ -104,6 +99,34 @@ To place your plugin at the beginning of the list, use `atIndex: 0`. By default,
 
 > Stylix developers will consider changing the order of built-in plugins to be a **breaking change**, so your plugins can specify `@stylix/core` as a peerDependency at a specific major version.
 
+## Helper functions
+
+Stylix provides a handful of **generic utility functions** to assist you in modifying style objects in useful ways. These can all be imported directly from `@stylix/core`:
+
+- ```ts
+  function mapObjectRecursive(
+    object: any,
+    map: (key: string | number, value: any, object: any, context: any) => Record<string | number, any>,
+  ): any;
+  ```
+
+  Creates a new object by invoking `map` on each key/value pair in `object` and replacing each pair in `object` by merging in the object returned from `map`. It recursively descends into all object and array values of `object`.
+  
+  The `map` function will receive the key, the value, the current object being mapped, and a context object. The context object is a plain object that you can modify as needed. The value will persist to subsequent calls to `map` on child properties of `value`. This allows you store and reference arbitrary data as the function recursively descends deeper into `object`.
+  
+- ```ts
+  function walkRecursive<T = any>(
+    object: T,
+    cb: (key: string, value: any, currentObject: any, context: any) => void,
+    context?: any,
+  ): T
+  ```
+  
+  Invokes `cb` for each key/value pair in `object`, and continues recursively on each value that is an array or a plain object. Returns `object`.
+  
+  The `cb` function will receive the key, the value, the current object being mapped, and a context object. The context object is a plain object that you can modify as needed. The value will persist to subsequent calls to `map` on child properties of `value`. This allows you store and reference arbitrary data as the function recursively descends deeper into `object`.
+  
+  
 ## Example plugin
 
 The following is a full example of a simple plugin that adds a small set of additional color names that could be passed to any CSS property that accepts colors:
