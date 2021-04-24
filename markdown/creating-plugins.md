@@ -109,31 +109,50 @@ To place your plugin at the beginning of the list, use `atIndex: 0`. By default,
 The following is a full example of a simple plugin that adds a small set of additional color names that could be passed to any CSS property that accepts colors:
 
 ```tsx-render
-import $, { mapObjectRecursive } from '@stylix/core';
+import $, { 
+  StylixProvider,
+  mapObjectRecursive
+} from '@stylix/core';
 
 const colorMap = {
-  amaranth: '',
-}
+  amaranth: '#EC295B',
+  gamboge: '#E49B0F',
+  celadon: '#ABE0AE',
+  skobeloff: '#007474',
+};
 
-const newColors = {
+const newColors: StylixPlugin = {
+  name: 'newColors',
   type: 'processStyles',
   plugin(ctx, styles) {
     return mapObjectRecursive(styles, (key, value) => {
       if (typeof value === 'string') {
-        value = Object.entries(colorMap).reduce((memo, [colorName, colorHex] => {
-          return value.replace(new RegExp(`\b${colorName}\b`, 'g'), colorHex);
-        }, value);
+        value = Object.entries(colorMap)
+          .reduce((memo, [colorName, colorHex]) => {
+            return memo.replace(
+              new RegExp(`\\b${colorName}\\b`, 'g'), 
+              colorHex
+            );
+          }, value);
+        return { [key]: value };
       }
-      return { [key]: value };
     });
-  }
+  },
 };
 
+export newColors;
+
+// import { newColors } from 'my-plugins';
+
 <StylixProvider plugins={[newColors]}>
-  <$.div 
+  <$.div
     color="amaranth"
+    background="celadon"
+    box-shadow="0 5px 10px gamboge"
+    border="2px solid skobeloff"
+    padding={10}
   >
-    Amaranth
+    Ugly but colorful
   </$.div>
 </StylixProvider>
 ```
