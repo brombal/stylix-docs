@@ -25,7 +25,7 @@ interface StylixPlugin {
   
   - **`"initialize"`**
     
-    Plugins for this phase are invoked when the `<StylixProvider>` element mounts. They can be used to modify Stylix's configuration in some way before applying any styles.
+    Plugins for this phase are invoked when the `<StylixProvider>` element mounts. They can be used to modify Stylix's configuration in some way before applying any styles. This phase is only invoked once during the lifetime of the app.
 
   - **`"preprocessStyles"`**
     
