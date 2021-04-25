@@ -15,45 +15,45 @@ interface StylixPlugin {
 }
 ```
 
-- **name**
+- **`name: string`**
   
   A user-friendly name for the plugin, used for debugging purposes only.
   
-- **type**
+- **`type: 'initialize' | 'preprocessStyles' | 'processStyles'`**
   
   Defines the type of the plugin, which specifies the phase at which the plugin function is invoked; one of the following values:
   
-  - **`"initialize"`**
+  - **`'initialize'`**
     
     Plugins for this phase are invoked when the `<StylixProvider>` element mounts. They can be used to modify Stylix's configuration in some way before applying any styles. This phase is only invoked once during the lifetime of the app.
 
-  - **`"preprocessStyles"`**
+  - **`'preprocessStyles'`**
     
-    Plugins for this phase are invoked **before** a style object is serialized into a generated class name. This phase must be used to replace or remove any values from a style object that cannot be serialized with `JSON.stringify`, such as functions (in fact, Stylix uses this phase to resolve [theme functions](/themes)).
+    Plugins for this phase are invoked before a style object is serialized into a generated class name. This phase must be used to replace or remove any values from a style object that cannot be serialized with `JSON.stringify`, such as functions (in fact, Stylix uses this phase to resolve [theme functions](/themes)).
     
-    The result of this phase is used to determine whether the element's styles have changed and need to be updated in the document's stylesheet. Because of this, it is invoked on **every component render**, so its performance is important to keep in mind. It is recommended that plugins should perform their functionality in the **processStyles** phase whenever possible.
+    The result of this phase is used to determine whether the element's styles have changed and need to be updated in the document's stylesheet. Because of this, it is invoked on **every component render**, so its performance is important to keep in mind. It is recommended that plugins should perform their functionality in the **`'processStyles'`** phase whenever possible.
     
-  - **`"processStyles"`**
+  - **`'processStyles'`**
   
     Plugins for this phase are invoked to **produce the final style object** that Stylix will output as CSS. 
     
-    Each `processStyles` plugin will be invoked by Stylix, passing the previous plugin's result as the input to the next. The final result of all the `processStyles` plugins will be output as CSS.
+    Each `'processStyles'` plugin will be invoked by Stylix, passing the previous plugin's result as the input to the next. The final result of all the `processStyles` plugins will be output as CSS.
     
-- **plugin**
+- **`plugin(ctx: StylixPluginFunctionContext, styles: any): any`**
 
   This is the function that will be invoked at the given phase. Depending on the plugin's **type**, the function's parameters and return values vary: 
   
-  - Plugin functions for the **initialize** phase will receive the current [Stylix context object](/api/useStylixContext), which it can modify as necessary, and should not return anything.
+  - Plugin functions for the **`'initialize'`** phase will receive the current [Stylix context object](/api/useStylixContext), which it can modify as necessary, and should not return anything.
 
-  - Plugin functions for the **preprocessStyles** and **processStyles** will receive 2 parameters: the current Stylix context object, and a clone of the current style object. The function must return a style object—this can be the object passed as the second parameter, or a new style object. The return value from each plugin function is cloned and passed to the next plugin in that phase.
+  - Plugin functions for the **`'preprocessStyles'`** and **`'processStyles'`** will receive 2 parameters: the current Stylix context object, and a clone of the current style object. The function must return a style object—this can be the object passed as the second parameter, or a new style object. The return value from each plugin function is cloned and passed to the next plugin in that phase.
 
-- **before**, **after**, **atIndex**
+- **`before`**, **`after`**, **`atIndex`**
 
   These properties specify another plugin object that this plugin should be inserted **before** or **after**, or the array index at which the plugin should be inserted. If none is specified, the default behavior **appends the plugin to the current list** for the given phase type. See **Plugin ordering** below for more details.
   
 ## Plugin ordering
 
-Stylix plugin functions are always executed in the same order. The order that the user provides plugins to the StylixProvider `plugins` array is generally **not important**—what matters is how the plugin defines its own order using the `before`, `after`, or `atIndex` properties. Stylix maintains a separate order for each plugin type (`"initialize"`, `"preprocessStyles"`, and `"processStyles"`).
+Stylix plugin functions are always executed in the same order. The order that the user provides plugins to the StylixProvider `plugins` array is generally **not important**—what matters is how the plugin defines its own order using the `before`, `after`, or `atIndex` properties. Stylix maintains a separate order for each plugin type (`'initialize'`, `'preprocessStyles'`, and `'processStyles'`).
 
 Much of Stylix's functionality is provided by built-in plugins, giving you the opportunity to create plugins that modify style objects *before* or *after* Stylix's own plugins alter them. To take advantage of this, you need to know what order Stylix's built-in plugins execute, and what each of them does:
 
@@ -127,6 +127,8 @@ const plugin = myStylixPlugin({ ... });
   ...
 </StylixProvider>
 ```
+
+You can also export (or return from your factory function) an **array of plugins** if you need to write multiple functions that each operate at a different phase. Each plugin object can specify its own order with `after`, `before`, or `atIndex`. Users can treat the entire array as a single plugin and add it to their StylixProvider's `plugins` array.
 
 ## Helper functions
 
