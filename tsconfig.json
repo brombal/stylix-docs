@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2015",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "preserveSymlinks": true,
+    "paths": {
+      "@app/*": ["src/*"],
+    },
+    "lib": ["dom", "es6"]
+  },
+  "include": ["./src/**/*"]
+}
