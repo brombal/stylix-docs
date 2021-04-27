@@ -12,9 +12,13 @@ export default function GlobalStyles() {
       boxSizing: 'border-box',
       fontFamily: 'inherit',
       fontSize: 'inherit',
+      '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)',
     },
     html: {
       font: '16px / 2 Montserrat, sans-serif',
+    },
+    body: {
+      '-webkit-text-size-adjust': '100%',
     },
     a: {
       color: '#067F91',

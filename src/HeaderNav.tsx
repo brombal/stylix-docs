@@ -1,8 +1,8 @@
 import { faGithub, faNpm } from '@fortawesome/free-brands-svg-icons';
 import { faBook, faExternalLinkAlt } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as React from 'react';
 import $, { StylixProps } from '@stylix/core';
+import * as React from 'react';
 
 const HeaderLink = ({ icon, iconSize, href, label, external = false, ...styles }) => (
   <$.a
@@ -26,7 +26,7 @@ const HeaderLink = ({ icon, iconSize, href, label, external = false, ...styles }
     {...styles}
   >
     <$ $el={<FontAwesomeIcon icon={icon} />} font-size={iconSize} />
-    <$.span margin-left={15} font-size={18}>
+    <$.span margin-left={15} font-size={18} display={['inline', null, 'none']}>
       {label}
     </$.span>
     {external && (
@@ -35,6 +35,7 @@ const HeaderLink = ({ icon, iconSize, href, label, external = false, ...styles }
         font-size={11}
         margin-left={10}
         opacity={0.75}
+        display={['inline-block', null, 'none']}
       />
     )}
   </$.a>
@@ -59,7 +60,7 @@ export default function HeaderNav({ showDocumentation, ...styles }: HeaderNavPro
           label="Documentation"
           icon={faBook}
           href="/#introduction"
-          margin-right={50}
+          margin-right={[50, 40, 30]}
         />
       )}
       <HeaderLink
@@ -68,7 +69,7 @@ export default function HeaderNav({ showDocumentation, ...styles }: HeaderNavPro
         icon={faNpm}
         href="https://npmjs.org/package/@stylix/core"
         external
-        margin-right={50}
+        margin-right={[50, 40, 30]}
       />
       <HeaderLink
         icon={faGithub}

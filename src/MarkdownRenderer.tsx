@@ -106,7 +106,12 @@ export default React.forwardRef<HTMLDivElement, MarkdownRendererProps & StylixPr
               if (!rendered) return;
               const reactContainer = document.createElement('div');
               element.insertAdjacentElement('afterend', reactContainer);
-              ReactDOM.render(<StylixProvider>{rendered}</StylixProvider>, reactContainer);
+              ReactDOM.render(
+                <StylixProvider media={['', '(max-width: 1200px)', '(max-width: 768px)']}>
+                  {rendered}
+                </StylixProvider>,
+                reactContainer,
+              );
               reactContainers.push(reactContainer);
               element.style.display = 'none';
             });
@@ -161,7 +166,7 @@ export default React.forwardRef<HTMLDivElement, MarkdownRendererProps & StylixPr
             },
             h2: {
               fontSize: 30,
-              lineHeight: 1.3,
+              lineHeight: 1.4,
               fontWeight: 'normal',
               margin: '50px 0 30px',
               paddingBottom: 5,
@@ -169,7 +174,7 @@ export default React.forwardRef<HTMLDivElement, MarkdownRendererProps & StylixPr
             },
             h3: {
               fontSize: 24,
-              lineHeight: 1.3,
+              lineHeight: 1.6,
               fontWeight: 'normal',
               margin: '30px 0',
             },

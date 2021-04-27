@@ -19,7 +19,8 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@hot-loader/react-dom": "^17.0.1",
     "@material-ui/core": "^4.11.3",
-    "@stylix/core": "file:.yalc/@stylix/core",
+    "@stylix/core": "^3.0.4",
+    "@stylix/tinyprops": "^1.0.1",
     "@types/codeflask": "^1.4.2",
     "@types/codemirror": "^0.0.108",
     "@types/lodash-es": "^4.17.4",
@@ -50,6 +51,7 @@
     "react-hot-loader": "^4.13.0",
     "react-intersection-observer": "^8.31.0",
     "react-router-dom": "^5.2.0",
+    "react-use": "^17.2.4",
     "style-loader": "^2.0.0",
     "superagent": "^6.1.0",
     "ts-loader": "^8.1.0",
@@ -57,8 +59,5 @@
     "webpack": "^5",
     "webpack-cli": "^4",
     "webpack-dev-server": "^3.11.2"
-  },
-  "dependencies": {
-    "@stylix/tinyprops": "file:.yalc/@stylix/tinyprops"
   }
 }

@@ -1,16 +1,33 @@
-import $ from '@stylix/core';
+import $, { customProps, StylixProvider } from '@stylix/core';
 import { throttle } from 'lodash-es';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useInView } from 'react-intersection-observer';
 import { Route, useLocation } from 'react-router';
+import { useWindowSize } from 'react-use';
 
+import FloatingHeader from './FloatingHeader';
 import GlobalStyles from './GlobalStyles';
-import Header from './Header';
 import Home from './Home';
 import MarkdownRenderer from './MarkdownRenderer';
 import Menu from './Menu';
+import MobileMenu from './MobileMenu';
+
+declare module '@stylix/core' {
+  interface StylixPropsExtensions {
+    pageWidth: boolean;
+  }
+}
+
+const myCustomProps = customProps({
+  pageWidth: {
+    maxWidth: [1200, 1024, 768],
+    margin: '0 auto',
+    paddingLeft: [20, 20, 15],
+    paddingRight: [20, 20, 15],
+  },
+});
 
 export default function App() {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -25,26 +42,32 @@ export default function App() {
   const headerClearance = headerRef.current?.clientHeight;
   const isHome = location.pathname === '/';
 
+  const { width } = useWindowSize();
+
   useEffect(() => {
     // Always display nav bar on interior pages
-    if (isHome) setHeaderVisible(true);
+    if (!isHome) setHeaderVisible(true);
 
     // Menu is always sticky on interior pages
     if (!isHome) setMenuSticky(true);
 
-    // Scroll to top whenever location changes
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
-
     // When scrolling past menu offset, toggle stickiness (on home only)
     const onScroll = throttle(() => {
-      if (isHome) setMenuSticky(window.scrollY > menuRef.current.offsetTop - headerClearance);
+      if (isHome && width > 1024)
+        setMenuSticky(window.scrollY > menuRef.current.offsetTop - headerClearance);
     }, 10);
 
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
-  }, [location.pathname, headerClearance]);
+  }, [isHome, width]);
+
+  useEffect(() => {
+    // Scroll to top whenever location changes
+    const t = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+    return () => clearTimeout(t);
+  }, [location.pathname]);
 
   // Toggle header when banner goes in/out of view.
   // If banner comes into view, turn off menu stickiness (this helps when users return to the home page but no
@@ -54,8 +77,13 @@ export default function App() {
     if (bannerInView) setMenuSticky(false);
   }, [bannerInView]);
 
+  const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+
   return (
-    <>
+    <StylixProvider
+      media={['', '(max-width: 1200px)', '(max-width: 1024px)']}
+      plugins={[myCustomProps]}
+    >
       <GlobalStyles />
 
       <Helmet>
@@ -63,32 +91,49 @@ export default function App() {
       </Helmet>
 
       <$.div position="relative" z-index={0}>
-        <Header ref={headerRef} visible={headerVisible} z-index={100} />
+        <FloatingHeader
+          ref={headerRef}
+          onClickMobileMenu={() => setMobileMenuVisible((v) => !v)}
+          visible={headerVisible}
+          z-index={100}
+        />
+
+        {width <= 1024 ? (
+          <MobileMenu
+            visible={mobileMenuVisible}
+            z-index={99}
+            padding-top={headerVisible ? 90 : 0}
+            onClickMenu={() => setMobileMenuVisible(false)}
+          />
+        ) : null}
 
         <Route path="/" exact render={() => <Home bannerRef={bannerRef} />} />
 
         <$.div
-          max-width={1200}
+          pageWidth
           margin="0 auto"
           padding-top={isHome ? 0 : headerClearance}
           padding-bottom={200}
           display="flex"
           ref={bodyRef}
         >
-          <$.div ref={menuRef} width={300} flex="0 0 auto" margin-top={5}>
-            <Menu
-              position={menuSticky ? 'fixed' : 'static'}
-              top={headerClearance}
-              bottom={0}
-              overflowY="scroll"
-              padding-top={40}
-              width={275}
-              $css={{
-                // Can't use padding-bottom on wrapper because it doesn't work with scrollbar
-                '> *': { marginBottom: 40 },
-              }}
-            />
-          </$.div>
+          {width > 1024 && (
+            <$.div ref={menuRef} width={300} flex="0 0 auto" margin-top={5}>
+              <Menu
+                position={menuSticky ? 'fixed' : 'static'}
+                top={headerClearance}
+                bottom={0}
+                overflowY="scroll"
+                padding-top={40}
+                width={275}
+                $css={{
+                  // Can't use padding-bottom on wrapper because it doesn't work with scrollbar
+                  '> *': { marginBottom: 40 },
+                }}
+                onClickMenu={() => {}}
+              />
+            </$.div>
+          )}
           <MarkdownRenderer
             filename={
               location.pathname
@@ -99,9 +144,10 @@ export default function App() {
             }
             padding-top={40}
             flex="1 1 auto"
+            width={['auto', 'auto', '100%']}
           />
         </$.div>
       </$.div>
-    </>
+    </StylixProvider>
   );
 }

@@ -7,7 +7,12 @@ import superagent from 'superagent';
 
 const md = MarkdownIt();
 
-export default React.forwardRef<HTMLDivElement, StylixProps>(function Menu(props, ref) {
+type MenuProps = { onClickMenu(): void } & StylixProps<'div'>;
+
+export default React.forwardRef<HTMLDivElement, MenuProps>(function Menu(
+  { onClickMenu, ...styles },
+  ref,
+) {
   const [content, setContent] = useState('');
 
   useEffect(() => {
@@ -28,17 +33,19 @@ export default React.forwardRef<HTMLDivElement, StylixProps>(function Menu(props
       e.preventDefault();
 
       if (e.target.pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      onClickMenu();
     }
   }, []);
 
   return (
     <$.div
-      {...props}
+      font-size={16}
+      line-height={1.5}
+      {...styles}
       ref={ref}
       dangerouslySetInnerHTML={{ __html: content }}
       onClick={handleLinkClick}
-      font-size={16}
-      line-height={1.5}
       $css={[
         {
           li: {
@@ -69,7 +76,7 @@ export default React.forwardRef<HTMLDivElement, StylixProps>(function Menu(props
             },
           },
         },
-        props.$css,
+        styles.$css,
       ]}
     />
   );

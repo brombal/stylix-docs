@@ -107,7 +107,7 @@ export default function CodeSample(props: CodeSampleProps & StylixProps<'div'>) 
   return (
     <$.div
       display="flex"
-      flex-direction="row"
+      flex-direction={['row', 'column']}
       border-radius={4}
       overflow="hidden"
       box-shadow="0 8px 16px rgba(0, 0, 0, 0.35)"
@@ -117,7 +117,7 @@ export default function CodeSample(props: CodeSampleProps & StylixProps<'div'>) 
       <$.div
         position="relative"
         flex={isSelfRendering ? '0 0 auto' : '1 1 auto'}
-        width={isSelfRendering ? '50%' : 'auto'}
+        width={isSelfRendering ? ['50%', 'auto'] : 'auto'}
       >
         <$
           $el={
@@ -154,7 +154,7 @@ export default function CodeSample(props: CodeSampleProps & StylixProps<'div'>) 
         )}
       </$.div>
       {isSelfRendering && (
-        <$.div ref={selfRenderRef} flex="0 0 auto" width="50%" padding="8px 12px" />
+        <$.div ref={selfRenderRef} flex="0 0 auto" width={['50%', 'auto']} padding="8px 12px" />
       )}
     </$.div>
   );
