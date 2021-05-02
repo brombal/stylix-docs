@@ -1,4 +1,4 @@
-import { faBars } from '@fortawesome/pro-regular-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import $, { StylixProps } from '@stylix/core';
 import * as React from 'react';

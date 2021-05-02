@@ -1,7 +1,6 @@
-import { faChevronRight } from '@fortawesome/pro-regular-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import $, { StylixProps, StylixProvider } from '@stylix/core';
-import CodeMirror from 'codemirror';
 import MarkdownIt from 'markdown-it';
 import * as React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -10,10 +9,7 @@ import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
 import superagent from 'superagent';
 
-import CodeSample from './CodeSample';
-
-(CodeMirror as any).keyMap.default['Shift-Tab'] = 'indentLess';
-(CodeMirror as any).keyMap.default['Tab'] = 'indentMore';
+import CodeSample from './CodeSample/CodeSample';
 
 const md = MarkdownIt({
   html: true,
@@ -50,25 +46,24 @@ const replacers = [
       const codeElement = element.querySelector('code');
       if (!codeElement) return;
 
-      const lang = codeElement.className
-        .split(' ')
-        .find((c) => c.startsWith('language-'))
-        .replace('language-', '');
+      let lang = codeElement.className.split(' ').find((c) => c.startsWith('language-'));
 
-      const isRenderable = lang.includes('render');
-      const isEditable = isRenderable && !lang.includes('readonly');
+      const isRenderable = !!lang.match(/-render\b/);
+      const isEditable = isRenderable && !lang.match(/-readonly\b/);
+      const renderValue = lang.match(/-render-app$/) ? '<App />' : '';
 
-      let mode = 'text/typescript-jsx';
-      if (lang === 'sh') mode = 'text/x-sh';
+      lang = lang.replace(/(^language-|-.*$)/g, '');
+
+      if (lang === 'sh') lang = 'bash';
 
       return (
         <$.div margin="40px 0">
           <CodeSample
             src={codeElement.innerText?.trim()}
-            mode={mode}
+            lang={lang}
             editable={isEditable}
             render={isRenderable}
-            renderValue={codeElement.className.includes('language-tsx-render-app') ? '<App />' : ''}
+            renderValue={renderValue}
           />
         </$.div>
       );
@@ -90,9 +85,7 @@ export default React.forwardRef<HTMLDivElement, MarkdownRendererProps & StylixPr
       (async () => {
         try {
           divRef.current.innerHTML = '';
-          const result = await superagent.get(
-            `https://raw.githubusercontent.com/brombal/stylix-docs/main/markdown/${filename}.md`,
-          );
+          const result = await superagent.get(`/markdown/${filename}.md`);
           if (!result.text.trim()) return;
 
           divRef.current.innerHTML = md.render(result.text);

@@ -2,8 +2,6 @@ const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const webpack = require('webpack');
 
-require('dotenv').config();
-
 /**
  * This file creates a configuration object for webpack.
  * `env` determines which build to make, which is either "client" or "ssr".
@@ -41,17 +39,12 @@ module.exports = () => {
           },
         },
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-        },
-        {
           test: /\.(png|jpg|svg)$/,
           loader: 'file-loader',
           options: { emitFile: true },
         },
       ],
     },
-    plugins: [new webpack.EnvironmentPlugin(Object.keys(process.env))],
   };
 
   if (process.env.WEBPACK_DEV_SERVER) {
@@ -74,7 +67,7 @@ module.exports = () => {
         },
       },
     };
-    config.plugins.push(new ForkTsCheckerWebpackPlugin());
+    config.plugins = [new ForkTsCheckerWebpackPlugin()];
     config.module.rules[0].options.transpileOnly = true;
   }
 

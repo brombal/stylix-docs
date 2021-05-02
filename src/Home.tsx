@@ -1,11 +1,11 @@
-import { faLevelDown } from '@fortawesome/pro-regular-svg-icons';
+import { faLevelDownAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import $, { StylixProps } from '@stylix/core';
 import * as React from 'react';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import CodeSample from './CodeSample';
+import CodeSample from './CodeSample/CodeSample';
 import HeaderNav from './HeaderNav';
 import Logo, { logoSrc } from './Logo';
 
@@ -66,7 +66,7 @@ export default function Home(props: { bannerRef: React.Ref<HTMLDivElement> } & S
             >
               Editable!
               <$
-                $el={<FontAwesomeIcon icon={faLevelDown} />}
+                $el={<FontAwesomeIcon icon={faLevelDownAlt} />}
                 margin-left={10}
                 vertical-align="-40%"
               />
@@ -74,7 +74,7 @@ export default function Home(props: { bannerRef: React.Ref<HTMLDivElement> } & S
 
             <CodeSample
               src={logoSrc}
-              mode="text/typescript-jsx"
+              lang="tsx"
               editable
               render
               renderRef={logoRef}

@@ -17,9 +17,7 @@ export default React.forwardRef<HTMLDivElement, MenuProps>(function Menu(
 
   useEffect(() => {
     (async () => {
-      const result = await superagent.get(
-        'https://raw.githubusercontent.com/brombal/stylix-docs/main/markdown/menu.md',
-      );
+      const result = await superagent.get('/markdown/menu.md');
       setContent(md.render(result.text));
     })();
   }, []);
