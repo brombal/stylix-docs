@@ -5,7 +5,7 @@ Stylix generally works by scoping the styles you create within a unique, generat
 However, sometimes it is necessary to add styles to the global scope. The `useGlobalStyles()` hook function allows you to do this:
 
 ```tsx
-import $, { useGlobalStyles } from '@stylix/core';
+import { useGlobalStyles } from '@stylix/core';
 
 function GlobalStyles() {
   useGlobalStyles({
